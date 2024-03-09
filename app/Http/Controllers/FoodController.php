@@ -6,20 +6,31 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ValidateCreateFoodRequest;
 use App\Http\Requests\ValidateUpdateFoodRequest;
 use App\Models\Food;
+use App\Models\FoodNutrient;
 
 class FoodController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (request()->has('query')) {
-            $query = request('query');
-            return Food::where('description', 'LIKE', '%' . $query . '%')->get();
+        $query = Food::query()->with('nutrients');
+
+        if ($request->description) {
+            $query->where('description', 'LIKE', '%' . $request->description . '%');
+        } 
+
+        if ($request->calories) {
+            preg_match('/^(\d+)([^\d]+)$/', $request->calories, $calories_data);
+            
+            $query
+                ->where('calories', '<=', $calories_data[1])
+                ->where('calories_unit', '=', $calories_data[2]);
         }
 
-        return Food::get();
+        $result = $query->get();
+        return $result;
     }
 
     /**
@@ -27,9 +38,40 @@ class FoodController extends Controller
      */
     public function store(ValidateCreateFoodRequest $request)
     {
-        $food = $request->validated();
-        $food['nutrients'] = json_decode($food['nutrients']);
-        return Food::create($food);
+        $food_data = $request->validated();
+
+        $new_food = Food::create($food_data);
+      
+        $nutrients = json_decode($food_data['nutrients'], true);
+
+        $food_nutrients = [];
+
+        foreach ($nutrients as $food_n) {
+            $food_nutrient = FoodNutrient::create([
+                'food_id' => $new_food->id,
+                'name' => $food_n['name'],
+                'amount' => $food_n['amount'],
+                'unit' => $food_n['unit'],   
+            ]);
+
+            if (isset($food_n['composition'])) {
+                foreach ($food_n['composition'] as $food_n_composition) {
+
+                    $food_nutrients[] = FoodNutrient::create([
+                        'food_id' => $new_food->id,
+                        'parent_nutrient_id' => $food_nutrient->id,
+                        'name' => $food_n_composition['name'],
+                        'amount' => $food_n_composition['amount'],
+                        'unit' => $food_n_composition['unit'],   
+                    ]);
+                }
+            }
+        }
+
+        return [
+            'food' => $new_food,
+            'nutrients' => $food_nutrients,
+        ];
     }
 
     /**
@@ -37,6 +79,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
+        $food->load('nutrients');
         return $food;
     }
 
@@ -47,9 +90,27 @@ class FoodController extends Controller
     public function update(ValidateUpdateFoodRequest $request, Food $food)
     {   
         $data = $request->validated();
-        $data['nutrients'] = json_decode($data['nutrients'], true);
+        
         $food->update($data);
-        return $data;
+
+        if (isset($data['nutrients'])) {
+            
+            $food_nutrients = FoodNutrient::where('food_id', $food->id)->get();
+            $updated_nutrients = collect(json_decode($data['nutrients'], true));
+    
+            foreach ($food_nutrients as $nutrient) {
+                if ($updated_nutrient = $updated_nutrients->firstWhere('name', $nutrient->name)) {
+                    FoodNutrient::where('id', $nutrient->id)
+                        ->update([
+                            'amount' => $updated_nutrient['amount'],
+                            'unit' => $updated_nutrient['unit'],
+                        ]);
+                }
+            }
+        }
+
+        $food->load('nutrients');
+        return $food;
     }
 
     /**
@@ -57,7 +118,9 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        $food->delete();
+        $food->delete(); 
+        FoodNutrient::where('food_id', $food->id)->delete();
+
         return 'deleted';
     }
 }

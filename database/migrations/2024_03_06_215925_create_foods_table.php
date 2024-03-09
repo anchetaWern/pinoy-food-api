@@ -29,7 +29,6 @@ return new class extends Migration
             $table->integer('serving_size')->nullable();
             $table->char('serving_size_unit')->nullable();
             $table->integer('servings_per_container')->nullable();
-            $table->json('nutrients');
             $table->timestamps();
         });
     }
