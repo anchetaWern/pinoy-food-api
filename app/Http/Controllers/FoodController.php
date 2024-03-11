@@ -17,20 +17,98 @@ class FoodController extends Controller
     {
         $query = Food::query()->with('nutrients');
 
+      
         if ($request->description) {
             $query->where('description', 'LIKE', '%' . $request->description . '%');
         } 
 
         if ($request->calories) {
-            preg_match('/^(\d+)([^\d]+)$/', $request->calories, $calories_data);
+            $calories_data = $this->splitQueryParams($request->calories);
+
+            if (count($calories_data) > 2) {
+                $query
+                    ->where('calories', $calories_data['operator'], $calories_data['amount'])
+                    ->where('calories_unit', '=', $calories_data['unit']);
+            }
+        }
+
+
+        if ($request->carbs) {
+
+            $carbs_data = $this->splitQueryParams($request->carbs);
+
+            if (count($carbs_data) > 2) {
+                $query
+                    ->whereHas('nutrients', function ($query) use ($carbs_data) {
+
+                        $query
+                            ->where('name', '=', 'Carbohydrates')
+                            ->where('amount', $carbs_data['operator'], $carbs_data['amount'])
+                            ->where('unit', '=', $carbs_data['unit']);
+                    });
+            }
+        }
+
+
+        if ($request->fat) {
+           
+            $fats_data = $this->splitQueryParams($request->fat);
             
-            $query
-                ->where('calories', '<=', $calories_data[1])
-                ->where('calories_unit', '=', $calories_data[2]);
+            if (count($fats_data) > 2) {
+                $query
+                    ->whereHas('nutrients', function ($query) use ($fats_data) {
+                        $query
+                            ->where('name', '=', 'Fat')
+                            ->where('amount', $fats_data['operator'], $fats_data['amount'])
+                            ->where('unit', '=', $fats_data['unit']);
+                          
+                    });
+            } 
+        }
+        
+
+       
+        if ($request->protein) {
+            
+            $protein_data = $this->splitQueryParams($request->protein);
+            
+            if (count($protein_data) > 2) {
+                $query
+                    ->whereHas('nutrients', function ($innerQuery) use ($protein_data) {
+                        
+                        $innerQuery
+                            ->where('name', '=', 'Protein')
+                            ->where('amount', $protein_data['operator'], $protein_data['amount'])
+                            ->where('unit', '=', $protein_data['unit']);
+                    });
+            }
         }
 
         $result = $query->get();
         return $result;
+    }
+
+
+    private function splitQueryParams($query_param)
+    {
+        preg_match('/^([^\d]+)?(\d+)([^\d]+)?$/', $query_param, $results);
+       
+        $operator = '=';
+        if ($results[1] === 'lte') {
+            $operator = '<=';
+        } else if ($results[1] === 'gte') {
+            $operator = '>=';
+        } else if ($results[1] === 'lt') {
+            $operator = '<';
+        } else if ($results[1] === 'gt') {
+            $operator = '>';
+        }
+
+        return [
+            'amount' => $results[2],
+            'unit' => $results[3], // substr($results[2], 0, -1),
+            'operator' => $operator,
+        ];
     }
 
     /**
