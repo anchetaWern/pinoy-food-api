@@ -14,6 +14,22 @@ class ReniMacronutrientDistribution extends Model
     protected $fillable = [
         'age_from',
         'age_to',
+        'age_type',
+
+        'protein_from',
+        'protein_to',
+
+        'fat_from',
+        'fat_to',
+
+        'carbs_from',
+        'carbs_to'
+    ];
+
+    protected $visible = [
+        'age_from',
+        'age_to',
+        'age_type',
 
         'protein_from',
         'protein_to',

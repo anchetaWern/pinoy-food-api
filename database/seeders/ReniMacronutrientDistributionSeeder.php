@@ -14,7 +14,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
     public function run(): void
     {
         /* 
-        'age_from', 'age_to',
+        'age_from', 'age_to', 'age_type',
 
         'protein_from', 'protein_to',
 
@@ -26,7 +26,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
         $data = [
             // infant
             [
-                0,5,
+                0, 5, 'month',
 
                 5, null,
                 
@@ -36,7 +36,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
 
                 8, 15,
 
