@@ -15,8 +15,8 @@ class ReniEnergyIntake extends Model
         'age_from',
         'age_to',
         'age_type',
-        'male_weight',
-        'female_weight',
+        'male_weight_in_kg',
+        'female_weight_in_kg',
         'male_energy_req_in_kcal',
         'female_energy_req_in_kcal',
     ];
@@ -25,9 +25,10 @@ class ReniEnergyIntake extends Model
         'age_from',
         'age_to',
         'age_type',
-        'male_weight',
-        'female_weight',
+        'male_weight_in_kg',
+        'female_weight_in_kg',
         'male_energy_req_in_kcal',
         'female_energy_req_in_kcal',
     ];
+
 }

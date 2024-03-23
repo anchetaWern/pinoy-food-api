@@ -137,8 +137,8 @@ class ReniEnergyIntakeSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0],
                     'age_to' => $row[1],
-                    'male_weight' => $row[2],
-                    'female_weight' => $row[3],
+                    'male_weight_in_kg' => $row[2],
+                    'female_weight_in_kg' => $row[3],
                     'male_energy_req_in_kcal' => $row[4],
                     'female_energy_req_in_kcal' => $row[5],
 
