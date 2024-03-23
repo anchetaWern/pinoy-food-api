@@ -14,7 +14,7 @@ class ReniEnergyIntakeSeeder extends Seeder
     public function run(): void
     {
         /*
-        'age_from', 'age_to',
+        'age_from', 'age_to', 'age_type',
 
         'male_weight', 'female_weight',
         
@@ -24,7 +24,7 @@ class ReniEnergyIntakeSeeder extends Seeder
         $data = [
             // infants
             [
-                0, 5,
+                0, 5, 'month',
                 
                 6.5, 6.0,
 
@@ -32,7 +32,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
                 
                 9.0, 8.0,
 

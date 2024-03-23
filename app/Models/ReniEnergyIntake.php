@@ -14,6 +14,17 @@ class ReniEnergyIntake extends Model
     protected $fillable = [
         'age_from',
         'age_to',
+        'age_type',
+        'male_weight',
+        'female_weight',
+        'male_energy_req_in_kcal',
+        'female_energy_req_in_kcal',
+    ];
+
+    protected $visible = [
+        'age_from',
+        'age_to',
+        'age_type',
         'male_weight',
         'female_weight',
         'male_energy_req_in_kcal',

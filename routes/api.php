@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\ReniEnergyIntakeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('foods', FoodController::class);
+Route::get('reni-energy-intake', ReniEnergyIntakeController::class);
