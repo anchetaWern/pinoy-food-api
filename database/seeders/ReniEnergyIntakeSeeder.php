@@ -41,7 +41,7 @@ class ReniEnergyIntakeSeeder extends Seeder
 
             // children
             [
-                1, 2,
+                1, 2, 'year',
 
                 12.0, 11.5,
 
@@ -49,7 +49,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                3, 5,
+                3, 5, 'year',
                 
                 17.5, 17.0,
                 
@@ -57,7 +57,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                6, 9,
+                6, 9, 'year',
 
                 23.0, 22.5,
 
@@ -65,7 +65,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                10, 12,
+                10, 12, 'year',
 
                 33.0, 36.0,
 
@@ -73,7 +73,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                13, 15,
+                13, 15, 'year',
                 
                 48.5, 46.0,
 
@@ -81,7 +81,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                16, 18,
+                16, 18, 'year',
 
                 59, 51.5,
 
@@ -90,7 +90,7 @@ class ReniEnergyIntakeSeeder extends Seeder
 
             // adults
             [
-                19, 29,
+                19, 29, 'year',
 
                 60.5, 52.5,
 
@@ -98,7 +98,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                30, 49,
+                30, 49, 'year',
 
                 60.5, 52.5,
 
@@ -106,7 +106,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                50, 59,
+                50, 59, 'year',
 
                 60.5, 52.5,
 
@@ -114,7 +114,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                60, 69,
+                60, 69, 'year',
 
                 60.5, 52.5,
 
@@ -122,7 +122,7 @@ class ReniEnergyIntakeSeeder extends Seeder
             ],
 
             [
-                70, null,
+                70, null, 'year',
                 
                 60.5, 52.5,
 

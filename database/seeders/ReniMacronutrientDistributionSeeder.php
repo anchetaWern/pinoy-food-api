@@ -47,7 +47,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
 
             // children
             [
-                1, 2,
+                1, 2, 'year',
 
                 6, 15,
 
@@ -57,7 +57,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
             ],
 
             [
-                3, 18,
+                3, 18, 'year',
 
                 6, 15,
 
@@ -68,7 +68,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
 
             // adults
             [
-                19, null,
+                19, null, 'year',
 
                 10, 15,
 
