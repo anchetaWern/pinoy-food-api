@@ -14,7 +14,7 @@ class ReniMineralsIntakeSeeder extends Seeder
     public function run(): void
     {
         /*
-        'age_from', 'age_to',
+        'age_from', 'age_to', 'age_type',
 
         'male_iron', 'female_iron',
 
@@ -37,7 +37,7 @@ class ReniMineralsIntakeSeeder extends Seeder
 
         $data = [
             [
-                0, 5,
+                0, 5, 'month',
                 
                 0.4, 0.4, 
                 
@@ -61,7 +61,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
                 
                 10, 9, 
                 
@@ -85,7 +85,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                1, 2,
+                1, 2, 'year',
 
                 8, 8, 
                 
@@ -109,7 +109,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                3, 5,
+                3, 5, 'year',
                 
                 9, 9, 
                 
@@ -133,7 +133,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                6, 9,
+                6, 9, 'year',
 
                 10, 9, 
                 
@@ -157,7 +157,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                10, 12,
+                10, 12, 'year',
 
                 12, 20, 
                 
@@ -181,7 +181,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                13, 15,
+                13, 15, 'year',
 
                 19, 28, 
                 
@@ -205,7 +205,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                16, 18,
+                16, 18, 'year',
 
                 14, 28, 
                 
@@ -229,7 +229,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                19, 29,
+                19, 29, 'year',
 
                 12, 28, 
                 
@@ -253,7 +253,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                30, 49,
+                30, 49, 'year',
 
                 12, 28, 
                 
@@ -277,7 +277,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                50, 59,
+                50, 59, 'year',
 
                 12, 10, 
                 
@@ -301,7 +301,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                60, 69,
+                60, 69, 'year',
 
                 12, 10, 
                 
@@ -325,7 +325,7 @@ class ReniMineralsIntakeSeeder extends Seeder
             ],
 
             [
-                70, null, 
+                70, null, 'year', 
 
                 12, 10, 
                 

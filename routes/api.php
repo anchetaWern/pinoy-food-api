@@ -7,6 +7,7 @@ use App\Http\Controllers\ReniEnergyIntakeController;
 use App\Http\Controllers\ReniMacronutrientDistributionController;
 use App\Http\Controllers\ReniMacronutrientIntakeController;
 use App\Http\Controllers\ReniVitaminIntakeController;
+use App\Http\Controllers\ReniMineralIntakeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::get('reni-energy-intake', ReniEnergyIntakeController::class);
 Route::get('reni-macro-intake-distribution', ReniMacronutrientDistributionController::class);
 Route::get('reni-recommended-macro-intake', ReniMacronutrientIntakeController::class);
 Route::get('reni-recommended-vitamin-intake', ReniVitaminIntakeController::class);
+Route::get('reni-recommended-mineral-intake', ReniMineralIntakeController::class);
