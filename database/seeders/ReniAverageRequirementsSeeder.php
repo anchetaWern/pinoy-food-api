@@ -16,7 +16,7 @@ class ReniAverageRequirementsSeeder extends Seeder
         $data = [
 
             [
-                0, 5,
+                0, 5, 'month',
                 
                 7, 7, 
                 
@@ -37,7 +37,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
                 
                 14, 13, 
                 190, 190, 
@@ -58,7 +58,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                1, 2,
+                1, 2, 'year',
 
                 15, 14, 
                 200, 200, 
@@ -78,7 +78,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                3, 5,
+                3, 5, 'year',
                 
                 18, 17, 
                 226, 214, 
@@ -98,7 +98,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                6, 9,
+                6, 9, 'year',
 
                 24, 24, 
                 278, 264, 
@@ -118,7 +118,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                10, 12,
+                10, 12, 'year',
 
                 35, 38, 
                 364, 375, 
@@ -138,7 +138,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                13, 15,
+                13, 15, 'year',
 
                 50, 46, 
                 483, 392, 
@@ -158,7 +158,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                16, 18,
+                16, 18, 'year',
 
                 59, 49, 
                 563, 427, 
@@ -178,7 +178,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                19, 29,
+                19, 29, 'year',
 
                 57, 49, 
                 499, 433, 
@@ -198,7 +198,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                30, 49,
+                30, 49, 'year',
 
                 57, 49, 
                 499, 433, 
@@ -218,7 +218,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                50, 59,
+                50, 59, 'year',
 
                 57, 49, 
                 499, 433, 
@@ -238,7 +238,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                60, 69,
+                60, 69, 'year',
 
                 57, 49, 
                 499, 433, 
@@ -258,7 +258,7 @@ class ReniAverageRequirementsSeeder extends Seeder
             ],
 
             [
-                70, null, 
+                70, null, 'year', 
 
                 57, 49, 
                 499, 433, 
