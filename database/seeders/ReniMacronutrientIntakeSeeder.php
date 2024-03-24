@@ -14,7 +14,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
     public function run(): void
     {
         /*
-        'age_from', 'age_to',
+        'age_from', 'age_to', 'age_type',
 
         'male_protein_in_grams', 'female_protein_in_grams',
 
@@ -27,11 +27,11 @@ class ReniMacronutrientIntakeSeeder extends Seeder
 
         $data = [
             [
-                0, 5,
+                0, 5, 'month',
                 
                 9, 8,
 
-                0.5, 4.5,
+                0.5, 4.5, 
 
                 null, null,
 
@@ -39,7 +39,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
                 
                 17, 15,
 
@@ -51,7 +51,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                1, 2,
+                1, 2, 'year',
 
                 18, 17,
 
@@ -63,7 +63,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                3, 5,
+                3, 5, 'year',
                 
                 22, 21,
 
@@ -75,7 +75,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                6, 9,
+                6, 9, 'year',
 
                 30, 29,
 
@@ -87,7 +87,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                10, 12,
+                10, 12, 'year',
 
                 43, 46,
 
@@ -99,7 +99,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                13, 15,
+                13, 15, 'year',
 
                 62, 57,
 
@@ -111,7 +111,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                16, 18,
+                16, 18, 'year',
 
                 72, 61,
 
@@ -123,7 +123,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                19, 29,
+                19, 29, 'year',
 
                 71, 62,
 
@@ -135,7 +135,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                30, 49,
+                30, 49, 'year',
 
                 71, 62,
 
@@ -147,7 +147,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                50, 59,
+                50, 59, 'year',
 
                 71, 62,
 
@@ -159,7 +159,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                60, 69,
+                60, 69, 'year',
 
                 71, 62,
 
@@ -171,7 +171,7 @@ class ReniMacronutrientIntakeSeeder extends Seeder
             ],
 
             [
-                70, null, 
+                70, null, 'year', 
 
                 71, 62,
 

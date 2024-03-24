@@ -14,6 +14,25 @@ class ReniMacronutrientIntake extends Model
     protected $fillable = [
         'age_from',
         'age_to',
+        'age_type',
+
+        'protein_from_in_grams',
+        'protein_to_in_grams',
+
+        'linolenic_acid',
+        'linoleic_acid',
+
+        'fiber_from_in_grams',
+        'fiber_to_in_grams',
+
+        'male_water_in_ml',
+        'female_water_in_ml',
+    ];
+
+    protected $visible = [
+        'age_from',
+        'age_to',
+        'age_type',
 
         'protein_from_in_grams',
         'protein_to_in_grams',

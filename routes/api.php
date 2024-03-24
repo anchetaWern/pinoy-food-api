@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ReniEnergyIntakeController;
 use App\Http\Controllers\ReniMacronutrientDistributionController;
+use App\Http\Controllers\ReniMacronutrientIntakeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('foods', FoodController::class);
 Route::get('reni-energy-intake', ReniEnergyIntakeController::class);
 Route::get('reni-macro-intake-distribution', ReniMacronutrientDistributionController::class);
+Route::get('reni-recommended-macro-intake', ReniMacronutrientIntakeController::class);
