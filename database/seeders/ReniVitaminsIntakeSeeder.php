@@ -14,7 +14,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
     public function run(): void
     {
         /*
-        'age_from', 'age_to',
+        'age_from', 'age_to', 'age_type',
         'male_vitamin_a', 'female_vitamin_a',
         'male_vitamin_d', 'female_vitamin_d',
         'male_vitamin_e', 'female_vitamin_e',
@@ -30,7 +30,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
         
         $data = [
             [
-                0, 5,
+                0, 5, 'month',
                 
                 380, 380,
 
@@ -56,7 +56,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
                 
                 400, 400,
 
@@ -82,7 +82,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                1, 2,
+                1, 2, 'year',
 
                 400, 400,
 
@@ -108,7 +108,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                3, 5,
+                3, 5, 'year',
                 
                 400, 400,
 
@@ -134,7 +134,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                6, 9,
+                6, 9, 'year',
 
                 400, 400,
 
@@ -160,7 +160,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                10, 12,
+                10, 12, 'year',
 
                 500, 500,
 
@@ -186,7 +186,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                13, 15,
+                13, 15, 'year',
 
                 700, 500, 
                 
@@ -212,7 +212,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                16, 18,
+                16, 18, 'year',
 
                 800, 600, 
                 
@@ -238,7 +238,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                19, 29,
+                19, 29, 'year',
 
                 700, 600, 
                 
@@ -264,7 +264,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                30, 49,
+                30, 49, 'year',
 
                 700, 600, 
                 
@@ -290,7 +290,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                50, 59,
+                50, 59, 'year',
 
                 700, 600, 
                 
@@ -316,7 +316,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                60, 69,
+                60, 69, 'year',
 
                 700, 600, 
                 
@@ -342,7 +342,7 @@ class ReniVitaminsIntakeSeeder extends Seeder
             ],
 
             [
-                70, null, 
+                70, null, 'year', 
 
                 700, 600, 
                 
