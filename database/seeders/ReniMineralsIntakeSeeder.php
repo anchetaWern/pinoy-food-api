@@ -354,31 +354,32 @@ class ReniMineralsIntakeSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0], 
                     'age_to' => $row[1],
+                    'age_type' => $row[2],
 
-                    'male_iron' => $row[2], 
-                    'female_iron' => $row[3],
+                    'male_iron' => $row[3], 
+                    'female_iron' => $row[4],
             
-                    'male_zinc' => $row[4], 
-                    'female_zinc' => $row[5],
+                    'male_zinc' => $row[5], 
+                    'female_zinc' => $row[6],
                     
-                    'male_iodine' => $row[6], 
-                    'female_iodine' => $row[7],
+                    'male_iodine' => $row[7], 
+                    'female_iodine' => $row[8],
             
-                    'male_calcium' => $row[8], 
-                    'female_calcium' => $row[9],
+                    'male_calcium' => $row[9], 
+                    'female_calcium' => $row[10],
                     
-                    'male_magnesium' => $row[10], 
-                    'female_magnesium' => $row[11],
+                    'male_magnesium' => $row[11], 
+                    'female_magnesium' => $row[12],
             
-                    'male_phosphorus' => $row[12], 
-                    'female_phosphorus' => $row[13],
+                    'male_phosphorus' => $row[13], 
+                    'female_phosphorus' => $row[14],
             
-                    'male_fluoride' => $row[14], 
-                    'female_fluoride' => $row[15],
+                    'male_fluoride' => $row[15], 
+                    'female_fluoride' => $row[16],
             
-                    'sodium' => $row[16],
-                    'chloride' => $row[17],
-                    'potassium' => $row[18],
+                    'sodium' => $row[17],
+                    'chloride' => $row[18],
+                    'potassium' => $row[19],
 
                     'created_at' => now(),
                 ]);

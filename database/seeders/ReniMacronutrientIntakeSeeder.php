@@ -189,18 +189,19 @@ class ReniMacronutrientIntakeSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0], 
                     'age_to' => $row[1],
+                    'age_type' => $row[2],
 
-                    'male_protein_in_grams' => $row[2],
-                    'female_protein_in_grams' => $row[3],
+                    'male_protein_in_grams' => $row[3],
+                    'female_protein_in_grams' => $row[4],
 
-                    'linolenic_acid' => $row[4], 
-                    'linoleic_acid' => $row[5],
+                    'linolenic_acid' => $row[5], 
+                    'linoleic_acid' => $row[6],
 
-                    'fiber_from_in_grams' => $row[6], 
-                    'fiber_to_in_grams' => $row[7],
+                    'fiber_from_in_grams' => $row[7], 
+                    'fiber_to_in_grams' => $row[8],
 
-                    'male_water_in_ml' => $row[8], 
-                    'female_water_in_ml' => $row[9],
+                    'male_water_in_ml' => $row[9], 
+                    'female_water_in_ml' => $row[10],
 
                     'created_at' => now(),
                 ]);

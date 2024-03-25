@@ -373,39 +373,40 @@ class ReniVitaminsIntakeSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0],
                     'age_to' => $row[1],
+                    'age_type' => $row[2],
 
-                    'male_vitamin_a' => $row[2],
-                    'female_vitamin_a' => $row[3],
+                    'male_vitamin_a' => $row[3],
+                    'female_vitamin_a' => $row[4],
 
-                    'male_vitamin_d' => $row[4],
-                    'female_vitamin_d' => $row[5],
+                    'male_vitamin_d' => $row[5],
+                    'female_vitamin_d' => $row[6],
 
-                    'male_vitamin_e' => $row[6],
-                    'female_vitamin_e' => $row[7],
+                    'male_vitamin_e' => $row[7],
+                    'female_vitamin_e' => $row[8],
 
-                    'male_vitamin_k' => $row[8],
-                    'female_vitamin_k' => $row[9],
+                    'male_vitamin_k' => $row[9],
+                    'female_vitamin_k' => $row[10],
 
-                    'male_thiamin' => $row[10],
-                    'female_thiamin' => $row[11],
+                    'male_thiamin' => $row[11],
+                    'female_thiamin' => $row[12],
 
-                    'male_riboflavin' => $row[12],
-                    'female_riboflavin' => $row[13],
+                    'male_riboflavin' => $row[13],
+                    'female_riboflavin' => $row[14],
 
-                    'male_niacin' => $row[14],
-                    'female_niacin' => $row[15],
+                    'male_niacin' => $row[15],
+                    'female_niacin' => $row[16],
 
-                    'male_pyridoxine' => $row[16],
-                    'female_pyridoxine' => $row[17],
+                    'male_pyridoxine' => $row[17],
+                    'female_pyridoxine' => $row[18],
 
-                    'male_cobalamin' => $row[18],
-                    'female_cobalamin' => $row[19],
+                    'male_cobalamin' => $row[19],
+                    'female_cobalamin' => $row[20],
 
-                    'male_folate' => $row[20],
-                    'female_folate' => $row[21],
+                    'male_folate' => $row[21],
+                    'female_folate' => $row[22],
 
-                    'male_vitamin_c' => $row[22],
-                    'female_vitamin_c' => $row[23],
+                    'male_vitamin_c' => $row[23],
+                    'female_vitamin_c' => $row[24],
                     
                     'created_at' => now(),
                 ]);

@@ -284,51 +284,52 @@ class ReniAverageRequirementsSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0],
                     'age_to' => $row[1],
+                    'age_type' => $row[2],
                     
-                    'male_protein' => $row[2],
-                    'female_protein' => $row[3],
+                    'male_protein' => $row[3],
+                    'female_protein' => $row[4],
                     
-                    'male_vitamin_a' => $row[4],
-                    'femaale_vitamin_a' => $row[5],
+                    'male_vitamin_a' => $row[5],
+                    'femaale_vitamin_a' => $row[6],
             
-                    'male_thiamin' => $row[5],
-                    'female_thiamin' => $row[6],
+                    'male_thiamin' => $row[7],
+                    'female_thiamin' => $row[8],
             
-                    'male_riboflavin' => $row[7],
-                    'female_riboflavin' => $row[8],
+                    'male_riboflavin' => $row[9],
+                    'female_riboflavin' => $row[10],
             
-                    'male_niacin' => $row[9],
-                    'female_niacin' => $row[10],
+                    'male_niacin' => $row[11],
+                    'female_niacin' => $row[12],
             
-                    'male_pyridoxine' => $row[11],
-                    'female_pyridoxine' => $row[12],
+                    'male_pyridoxine' => $row[13],
+                    'female_pyridoxine' => $row[14],
             
-                    'male_cobalamin' => $row[13],
-                    'female_cobalamin' => $row[14],
+                    'male_cobalamin' => $row[15],
+                    'female_cobalamin' => $row[16],
             
-                    'male_folate' => $row[15],
-                    'female_folate' => $row[16],
+                    'male_folate' => $row[17],
+                    'female_folate' => $row[18],
             
-                    'male_vitamin_c' => $row[17],
-                    'female_vitamin_c' => $row[18],
+                    'male_vitamin_c' => $row[19],
+                    'female_vitamin_c' => $row[20],
             
-                    'male_iron' => $row[19],
-                    'female_iron' => $row[20],
+                    'male_iron' => $row[21],
+                    'female_iron' => $row[22],
             
-                    'male_zinc' => $row[21],
-                    'female_zinc' => $row[22],
+                    'male_zinc' => $row[23],
+                    'female_zinc' => $row[24],
             
-                    'male_selenium' => $row[23],
-                    'female_selenium' => $row[23],
+                    'male_selenium' => $row[25],
+                    'female_selenium' => $row[26],
             
-                    'male_iodine' => $row[24],
-                    'female_iodine' => $row[25],
+                    'male_iodine' => $row[27],
+                    'female_iodine' => $row[28],
                     
-                    'male_calcium' => $row[26],
-                    'female_calcium' => $row[27],
+                    'male_calcium' => $row[29],
+                    'female_calcium' => $row[30],
             
-                    'male_phosphorus' => $row[28],
-                    'female_phosphorus' => $row[29],
+                    'male_phosphorus' => $row[31],
+                    'female_phosphorus' => $row[32],
 
                     'created_at' => now(),
                 ]);

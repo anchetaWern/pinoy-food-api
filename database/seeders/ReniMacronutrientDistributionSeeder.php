@@ -83,15 +83,16 @@ class ReniMacronutrientDistributionSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0], 
                     'age_to' => $row[1],
+                    'age_type' => $row[2],
 
-                    'protein_from' => $row[2], 
-                    'protein_to' => $row[3],
+                    'protein_from' => $row[3], 
+                    'protein_to' => $row[4],
 
-                    'fat_from' => $row[4], 
-                    'fat_to' => $row[5],
+                    'fat_from' => $row[5], 
+                    'fat_to' => $row[6],
 
-                    'carbs_from' => $row[6], 
-                    'carbs_to' => $row[7],
+                    'carbs_from' => $row[7], 
+                    'carbs_to' => $row[8],
 
                     'created_at' => now(),
                 ]);
