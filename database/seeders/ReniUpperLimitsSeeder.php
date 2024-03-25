@@ -14,7 +14,7 @@ class ReniUpperLimitsSeeder extends Seeder
     public function run(): void
     {
         /*
-        'age_from', 'age_to',
+        'age_from', 'age_to', 'age_type',
         
         'vitamin_a',
         'vitamin_d',
@@ -36,7 +36,7 @@ class ReniUpperLimitsSeeder extends Seeder
         $data = [
 
             [
-                0, 5,
+                0, 5, 'month',
 
                 600, 
                 25, 
@@ -56,7 +56,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                6, 11,
+                6, 11, 'month',
                 
                 600,
                 25,
@@ -76,7 +76,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                1, 2,
+                1, 2, 'year',
 
                 600,
                 50,
@@ -96,7 +96,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                3, null,
+                3, 3, 'year',
                 
                 600,
                 50,
@@ -116,7 +116,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                4, 5,
+                4, 5, 'year',
 
                 900,
                 50,
@@ -136,7 +136,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                6, 8,
+                6, 8, 'year',
 
                 900,
                 50,
@@ -156,7 +156,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                9, null,
+                9, 9, 'year',
 
                 1700,
                 50,
@@ -178,7 +178,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                10, 12,
+                10, 12, 'year',
 
                 1700,
                 50,
@@ -198,7 +198,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                13, null,
+                13, 13, 'year',
 
                 1700,
                 50,
@@ -218,7 +218,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                14, 15,
+                14, 15, 'year',
 
                 2800,
                 50,
@@ -238,7 +238,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                16, 18,
+                16, 18, 'year',
 
                 2800,
                 50,
@@ -258,7 +258,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                19, 29,
+                19, 29, 'year',
 
                 3000,
                 50,
@@ -278,7 +278,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                30, 49,
+                30, 49, 'year',
 
                 3000,
                 50,
@@ -298,7 +298,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                50, 59,
+                50, 59, 'year',
 
                 3000,
                 50,
@@ -318,7 +318,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                60, 70,
+                60, 70, 'year',
 
                 3000,
                 50,
@@ -338,7 +338,7 @@ class ReniUpperLimitsSeeder extends Seeder
             ],
 
             [
-                70, null, 
+                70, null, 'year',
 
                 3000,
                 50,
@@ -366,21 +366,22 @@ class ReniUpperLimitsSeeder extends Seeder
                 ->insert([
                     'age_from' => $row[0],
                     'age_to' => $row[1],
-                    'vitamin_a' => $row[2],
-                    'vitamin_d' => $row[3],
-                    'vitamin_e' => $row[4],
-                    'vitamin_niacin' => $row[5],
-                    'vitamin_pyridoxine' => $row[6],
-                    'folate' => $row[7],
-                    'vitamin_c' => $row[8],
-                    'iron' => $row[9],
-                    'zinc' => $row[10],
-                    'selenium' => $row[11],
-                    'iodine' => $row[12],
-                    'calcium' => $row[13],
-                    'magnesium' => $row[14],
-                    'phosphorus' => $row[15],
-                    'fluoride' => $row[16],
+                    'age_type' => $row[2],
+                    'vitamin_a' => $row[3],
+                    'vitamin_d' => $row[4],
+                    'vitamin_e' => $row[5],
+                    'vitamin_niacin' => $row[6],
+                    'vitamin_pyridoxine' => $row[7],
+                    'folate' => $row[8],
+                    'vitamin_c' => $row[9],
+                    'iron' => $row[10],
+                    'zinc' => $row[11],
+                    'selenium' => $row[12],
+                    'iodine' => $row[13],
+                    'calcium' => $row[14],
+                    'magnesium' => $row[15],
+                    'phosphorus' => $row[16],
+                    'fluoride' => $row[17],
 
                     'created_at' => now(),
                 ]);
