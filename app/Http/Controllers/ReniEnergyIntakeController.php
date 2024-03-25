@@ -14,12 +14,13 @@ class ReniEnergyIntakeController extends Controller
     {
         $query = ReniEnergyIntake::query();
 
-        if ($request->age_type && $request->age) {
+        if ($request->age) {
             
             $age = $request->age;
+            $age_type = $request->has('age_type') ? $request->age_type : 'year';
 
             return $query
-                ->where('age_type', $request->age_type)
+                ->where('age_type', $age_type)
                 ->where('age_from', '<=', $age)
                 ->where(function ($query) use ($age) {
                     $query->where('age_to', '>=', $age)
