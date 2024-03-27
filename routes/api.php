@@ -10,6 +10,7 @@ use App\Http\Controllers\ReniVitaminIntakeController;
 use App\Http\Controllers\ReniMineralIntakeController;
 use App\Http\Controllers\ReniAverageRequirementsController;
 use App\Http\Controllers\ReniUpperLimitsController;
+use App\Http\Controllers\FoodLabelUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,5 @@ Route::get('reni-recommended-vitamin-intake', ReniVitaminIntakeController::class
 Route::get('reni-recommended-mineral-intake', ReniMineralIntakeController::class);
 Route::get('reni-avg-requirements', ReniAverageRequirementsController::class);
 Route::get('reni-upper-limits', ReniUpperLimitsController::class);
+
+Route::post('food-labels', FoodLabelUploadController::class);
