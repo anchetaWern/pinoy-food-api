@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('food_uploads', function (Blueprint $table) {
             $table->id();
             $table->string('title_image');
-            $table->string('title');
+            $table->string('title')->nullable();
 
             $table->string('barcode_image')->nullable();
             $table->string('barcode')->nullable();
