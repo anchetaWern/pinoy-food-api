@@ -23,9 +23,6 @@ class ValidateFoodLabelUploadRequest extends FormRequest
     {
         return [
             'title_image' => 'required', // |image|mimes:jpeg,png,jpg,gif,webp|max:5000
-            'title' => 'required',
-            'barcode_image' => 'required',
-            'barcode' => 'required',
             'nutrition_label_image' => 'required',
         ];
     }

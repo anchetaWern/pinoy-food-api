@@ -32,7 +32,7 @@ class FoodLabelUploadController extends Controller
      */
     public function __invoke(ValidateFoodLabelUploadRequest $request)
     {
-        $title = $request->input('title');
+        $title = Str::random(40); 
 
         $title_image = $request->input('title_image');
         preg_match('/^data:image\/(\w+);base64,/', $title_image, $title_image_matches);
@@ -41,16 +41,15 @@ class FoodLabelUploadController extends Controller
 
         $title_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $title_image), true);
 
+        $image_barcode = null;
+        if ($request->has('barcode_image')) {
+            $barcode_image = $request->input('barcode_image');
+            preg_match('/^data:image\/(\w+);base64,/', $barcode_image, $barcode_image_matches);
+            $barcode_image_mime_type = $barcode_image_matches[1] ?? null;
+            $barcode_image_extension = $this->getExtensionFromMimeType($barcode_image_mime_type);
 
-        $barcode_image = $request->input('barcode_image');
-        preg_match('/^data:image\/(\w+);base64,/', $barcode_image, $barcode_image_matches);
-        $barcode_image_mime_type = $barcode_image_matches[1] ?? null;
-        $barcode_image_extension = $this->getExtensionFromMimeType($barcode_image_mime_type);
-
-        $barcode_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $barcode_image), true);
-
-        $barcode = $request->input('barcode');
-
+            $barcode_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $barcode_image), true);
+        }
 
         $nutrilabel_image = $request->input('nutrition_label_image');
         preg_match('/^data:image\/(\w+);base64,/', $nutrilabel_image, $nutrilabel_image_matches);
@@ -60,19 +59,20 @@ class FoodLabelUploadController extends Controller
         $nutrilabel_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $nutrilabel_image), true);
 
         $image_title = Str::slug(now()->format('Y-m-d H:i') . '-title-' . $title) . '.' . $title_image_extension;
-        Storage::disk('food_labels')->put($image_title, $title_image_data);
+        Storage::disk('public')->put($image_title, $title_image_data);
 
-        $image_barcode = Str::slug(now()->format('Y-m-d H:i') . '-barcode-' . $barcode) . '.' . $barcode_image_extension;
-        Storage::disk('food_labels')->put($image_barcode, $barcode_image_data);
+        if ($request->has('barcode_image')) {
+            $image_barcode = Str::slug(now()->format('Y-m-d H:i') . '-barcode-' . $title) . '.' . $barcode_image_extension;
+            Storage::disk('public')->put($image_barcode, $barcode_image_data);
+        }
 
-        $image_nutrilabel = Str::slug(now()->format('Y-m-d H:i') . '-nutrilabel-' . $barcode) . '.' . $nutrilabel_image_extension;
-        Storage::disk('food_labels')->put($image_nutrilabel, $nutrilabel_image_data);
+        $image_nutrilabel = Str::slug(now()->format('Y-m-d H:i') . '-nutrilabel-' . $title) . '.' . $nutrilabel_image_extension;
+        Storage::disk('public')->put($image_nutrilabel, $nutrilabel_image_data);
 
         $food_upload = FoodUpload::create([
             'title_image' => $image_title, 
             'title' => $title,
             'barcode_image' => $image_barcode,
-            'barcode' => $barcode,
             'nutrition_label_image' => $image_nutrilabel,
         ]);
        
