@@ -106,7 +106,7 @@ class FoodController extends Controller
 
         return [
             'amount' => $results[2],
-            'unit' => $results[3], // substr($results[2], 0, -1),
+            'unit' => $results[3], 
             'operator' => $operator,
         ];
     }

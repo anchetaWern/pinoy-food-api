@@ -78,7 +78,9 @@ class FoodLabelUploadController extends Controller
        
         return response()->json(
             $food_upload
-        , 201);
+        , 201)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         
         
     }

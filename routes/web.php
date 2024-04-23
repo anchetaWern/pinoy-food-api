@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FoodUploadsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/food-uploads', [FoodUploadsController::class, 'index']);
+Route::post('/food-uploads', [FoodUploadsController::class, 'store']);
 
 Route::get('/', function () {
     return view('welcome');

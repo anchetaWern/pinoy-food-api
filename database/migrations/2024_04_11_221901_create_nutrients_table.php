@@ -11,18 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('food_uploads', function (Blueprint $table) {
+        Schema::create('nutrients', function (Blueprint $table) {
             $table->id();
-            $table->string('title_image');
-            $table->string('title')->nullable();
-
-            $table->string('barcode_image')->nullable();
-            $table->string('barcode')->nullable();
-
-            $table->string('nutrition_label_image');
-
+            $table->bigInteger('parent_id')->nullable();
+            $table->string('name');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('food_uploads');
+        Schema::dropIfExists('nutrients');
     }
 };
