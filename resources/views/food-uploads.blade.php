@@ -75,7 +75,7 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}">
+                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Anchor milk">
                                 </div>
                             </div>
 
@@ -91,21 +91,21 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="serving_size" class="form-label">Serving size</label>
-                                    <input type="text" class="form-control" id="serving_size" name="serving_size" value="{{ old('serving_size') }}">
+                                    <input type="text" class="form-control" id="serving_size" name="serving_size" value="{{ old('serving_size') }}" placeholder="100g">
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="servings_per_container" class="form-label">Servings per container</label>
-                                    <input type="text" class="form-control" id="servings_per_container" name="servings_per_container" value="{{ old('servings_per_container') }}">
+                                    <input type="text" class="form-control" id="servings_per_container" name="servings_per_container" value="{{ old('servings_per_container') }}" placeholder="3">
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="calories" class="form-label">Calories</label>
-                                    <input type="text" class="form-control" id="calories" name="calories" value="{{ old('calories') }}">
+                                    <input type="text" class="form-control" id="calories" name="calories" value="{{ old('calories') }}" placeholder="100kcal">
                                 </div>
                             </div>
                         </div>
