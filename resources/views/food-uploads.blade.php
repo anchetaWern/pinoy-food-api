@@ -116,7 +116,7 @@
                                 <div class="mt-2 mb-3">
                                     @if (!in_array($row->name, $excluded_top_level))
                                     <label for="{{ strtolower($row->name) }}" class="form-label">{{ $row->name }}</label>
-                                    <input type="text" class="form-control" id="{{ strtolower($row->name) }}" name="{{ strtolower($row->name) }}">
+                                    <input type="text" class="form-control" id="{{ strtolower($row->name) }}" name="{{ strtolower($row->name) }}" placeholder="{{ $row->placeholder_text }}">
                                     @else 
                                     <span>{{ $row->name }}</span>
                                     @endif

@@ -12,6 +12,7 @@ class Nutrient extends Model
     protected $fillable = [
         'parent_id', 
         'name',
+        'placeholder_text',
     ];
 
 

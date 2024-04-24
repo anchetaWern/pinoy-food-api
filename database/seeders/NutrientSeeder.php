@@ -14,6 +14,7 @@ class NutrientSeeder extends Seeder
      */
     public function run(): void
     {
+       
         $content = Storage::get('data/nutrients.json');
 
         $data = json_decode($content, true);
@@ -75,6 +76,33 @@ class NutrientSeeder extends Seeder
                     'created_at' => now(),
                 ]);
             }
+        }
+
+
+        $nutrients_in_milligrams = [
+            'Cholesterol', 'Vitamin C', 'Iron', 'Zinc', 'Iodine',
+            'Calcium', 'Magnesium', 'Phosphorus', 'Fluoride', 'Vitamin B6',
+            'Sodium', 'Chloride', 'Potassium',
+        ];
+
+        $nutrients_in_grams = [
+            'Protein', 'Total Carbohydrates', 'Dietary fiber', 'Soluble', 'Insoluble', 'Sugar', 
+            'Total Fat', 'Saturated fat', 'Trans fat', 'Unsaturated fat'
+        ];
+
+        foreach ($nutrients_in_milligrams as $nutrient_in_mg) {
+            Nutrient::where('name', $nutrient_in_mg)
+                ->update([
+                    'placeholder_text' => mt_rand(10, 20) . 'mg'
+                ]);
+        }
+
+
+        foreach ($nutrients_in_grams as $nutrient_in_g) {
+            Nutrient::where('name', $nutrient_in_g)
+                ->update([
+                    'placeholder_text' => mt_rand(1, 100) . 'g'
+                ]);
         }
     }
 }
