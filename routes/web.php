@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodUploadsController;
+use App\Http\Controllers\DelayFoodLabelProcessingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/food-uploads', [FoodUploadsController::class, 'index']);
     Route::post('/food-uploads', [FoodUploadsController::class, 'store']);
+
+    Route::post('/food-labels/delay', [DelayFoodLabelProcessingController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

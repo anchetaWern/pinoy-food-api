@@ -22,9 +22,9 @@
             </div>
         @endif
 
-        @if (isset($alert))
-        <div class="alert alert-{{ $alert['type'] }}">
-            {{ $alert['text'] }}
+        @if (session('alert'))
+        <div class="alert alert-{{ session('alert.type') }}">
+            {{ session('alert.text') }}
         </div>
         @endif
 
@@ -131,7 +131,14 @@
                         </div>
                         @endforeach                            
 
-                        <button type="submit" id="save-food" class="btn btn-primary">Save Food</button>
+                        
+                        <button type="submit" id="save-food" class="btn btn-primary float-end">Save Food</button>
+                    </form>
+
+                    <form action="/food-labels/delay" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
+                        <button type="submit" id="process-later" class="btn btn-warning float-start">Process later</button>
                     </form>
                 </div>
             </div>

@@ -15,7 +15,7 @@ class FoodUploadsController extends Controller
 {
     public function index()
     {
-        $food_upload = FoodUpload::orderBy('created_at', 'DESC')->first();
+        $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
         $nutrients = Nutrient::whereNull('parent_id')->get();
 
         $excluded_top_level = ['Vitamins', 'Minerals', 'Others'];
