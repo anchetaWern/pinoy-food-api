@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use DB;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 
 class VerifyApiKey
 {
@@ -19,7 +20,8 @@ class VerifyApiKey
         $apiKey = $request->header('X-API-KEY');
 
         if (!$apiKey) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            $throttleMiddleware = app()->make(ThrottleRequests::class);
+            return $throttleMiddleware->handle($request, $next); // Throttle to 10 requests per minute
         }
         
         $user_count = DB::table('users')
@@ -32,4 +34,6 @@ class VerifyApiKey
 
         return $next($request);
     }
+
+    
 }
