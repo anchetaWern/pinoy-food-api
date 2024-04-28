@@ -58,7 +58,7 @@ class FoodUploadsController extends Controller
           
             FoodBarcode::create([
                 'food_id' => $food->id,
-                'barcode' => request('barcode'), // todo: barcode exists even if it doesn't. 
+                'barcode' => request('barcode'), 
             ]);
             
         }

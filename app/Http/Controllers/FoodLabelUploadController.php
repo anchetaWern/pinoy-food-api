@@ -43,7 +43,7 @@ class FoodLabelUploadController extends Controller
         $title_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $title_image), true);
 
         // ingredients
-        if ($request->has('ingredients_image')) {
+        if ($request->has('ingredients_image') && trim($request->input('ingredients_image')) !== '') {
             $ingredients_image = $request->input('ingredients_image');
             preg_match('/^data:image\/(\w+);base64,/', $ingredients_image, $ingredients_image_matches);
             $ingredients_image_mime_type = $ingredients_image_matches[1] ?? null;
@@ -54,7 +54,7 @@ class FoodLabelUploadController extends Controller
 
         // barcode
         $image_barcode = null;
-        if ($request->has('barcode_image')) {
+        if ($request->has('barcode_image') && trim($request->input('barcode_image')) !== '') {
             $barcode_image = $request->input('barcode_image');
             preg_match('/^data:image\/(\w+);base64,/', $barcode_image, $barcode_image_matches);
             $barcode_image_mime_type = $barcode_image_matches[1] ?? null;
@@ -74,12 +74,19 @@ class FoodLabelUploadController extends Controller
         $image_title = Str::slug(now()->format('Y-m-d H:i') . '-title-' . $title) . '.' . $title_image_extension;
         Storage::disk('public')->put($image_title, $title_image_data);
 
-        if ($request->has('ingredients_image')) {
+        $image_ingredients = null;
+        if ($request->has('ingredients_image') && trim($request->input('ingredients_image')) !== '') {
+            info('has ingredients image: ');
+            info($request->input('ingredients_image'));
+
             $image_ingredients = Str::slug(now()->format('Y-m-d H:i') . '-ingredients-' . $title) . '.' . $ingredients_image_extension;
             Storage::disk('public')->put($image_ingredients, $ingredients_image_data);
         }
 
-        if ($request->has('barcode_image')) {
+        if ($request->has('barcode_image') && trim($request->input('barcode_image')) !== '') {
+            info('has barcode image: ');
+            info($request->input('barcode_image'));
+
             $image_barcode = Str::slug(now()->format('Y-m-d H:i') . '-barcode-' . $title) . '.' . $barcode_image_extension;
             Storage::disk('public')->put($image_barcode, $barcode_image_data);
         }
