@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use DB;
 
 class VerifyApiKey
 {
@@ -20,8 +21,12 @@ class VerifyApiKey
         if (!$apiKey) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-    
-        if ($apiKey !== config('app.api_key')) {
+        
+        $user_count = DB::table('users')
+            ->where('api_key', $apiKey)
+            ->count();
+
+        if ($user_count === 0) {
             return response()->json(['error' => 'Invalid API Key'], 401);
         }
 
