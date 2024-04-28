@@ -34,6 +34,7 @@ class FoodLabelUploadController extends Controller
     {
         $title = Str::random(40); 
 
+        // title
         $title_image = $request->input('title_image');
         preg_match('/^data:image\/(\w+);base64,/', $title_image, $title_image_matches);
         $title_image_mime_type = $title_image_matches[1] ?? null;
@@ -41,6 +42,17 @@ class FoodLabelUploadController extends Controller
 
         $title_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $title_image), true);
 
+        // ingredients
+        if ($request->has('ingredients_image')) {
+            $ingredients_image = $request->input('ingredients_image');
+            preg_match('/^data:image\/(\w+);base64,/', $ingredients_image, $ingredients_image_matches);
+            $ingredients_image_mime_type = $ingredients_image_matches[1] ?? null;
+            $ingredients_image_extension = $this->getExtensionFromMimeType($ingredients_image_mime_type);
+            
+            $ingredients_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $ingredients_image), true);
+        }
+
+        // barcode
         $image_barcode = null;
         if ($request->has('barcode_image')) {
             $barcode_image = $request->input('barcode_image');
@@ -51,6 +63,7 @@ class FoodLabelUploadController extends Controller
             $barcode_image_data = base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $barcode_image), true);
         }
 
+        // nutrition label
         $nutrilabel_image = $request->input('nutrition_label_image');
         preg_match('/^data:image\/(\w+);base64,/', $nutrilabel_image, $nutrilabel_image_matches);
         $nutrilabel_image_mime_type = $nutrilabel_image_matches[1] ?? null;
@@ -60,6 +73,11 @@ class FoodLabelUploadController extends Controller
 
         $image_title = Str::slug(now()->format('Y-m-d H:i') . '-title-' . $title) . '.' . $title_image_extension;
         Storage::disk('public')->put($image_title, $title_image_data);
+
+        if ($request->has('ingredients_image')) {
+            $image_ingredients = Str::slug(now()->format('Y-m-d H:i') . '-ingredients-' . $title) . '.' . $ingredients_image_extension;
+            Storage::disk('public')->put($image_ingredients, $ingredients_image_data);
+        }
 
         if ($request->has('barcode_image')) {
             $image_barcode = Str::slug(now()->format('Y-m-d H:i') . '-barcode-' . $title) . '.' . $barcode_image_extension;
@@ -74,6 +92,7 @@ class FoodLabelUploadController extends Controller
             'title' => $title,
             'barcode_image' => $image_barcode,
             'nutrition_label_image' => $image_nutrilabel,
+            'ingredients_image' => $image_ingredients,
         ]);
        
         return response()->json(

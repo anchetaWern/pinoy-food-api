@@ -16,5 +16,6 @@ class FoodUpload extends Model
         'barcode_image',
         'barcode',
         'nutrition_label_image',
+        'ingredients_image',
     ];
 }

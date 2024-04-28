@@ -39,6 +39,9 @@
                         <a class="nav-link" id="title-tab" data-bs-toggle="tab" href="#tab-title" role="tab" aria-controls="tab-title" aria-selected="false">Title</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" href="#tab-ingredients" role="tab" aria-controls="tab-ingredients" aria-selected="false">Ingredients</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="barcode-tab" data-bs-toggle="tab" href="#tab-barcode" role="tab" aria-controls="tab-barcode" aria-selected="false">Barcode</a>
                     </li>
                 </ul>
@@ -51,6 +54,11 @@
                     <div class="tab-pane fade" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
                         <img src="{{ asset($food_upload->title_image) }}" style="width: 100%">
                     </div>
+
+                    <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        <img src="{{ asset($food_upload->ingredients_image) }}" style="width: 100%">
+                    </div>
+
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
                         
                         @if ($food_upload->barcode_image)
@@ -83,6 +91,15 @@
                                 <div class="mt-2 mb-3">
                                     <label for="barcode" class="form-label">Barcode</label>
                                     <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mt-2 mb-3">
+                                    <label for="ingredients" class="form-label">Ingredients</label>
+                                    <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients') }}</textarea>
                                 </div>
                             </div>
                         </div>

@@ -22,6 +22,8 @@ class Food extends Model
         'servings_per_container',
         'title_image',
         'nutrition_label_image',
+        'ingredients_image',
+        'ingredients',
         'barcode_image'
     ];
 

@@ -28,6 +28,7 @@ class ValidateCreateFoodRequest extends FormRequest
             'serving_size' => 'nullable|numeric',
             'serving_size_unit' => 'nullable|in:g,ml,cups,pcs,tsp,tbsp,slices',
             'servings_per_container' => 'nullable|numeric',
+            'ingredients' => 'nullable',
             'nutrients' => 'required|json',
         ];
     }
