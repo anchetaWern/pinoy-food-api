@@ -33,6 +33,11 @@ class Food extends Model
         'nutrients' => 'array',
     ];
 
+    protected $hidden = [
+        'id',
+        'deleted_at',
+    ];
+
 
     public function nutrients()
     {
