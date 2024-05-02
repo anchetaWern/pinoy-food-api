@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\FoodNutrient;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Food extends Model
 {
@@ -76,4 +78,55 @@ class Food extends Model
 
         return $array;
     }
+
+    protected function generateUrlFromStorage($value)
+    {
+        $baseUrl = config('app.url');
+
+        // Check if $value is null
+        if ($value === null) {
+            return null; // or return a default value if preferred
+        }
+
+        return $baseUrl . Storage::url($value);
+    }
+
+
+    protected function titleImage(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                return $this->generateUrlFromStorage($value);
+            }
+        );
+    }
+
+    
+    protected function nutritionLabelImage(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                return $this->generateUrlFromStorage($value);
+            }
+        );
+    }
+
+    protected function barcodeImage(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                return $this->generateUrlFromStorage($value);
+            }
+        );
+    }
+
+    protected function ingredientsImage(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                return $this->generateUrlFromStorage($value);
+            }
+        );
+    }
+    
 }
