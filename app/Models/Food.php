@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\FoodNutrient;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 
 class Food extends Model
 {
@@ -17,6 +18,7 @@ class Food extends Model
 
     protected $fillable = [
         'description', 
+        'description_slug',
         'calories',
         'calories_unit',
         'serving_size',
@@ -38,6 +40,13 @@ class Food extends Model
         'deleted_at',
     ];
 
+    protected static function boot() {
+        parent::boot();
+    
+        static::creating(function ($food) {
+            $food->description_slug = Str::slug($food->description);
+        });
+    }
 
     public function nutrients()
     {
