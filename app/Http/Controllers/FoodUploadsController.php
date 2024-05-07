@@ -10,6 +10,7 @@ use App\Models\FoodNutrient;
 use App\Models\FoodBarcode;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ValidateFoodUploadRequest;
+use Str;
 
 class FoodUploadsController extends Controller
 {
@@ -31,7 +32,8 @@ class FoodUploadsController extends Controller
     public function store(ValidateFoodUploadRequest $request)
     {
         $data = $request->except(['id', '_token']);
-        $nutrients_data = $request->except(['id', '_token', 'description', 'serving_size', 'servings_per_container', 'calories']);
+      
+        $nutrients_data = $request->except(['id', '_token', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories']);
         
 
         $calories_and_unit = $this->getValueAndUnit($data['calories']);
@@ -43,6 +45,7 @@ class FoodUploadsController extends Controller
 
         $food = Food::create([
             'description' => $data['description'], 
+            'description_slug' => Str::slug($data['description']),
             'calories' => $calories_and_unit['value'],
             'calories_unit' => $calories_and_unit['unit'], 
             'serving_size' => $serving_size_and_unit['value'],
@@ -52,6 +55,9 @@ class FoodUploadsController extends Controller
             'title_image' => $food_upload->title_image,
             'nutrition_label_image' => $food_upload->nutrition_label_image,
             'barcode_image' => $food_upload->barcode_image,
+            
+            'ingredients' => $data['ingredients'],
+            'ingredients_image' => $food_upload->ingredients_image,
         ]);
 
         if ($request->has('barcode') && $request->input('barcode') != null) {
