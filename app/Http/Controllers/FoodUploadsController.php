@@ -33,11 +33,13 @@ class FoodUploadsController extends Controller
     {
         $data = $request->except(['id', '_token']);
       
-        $nutrients_data = $request->except(['id', '_token', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories']);
+        $nutrients_data = $request->except(['id', '_token', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
         
 
         $calories_and_unit = $this->getValueAndUnit($data['calories']);
         $serving_size_and_unit = $this->getValueAndUnit($data['serving_size']);
+
+        $weight_and_unit = $this->getValueAndUnit($data['weight']);
 
         $id = request('id');
         $food_upload = FoodUpload::find($id);
@@ -51,6 +53,8 @@ class FoodUploadsController extends Controller
             'serving_size' => $serving_size_and_unit['value'],
             'serving_size_unit' => $serving_size_and_unit['unit'], 
             'servings_per_container' => $data['servings_per_container'],
+            'weight' => $weight_and_unit['value'],
+            'weight_unit' => $weight_and_unit['unit'],
 
             'title_image' => $food_upload->title_image,
             'nutrition_label_image' => $food_upload->nutrition_label_image,
