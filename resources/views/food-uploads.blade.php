@@ -7,7 +7,12 @@
     <title>Food Uploads</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
+    <style>
+        .fixed-img {
+            width: 415px !important;
+            position: fixed;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -33,11 +38,13 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="nutrition-tab" data-bs-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="true">Nutrition</a>
+                        <a class="nav-link active" id="title-tab" data-bs-toggle="tab" href="#tab-title" role="tab" aria-controls="tab-title" aria-selected="true">Title</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" id="title-tab" data-bs-toggle="tab" href="#tab-title" role="tab" aria-controls="tab-title" aria-selected="false">Title</a>
+                        <a class="nav-link" id="nutrition-tab" data-bs-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition</a>
                     </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" id="ingredients-tab" data-bs-toggle="tab" href="#tab-ingredients" role="tab" aria-controls="tab-ingredients" aria-selected="false">Ingredients</a>
                     </li>
@@ -47,26 +54,24 @@
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
-                        <img src="{{ asset($food_upload->nutrition_label_image) }}" style="width: 100%">   
+                    <div class="tab-pane fade show active" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
+                        <img src="{{ asset($food_upload->title_image) }}" class="fixed-img">
                     </div>
 
-                    <div class="tab-pane fade" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
-                        <img src="{{ asset($food_upload->title_image) }}" style="width: 100%">
+                    <div class="tab-pane fade" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
+                        <img src="{{ asset($food_upload->nutrition_label_image) }}" class="fixed-img">   
                     </div>
 
                     <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <img src="{{ asset($food_upload->ingredients_image) }}" style="width: 100%">
+                        @if ($food_upload->ingredients_image)
+                        <img src="{{ asset($food_upload->ingredients_image) }}" class="fixed-img">
+                        @endif
                     </div>
 
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
                         
                         @if ($food_upload->barcode_image)
-                        <div class="mb-3">
-                            <label for="barcode" class="form-label">Barcode</label>
-                            <input type="text" class="form-control" id="barcode" name="barcode">
-                        </div>
-                        <img src="{{ asset($food_upload->barcode_image) }}" style="width: 100%">
+                        <img src="{{ asset($food_upload->barcode_image) }}" class="fixed-img">
                         @endif
                     </div>
                 </div>
