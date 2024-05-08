@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         .fixed-img {
-            width: 415px !important;
+            width: 525px !important;
             position: fixed;
         }
     </style>
@@ -34,7 +34,7 @@
         @endif
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -78,14 +78,14 @@
 
             </div>
 
-            <div class="col-8">
+            <div class="col-7">
                 <div class="mt-3 mb-3">
                     <form action="/food-uploads" method="POST">
                         @csrf
                         <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
 
                         <div class="row">
-                            <div class="col">
+                            <div class="col-8">
                                 <div class="mt-2 mb-3">
                                     <label for="description" class="form-label">Description</label>
                                     <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Anchor milk">
