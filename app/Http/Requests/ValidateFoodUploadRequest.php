@@ -26,10 +26,7 @@ class ValidateFoodUploadRequest extends FormRequest
             'serving_size' => 'required',
             'servings_per_container' => 'required',
             'weight' => 'required',
-            'calories' => 'required',
-            'total_carbohydrates' => 'required',
-            'total_fat' => 'required',
-            'protein' => 'required',
+            'calories' => 'required'
         ];
     }
 }
