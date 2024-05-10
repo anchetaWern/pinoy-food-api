@@ -14,14 +14,20 @@ use Str;
 
 class FoodUploadsController extends Controller
 {
+
     public function index()
+    {
+        return view('foods');
+    }
+
+    public function create()
     {
         $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
         $nutrients = Nutrient::whereNull('parent_id')->get();
 
         $excluded_top_level = ['Vitamins', 'Minerals', 'Others'];
 
-        return view('food-uploads', [
+        return view('create-food', [
             'food_upload' => $food_upload,
             'nutrients' => $nutrients,
             'excluded_top_level' => $excluded_top_level,
@@ -142,7 +148,7 @@ class FoodUploadsController extends Controller
 
 
         $food_upload->delete();
-        
+
         return back()
             ->with('alert', ['type' => 'success', 'text' => 'Successfully added food!']);
     }

@@ -80,7 +80,7 @@
 
             <div class="col-7">
                 <div class="mt-3 mb-3">
-                    <form action="/food-uploads" method="POST">
+                    <form action="/foods" method="POST">
                         @csrf
                         <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
 

@@ -29,8 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/food-uploads', [FoodUploadsController::class, 'index']);
-    Route::post('/food-uploads', [FoodUploadsController::class, 'store']);
+    Route::get('/foods', [FoodUploadsController::class, 'index']);
+    Route::get('/foods/create', [FoodUploadsController::class, 'create']);
+    Route::post('/foods', [FoodUploadsController::class, 'store']);
 
     Route::post('/food-labels/delay', [DelayFoodLabelProcessingController::class, 'store']);
 });
