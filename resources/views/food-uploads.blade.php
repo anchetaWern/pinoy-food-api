@@ -146,6 +146,8 @@
                                     @if (!in_array($row->name, $excluded_top_level))
                                     <label for="{{ strtolower($row->name) }}" class="form-label">{{ $row->name }}</label>
                                     <input type="text" class="form-control" id="{{ strtolower($row->name) }}" name="{{ strtolower($row->name) }}" placeholder="{{ $row->placeholder_text }}">
+                                    <button type="button" class="btn btn-sm btn-secondary add-child" data-nutrientid="{{ $row->name }}">Add Child</button>
+
                                     @else 
                                     <span>{{ $row->name }}</span>
                                     @endif
@@ -184,6 +186,74 @@
         </div>
     </div>
 
+
+    <div class="modal" tabindex="-1" id="modal-add-child">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add one-off child</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="child_name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="child_name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-child" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @include('handlebars.child-row')
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+
+    <script>
+        let currentButton;
+        let currentElement;
+        let currentParentName;
+        let currentParentLowerName;
+
+        let childRowTemplate = Handlebars.compile($('#child-row-template').html());
+        const modal = new bootstrap.Modal('#modal-add-child');
+
+        $('.add-child').click(function() {
+            const self = $(this);
+            currentButton = self;
+
+            currentElement = self.siblings('input:eq(0)');
+            currentParentName = self.siblings('label').text();
+            currentParentLowerName = self.data('nutrientid');
+
+            console.log('current parent name: ', currentParentName);
+            console.log('current parent lower name: ', currentParentLowerName);
+            
+            modal.show();
+        });
+
+
+        $('#save-child').click(function() {
+            
+            const name = $('#child_name').val();
+            const parent_name = currentElement.attr('name').replace(currentParentLowerName, currentParentName);
+
+            const html = childRowTemplate({
+                parent_name,
+                name
+            });
+
+            currentButton.after(html);
+            modal.hide();
+
+            $('#child_name').val('');
+        });
+    </script>
 </body>
 </html>

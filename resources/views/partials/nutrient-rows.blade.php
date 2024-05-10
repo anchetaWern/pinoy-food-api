@@ -4,6 +4,7 @@
         <div class="mt-1 ml-5">
             <label for="{{ strtolower($child_row->name) }}" class="form-label">{{ $child_row->name }}</label>
             <input type="text" class="form-control" id="{{ strtolower($child_row->name) }}" placeholder="{{ $child_row->placeholder_text }}" name="{{ isset($parent) ? $parent->name : '' }}{{ isset($parent) ? '[' . $row->name . ']' : $row->name }}[{{ strtolower($child_row->name) }}]">
+            <button type="button" class="btn btn-sm btn-secondary add-child" data-nutrientid="{{ strtolower($child_row->name) }}">Add Child</button>
             
             <div class="mb-1">
                 @if ($child_row->hasChildren())
