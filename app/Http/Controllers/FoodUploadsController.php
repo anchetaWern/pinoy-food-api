@@ -29,13 +29,12 @@ class FoodUploadsController extends Controller
     }
 
 
-    public function store(ValidateFoodUploadRequest $request)
+    public function store(ValidateFoodUploadRequest $request) 
     {
         $data = $request->except(['id', '_token']);
       
         $nutrients_data = $request->except(['id', '_token', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
-        
-
+       
         $calories_and_unit = $this->getValueAndUnit($data['calories']);
         $serving_size_and_unit = $this->getValueAndUnit($data['serving_size']);
 
@@ -143,7 +142,7 @@ class FoodUploadsController extends Controller
 
 
         $food_upload->delete();
-
+        
         return back()
             ->with('alert', ['type' => 'success', 'text' => 'Successfully added food!']);
     }
@@ -151,7 +150,7 @@ class FoodUploadsController extends Controller
 
     private function getValueAndUnit($text)
     {
-        preg_match('/^(\d+)(\D+)/', $text, $matches);
+        preg_match('/^([\d.]+)(\D+)/', $text, $matches);
 
         if (!empty($matches)) {
 
