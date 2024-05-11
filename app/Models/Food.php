@@ -50,6 +50,11 @@ class Food extends Model
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'description_slug';
+    }
+
     public function nutrients()
     {
         return $this->hasMany(FoodNutrient::class);
