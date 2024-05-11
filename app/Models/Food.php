@@ -81,11 +81,27 @@ class Food extends Model
                     $sub_nutrients = $nutrient_collection->where('parent_nutrient_id', $nutrient['id']);
                     if ($sub_nutrients) {
                         foreach ($sub_nutrients as $sub_nutrient) {
-                            $nutrient_data['composition'][] = [
+                            $sub_nutrient_data = [
                                 'name' => $sub_nutrient['name'],
                                 'amount' => $sub_nutrient['amount'],
                                 'unit' => $sub_nutrient['unit'],
                             ];
+
+                            $sub_sub_nutrients = $nutrient_collection->where('parent_nutrient_id', $sub_nutrient['id']);
+
+                            if ($sub_sub_nutrients) {
+                                foreach ($sub_sub_nutrients as $sub_sub_nutrient) {
+
+                                    $sub_nutrient_data['composition'][] = [
+                                        'name' => $sub_sub_nutrient['name'],
+                                        'amount' => $sub_sub_nutrient['amount'],
+                                        'unit' => $sub_sub_nutrient['unit'],
+                                    ];
+
+                                }
+                            }
+
+                            $nutrient_data['composition'][] = $sub_nutrient_data;
                         }
                         
                     }
