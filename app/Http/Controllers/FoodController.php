@@ -33,16 +33,16 @@ class FoodController extends Controller
         }
 
 
-        if ($request->carbs) {
+        if ($request->carbohydrates) {
 
-            $carbs_data = $this->splitQueryParams($request->carbs);
+            $carbs_data = $this->splitQueryParams($request->carbohydrates);
 
             if (count($carbs_data) > 2) {
                 $query
                     ->whereHas('nutrients', function ($query) use ($carbs_data) {
 
                         $query
-                            ->where('name', '=', 'Carbohydrates')
+                            ->where('name', '=', 'total carbohydrates')
                             ->where('amount', $carbs_data['operator'], $carbs_data['amount'])
                             ->where('unit', '=', $carbs_data['unit']);
                     });
@@ -58,7 +58,7 @@ class FoodController extends Controller
                 $query
                     ->whereHas('nutrients', function ($query) use ($fats_data) {
                         $query
-                            ->where('name', '=', 'Fat')
+                            ->where('name', '=', 'total fat')
                             ->where('amount', $fats_data['operator'], $fats_data['amount'])
                             ->where('unit', '=', $fats_data['unit']);
                           
@@ -77,7 +77,7 @@ class FoodController extends Controller
                     ->whereHas('nutrients', function ($innerQuery) use ($protein_data) {
                         
                         $innerQuery
-                            ->where('name', '=', 'Protein')
+                            ->where('name', '=', 'protein')
                             ->where('amount', $protein_data['operator'], $protein_data['amount'])
                             ->where('unit', '=', $protein_data['unit']);
                     });
