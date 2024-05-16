@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/foods', [FoodUploadsController::class, 'store']);
 
     Route::post('/food-labels/delay', [DelayFoodLabelProcessingController::class, 'store']);
+
+    Route::get('/foods/data', [FoodUploadsController::class, 'data']);
 });
 
 require __DIR__.'/auth.php';

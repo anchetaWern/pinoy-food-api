@@ -11,6 +11,7 @@ use App\Models\FoodBarcode;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ValidateFoodUploadRequest;
 use Str;
+use Yajra\Datatables\Datatables;
 
 class FoodUploadsController extends Controller
 {
@@ -19,6 +20,35 @@ class FoodUploadsController extends Controller
     {
         return view('foods');
     }
+
+
+    public function data()
+    {
+        $foods = Food::query();
+
+        return Datatables::of($foods)
+            ->editColumn('title_image', function ($model) {
+                return '<img src="' . $model->title_image . '" class="small-img" />';
+            })
+            ->editColumn('calories', function ($model) {
+                return $model->calories . $model->calories_unit;
+            })
+            ->editColumn('serving_size', function ($model) {
+                return $model->serving_size . $model->serving_size_unit;
+            })
+            ->editColumn('created_at', function ($model) {
+                return $model->created_at->format('Y-m-d');
+            })
+            ->editColumn('updated_at', function ($model) {
+                return $model->updated_at->format('Y-m-d');
+            })
+            ->editColumn('id', function ($model) {
+                return '<a href="/foods/' . $model->id . '" class="btn btn-sm btn-outline-secondary">Edit</a>';
+            })
+            ->rawColumns(['title_image', 'id'])
+            ->make(true);
+    }
+
 
     public function create()
     {
