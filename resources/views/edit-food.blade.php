@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Uploads</title>
+    <title>Edit Food</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -33,11 +33,6 @@
         </div>
         @endif
 
-        @if (!$food_upload)
-        <div class="alert alert-warning">No food upload at the moment</div>
-        @endif
-        
-        @if ($food_upload)
         <div class="row">
             <div class="col-5">
 
@@ -60,23 +55,23 @@
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
-                        <img src="{{ asset($food_upload->title_image) }}" class="fixed-img">
+                        <img src="{{ asset($food->title_image) }}" class="fixed-img">
                     </div>
 
                     <div class="tab-pane fade" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
-                        <img src="{{ asset($food_upload->nutrition_label_image) }}" class="fixed-img">   
+                        <img src="{{ asset($food->nutrition_label_image) }}" class="fixed-img">   
                     </div>
 
                     <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        @if ($food_upload->ingredients_image)
-                        <img src="{{ asset($food_upload->ingredients_image) }}" class="fixed-img">
+                        @if ($food->ingredients_image)
+                        <img src="{{ asset($food->ingredients_image) }}" class="fixed-img">
                         @endif
                     </div>
 
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
                         
-                        @if ($food_upload->barcode_image)
-                        <img src="{{ asset($food_upload->barcode_image) }}" class="fixed-img">
+                        @if ($food->barcode_image)
+                        <img src="{{ asset($food->barcode_image) }}" class="fixed-img">
                         @endif
                     </div>
                 </div>
@@ -85,22 +80,23 @@
 
             <div class="col-7">
                 <div class="mt-3 mb-3">
-                    <form action="/foods" method="POST">
+                    <form action="/foods/{{ $food->description_slug }}" method="POST">
+                        @method('PUT')
                         @csrf
-                        <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
+                        <input type="hidden" name="id" id="id" value="{{ $food->id }}">
 
                         <div class="row">
                             <div class="col-8">
                                 <div class="mt-2 mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Anchor milk">
+                                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description', $food->description) }}" placeholder="Anchor milk">
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="barcode" class="form-label">Barcode</label>
-                                    <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode') }}">
+                                    <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode', $food->barcode->barcode) }}">
                                 </div>
                             </div>
                         </div>
@@ -109,7 +105,7 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="ingredients" class="form-label">Ingredients</label>
-                                    <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients') }}</textarea>
+                                    <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients', $food->ingredients) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -118,40 +114,51 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="serving_size" class="form-label">Serving size</label>
-                                    <input type="text" class="form-control" id="serving_size" name="serving_size" value="{{ old('serving_size') }}" placeholder="100g">
+                                    <input type="text" class="form-control" id="serving_size" name="serving_size" value="{{ old('serving_size', $food->serving_size . $food->serving_size_unit) }}" placeholder="100g">
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="servings_per_container" class="form-label">Servings per container</label>
-                                    <input type="text" class="form-control" id="servings_per_container" name="servings_per_container" value="{{ old('servings_per_container') }}" placeholder="3">
+                                    <input type="text" class="form-control" id="servings_per_container" name="servings_per_container" value="{{ old('servings_per_container', $food->servings_per_container) }}" placeholder="3">
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="weight" class="form-label">Weight</label>
-                                    <input type="text" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" placeholder="30g">
+                                    <input type="text" class="form-control" id="weight" name="weight" value="{{ old('weight', $food->weight . $food->weight_unit) }}" placeholder="30g">
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="calories" class="form-label">Calories</label>
-                                    <input type="text" class="form-control" id="calories" name="calories" value="{{ old('calories') }}" placeholder="100kcal">
+                                    <input type="text" class="form-control" id="calories" name="calories" value="{{ old('calories', $food->calories . $food->calories_unit) }}" placeholder="100kcal">
                                 </div>
                             </div>
                         </div>
 
+                      
                         @foreach ($nutrients as $row) 
                         <div class="row">
                             <div class="col-3">
                                 <div class="mt-2 mb-3">
                                     @if (!in_array($row->name, $excluded_top_level))
                                     <label for="{{ strtolower($row->name) }}" class="form-label">{{ $row->name }}</label>
-                                    <input type="text" class="form-control" id="{{ strtolower($row->name) }}" name="{{ strtolower($row->name) }}" placeholder="{{ $row->placeholder_text }}">
-                                    <button type="button" class="btn btn-sm btn-secondary add-child" data-nutrientid="{{ $row->name }}">Add Child</button>
+                                    @php 
+                                    $nutrient_data = nutrientData($food_nutrients, $row->name);
+                                    @endphp
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="{{ strtolower($row->name) }}" 
+                                        name="{{ strtolower($row->name) }}" 
+                                        value="{{ $nutrient_data['value'] }}"
+                                        placeholder="{{ $row->placeholder_text }}">
+
+                                        <button type="button" class="btn btn-sm btn-secondary add-child" data-nutrientid="{{ $row->name }}">Add Child</button>
 
                                     @else 
                                     <span>{{ $row->name }}</span>
@@ -165,17 +172,13 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach                            
-
+                        @endforeach        
+                                 
                         
-                        <button type="submit" id="save-food" class="btn btn-primary float-end">Save Food</button>
+                        <button type="submit" class="btn btn-primary float-end">Update Food</button>
                     </form>
 
-                    <form action="/food-labels/delay" method="POST">
-                        @csrf
-                        <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
-                        <button type="submit" id="process-later" class="btn btn-warning float-start">Process later</button>
-                    </form>
+                   
                 </div>
             </div>
 
@@ -189,7 +192,6 @@
 
             </div>
         </div>
-        @endif
     </div>
 
 
@@ -238,9 +240,6 @@
             currentParentName = self.siblings('label').text();
             currentParentLowerName = self.data('nutrientid');
 
-            console.log('current parent name: ', currentParentName);
-            console.log('current parent lower name: ', currentParentLowerName);
-            
             modal.show();
         });
 

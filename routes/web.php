@@ -29,13 +29,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/foods', [FoodUploadsController::class, 'index']);
     Route::get('/foods/create', [FoodUploadsController::class, 'create']);
+    
+    Route::get('/foods/{food}', [FoodUploadsController::class, 'edit']);
+    Route::put('/foods/{food}', [FoodUploadsController::class, 'update']);
+
+    Route::get('/foods', [FoodUploadsController::class, 'index']);
+  
+
+    
     Route::post('/foods', [FoodUploadsController::class, 'store']);
 
     Route::post('/food-labels/delay', [DelayFoodLabelProcessingController::class, 'store']);
 
-    Route::get('/foods/data', [FoodUploadsController::class, 'data']);
+    Route::get('/foods-data', [FoodUploadsController::class, 'data']);
 });
 
 require __DIR__.'/auth.php';

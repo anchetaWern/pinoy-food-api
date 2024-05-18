@@ -10,6 +10,7 @@ use App\Models\FoodNutrient;
 use App\Models\FoodBarcode;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ValidateFoodUploadRequest;
+use App\Http\Requests\ValidateFoodUpdateRequest;
 use Str;
 use Yajra\Datatables\Datatables;
 
@@ -42,10 +43,10 @@ class FoodUploadsController extends Controller
             ->editColumn('updated_at', function ($model) {
                 return $model->updated_at->format('Y-m-d');
             })
-            ->editColumn('id', function ($model) {
-                return '<a href="/foods/' . $model->id . '" class="btn btn-sm btn-outline-secondary">Edit</a>';
+            ->editColumn('description_slug', function ($model) {
+                return '<a href="/foods/' . $model->description_slug . '" class="btn btn-sm btn-outline-secondary">Edit</a>';
             })
-            ->rawColumns(['title_image', 'id'])
+            ->rawColumns(['title_image', 'description_slug'])
             ->make(true);
     }
 
@@ -108,6 +109,17 @@ class FoodUploadsController extends Controller
             
         }
 
+        $this->saveFoodNutrients($food, $nutrients_data);
+
+        $food_upload->delete();
+
+        return back()
+            ->with('alert', ['type' => 'success', 'text' => 'Successfully added food!']);
+    }
+
+
+    private function saveFoodNutrients($food, $nutrients_data)
+    {
         $roots = [];
         $trunks = [];
         $branches = [];
@@ -126,13 +138,29 @@ class FoodUploadsController extends Controller
 
                                 $trunk_nutrient_id = isset($trunks[strtolower($parent_key)]) ? $trunks[strtolower($parent_key)] : null;
 
-                                FoodNutrient::create([
-                                    'food_id' => $food->id,
-                                    'parent_nutrient_id' => $trunk_nutrient_id,
-                                    'name' => str_replace('_', ' ', strtolower($child_key)),
-                                    'amount' => $branch_nutrient_and_unit['value'],
-                                    'unit' => $branch_nutrient_and_unit['unit'],   
-                                ]);
+                                $nutrient_name = str_replace('_', ' ', strtolower($child_key));
+
+                                $nutrient_exists = FoodNutrient::where('food_id', $food->id)
+                                    ->where('name', $nutrient_name)
+                                    ->first();
+
+                                if ($nutrient_exists) {
+                                    FoodNutrient::where('food_id', $food->id)
+                                        ->where('name', $nutrient_name)
+                                        ->update([
+                                            'amount' => $branch_nutrient_and_unit['value'],
+                                            'unit' => $branch_nutrient_and_unit['unit']
+                                        ]);
+                                } else {
+                                    FoodNutrient::create([
+                                        'food_id' => $food->id,
+                                        'parent_nutrient_id' => $trunk_nutrient_id,
+                                        'name' => $nutrient_name,
+                                        'amount' => $branch_nutrient_and_unit['value'],
+                                        'unit' => $branch_nutrient_and_unit['unit'],   
+                                    ]);
+                                    
+                                }
                             }
 
                         }
@@ -144,15 +172,33 @@ class FoodUploadsController extends Controller
 
                             $root_nutrient_id = isset($roots[strtolower($root_key)]) ? $roots[strtolower($root_key)] : null;
 
-                            $trunk_nutrient = FoodNutrient::create([
-                                'food_id' => $food->id,
-                                'parent_nutrient_id' => $root_nutrient_id,
-                                'name' => str_replace('_', ' ', strtolower($parent_key)),
-                                'amount' => $trunk_nutrient_and_unit['value'],
-                                'unit' => $trunk_nutrient_and_unit['unit'],   
-                            ]);
+                            $trunk_nutrient_name = str_replace('_', ' ', strtolower($parent_key));
 
-                            $trunks[strtolower($parent_key)] = $trunk_nutrient->id;
+                            $trunk_nutrient_exists = FoodNutrient::where('food_id', $food->id)
+                                ->where('name', $trunk_nutrient_name)
+                                ->first();
+
+                            if ($trunk_nutrient_exists) {
+                                FoodNutrient::where('food_id', $food->id)
+                                    ->where('name', $trunk_nutrient_name)
+                                    ->update([
+                                        'amount' => $trunk_nutrient_and_unit['value'],
+                                        'unit' => $trunk_nutrient_and_unit['unit']
+                                    ]);
+                                $trunk_nutrient_id = $trunk_nutrient_exists->id;
+                            } else {
+                                $trunk_nutrient = FoodNutrient::create([
+                                    'food_id' => $food->id,
+                                    'parent_nutrient_id' => $root_nutrient_id,
+                                    'name' => $trunk_nutrient_name,
+                                    'amount' => $trunk_nutrient_and_unit['value'],
+                                    'unit' => $trunk_nutrient_and_unit['unit'],   
+                                ]);
+                               
+                                $trunk_nutrient_id = $trunk_nutrient->id;
+                            }
+
+                            $trunks[strtolower($parent_key)] = $trunk_nutrient_id; 
 
                         }
                     }
@@ -162,25 +208,39 @@ class FoodUploadsController extends Controller
                 if ($root_row) {
 
                     $root_nutrient_and_unit = $this->getValueAndUnit($root_row);
-                    
-                    $root_nutrient = FoodNutrient::create([
-                        'food_id' => $food->id,
-                        'parent_nutrient_id' => null,
-                        'name' => str_replace('_', ' ', strtolower($root_key)),
-                        'amount' => $root_nutrient_and_unit['value'],
-                        'unit' => $root_nutrient_and_unit['unit'],   
-                    ]);
 
-                    $roots[strtolower($root_key)] = $root_nutrient->id; 
+                    $root_nutrient_name = str_replace('_', ' ', strtolower($root_key));
+
+                    $root_nutrient_exists = FoodNutrient::where('food_id', $food->id)
+                        ->where('name', $root_nutrient_name)
+                        ->first();
+
+                    if ($root_nutrient_exists) {
+                        FoodNutrient::where('food_id', $food->id)
+                            ->where('name', $root_nutrient_name)
+                            ->update([
+                                'amount' => $root_nutrient_and_unit['value'],
+                                'unit' => $root_nutrient_and_unit['unit']
+                            ]);
+                        $root_nutrient_id = $root_nutrient_exists->id;
+
+                    } else {
+                       
+                        $root_nutrient = FoodNutrient::create([
+                            'food_id' => $food->id,
+                            'parent_nutrient_id' => null,
+                            'name' => $root_nutrient_name,
+                            'amount' => $root_nutrient_and_unit['value'],
+                            'unit' => $root_nutrient_and_unit['unit'],   
+                        ]);
+                        
+                        $root_nutrient_id = $root_nutrient->id;
+                    }
+
+                    $roots[strtolower($root_key)] = $root_nutrient_id; 
                 }
             }
         }
-
-
-        $food_upload->delete();
-
-        return back()
-            ->with('alert', ['type' => 'success', 'text' => 'Successfully added food!']);
     }
     
 
@@ -200,5 +260,66 @@ class FoodUploadsController extends Controller
             'value' => 1,
             'unit' => 'g',
         ];
+    }
+
+
+    public function edit(Food $food)
+    {
+        $food->load('barcode', 'nutrients');
+       
+        $food_nutrients = $food->nutrients()->get();
+        
+        $nutrients = Nutrient::whereNull('parent_id')->get();
+        $excluded_top_level = ['Vitamins', 'Minerals', 'Others'];
+
+        return view('edit-food', [
+            'food' => $food,
+            'food_nutrients' => $food_nutrients,
+            'nutrients' => $nutrients,
+            'excluded_top_level' => $excluded_top_level,
+        ]);
+    }
+
+
+    public function update(Food $food, ValidateFoodUpdateRequest $request)
+    {
+        $calories_and_unit = $this->getValueAndUnit($request->calories);
+        $serving_size_and_unit = $this->getValueAndUnit($request->serving_size);
+
+        $weight_and_unit = $this->getValueAndUnit($request->weight);
+
+        Food::where('id', $food->id)
+            ->update([
+                'description' => $request->description,
+                'calories' => $calories_and_unit['value'],
+                'calories_unit' => $calories_and_unit['unit'],
+                'serving_size' => $serving_size_and_unit['value'],
+                'serving_size_unit' => $serving_size_and_unit['unit'],
+                'servings_per_container' => $request->servings_per_container,
+                'weight' => $weight_and_unit['value'],
+                'weight_unit' => $weight_and_unit['unit']
+            ]);
+        
+        if ($food->barcode && $request->barcode) {
+            
+            FoodBarcode::where('food_id', $food->id)
+                ->update([
+                    'barcode' => $request->barcode,
+                ]); 
+
+        } else if ($request->barcode) {
+            FoodBarcode::create([
+                'food_id' => $food->id,
+                'barcode' => $request->barcode, 
+            ]);
+        }
+
+
+        $nutrients_data = $request->except(['id', '_token', '_method', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
+
+        $this->saveFoodNutrients($food, $nutrients_data);
+
+        return back()
+            ->with('alert', ['type' => 'success', 'text' => 'Food updated!']);
     }
 }

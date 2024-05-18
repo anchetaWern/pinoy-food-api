@@ -50,7 +50,7 @@
         paging: true,
         lengthChange: true,
         ajax: {
-            url: "/foods/data",
+            url: "/foods-data",
             data: function (d) {
                
             },
@@ -62,7 +62,7 @@
             { data: 'serving_size', name: 'serving_size' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
-            { data: 'id', name: 'id' }
+            { data: 'description_slug', name: 'description_slug' }
         ],
         // order: [[3, "desc"]],
     });

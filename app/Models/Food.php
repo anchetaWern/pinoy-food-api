@@ -9,6 +9,7 @@ use App\Models\FoodNutrient;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
+use App\Models\FoodBarcode;
 
 class Food extends Model
 {
@@ -57,7 +58,7 @@ class Food extends Model
 
     public function nutrients()
     {
-        return $this->hasMany(FoodNutrient::class);
+        return $this->hasMany(FoodNutrient::class, 'food_id');
     }
 
 
@@ -164,6 +165,11 @@ class Food extends Model
                 return $this->generateUrlFromStorage($value);
             }
         );
+    }
+
+    public function barcode()
+    {
+        return $this->hasOne(FoodBarcode::class);
     }
     
 }
