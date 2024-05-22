@@ -361,25 +361,28 @@ class ReniMineralsIntakeSeeder extends Seeder
             
                     'male_zinc' => $row[5], 
                     'female_zinc' => $row[6],
+
+                    'male_selenium' => $row[7],
+                    'female_selenium' => $row[8], 
                     
-                    'male_iodine' => $row[7], 
-                    'female_iodine' => $row[8],
+                    'male_iodine' => $row[9], 
+                    'female_iodine' => $row[10],
             
-                    'male_calcium' => $row[9], 
-                    'female_calcium' => $row[10],
+                    'male_calcium' => $row[11], 
+                    'female_calcium' => $row[12],
                     
-                    'male_magnesium' => $row[11], 
-                    'female_magnesium' => $row[12],
+                    'male_magnesium' => $row[13], 
+                    'female_magnesium' => $row[14],
             
-                    'male_phosphorus' => $row[13], 
-                    'female_phosphorus' => $row[14],
+                    'male_phosphorus' => $row[15], 
+                    'female_phosphorus' => $row[16],
             
-                    'male_fluoride' => $row[15], 
-                    'female_fluoride' => $row[16],
+                    'male_fluoride' => $row[17], 
+                    'female_fluoride' => $row[18],
             
-                    'sodium' => $row[17],
-                    'chloride' => $row[18],
-                    'potassium' => $row[19],
+                    'sodium' => $row[19],
+                    'chloride' => $row[20],
+                    'potassium' => $row[21],
 
                     'created_at' => now(),
                 ]);

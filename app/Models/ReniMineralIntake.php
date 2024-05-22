@@ -18,6 +18,8 @@ class ReniMineralIntake extends Model
         'male_iron', 'female_iron',
 
         'male_zinc', 'female_zinc',
+
+        'male_selenium', 'female_selenium',
         
         'male_iodine', 'female_iodine',
 
@@ -40,6 +42,8 @@ class ReniMineralIntake extends Model
         'male_iron', 'female_iron',
 
         'male_zinc', 'female_zinc',
+
+        'male_selenium', 'female_selenium',
         
         'male_iodine', 'female_iodine',
 
