@@ -96,7 +96,7 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="barcode" class="form-label">Barcode</label>
-                                    <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode', $food->barcode->barcode) }}">
+                                    <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode', $food->barcode ? $food->barcode->barcode : '') }}">
                                 </div>
                             </div>
                         </div>
