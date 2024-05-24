@@ -127,6 +127,15 @@
                         <div class="row">
                             <div class="col">
                                 <div class="mt-2 mb-3">
+                                    <label for="allergen_information" class="form-label">Allergen Information</label>
+                                    <textarea class="form-control" name="allergen_information" id="allergen_information">{{ old('allergen_information') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mt-2 mb-3">
                                     <label for="serving_size" class="form-label">Serving size</label>
                                     <input type="text" class="form-control" id="serving_size" name="serving_size" value="{{ old('serving_size') }}" placeholder="100g">
                                 </div>
@@ -163,6 +172,13 @@
                                         <option value="{{ $group }}" {{ $group === old('target_age_group', $default_age_group) ? 'selected' : '' }}>{{ $group }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="mt-2 mb-3">
+                                    <label for="origin_country" class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="origin_country" name="origin_country" value="{{ old('origin_country') }}" placeholder="PH">
                                 </div>
                             </div>
                         </div>

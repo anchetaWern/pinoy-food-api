@@ -31,8 +31,10 @@ class Food extends Model
         'nutrition_label_image',
         'ingredients_image',
         'ingredients',
+        'allergen_information',
         'barcode_image',
         'target_age_group',
+        'origin_country',
     ];
 
     protected $casts = [

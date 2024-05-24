@@ -30,6 +30,10 @@ class ValidateCreateFoodRequest extends FormRequest
             'servings_per_container' => 'nullable|numeric',
             'ingredients' => 'nullable',
             'nutrients' => 'required|json',
+
+            'target_age_group' => 'required',
+            'allergen_information' => 'nullable',
+            'origin_country' => 'required',
         ];
     }
 }

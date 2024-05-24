@@ -315,6 +315,8 @@ class FoodUploadsController extends Controller
                 'weight' => $weight_and_unit['value'],
                 'weight_unit' => $weight_and_unit['unit'],
                 'target_age_group' => $request->target_age_group,
+                'origin_country' => $request->origin_country,
+                'allergen_information' => $request->allergen_information,
             ]);
         
         if ($food->barcode && $request->barcode) {

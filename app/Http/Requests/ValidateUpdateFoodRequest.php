@@ -29,6 +29,10 @@ class ValidateUpdateFoodRequest extends FormRequest
             'serving_size_unit' => 'nullable|in:g,ml,cups,pcs,tsp,tbsp,slices',
             'servings_per_container' => 'nullable|numeric',
             'nutrients' => 'nullable|json',
+
+            'origin_country' => 'required',
+            'allergen_information' => 'nullable',
+            'target_age_group' => 'required',
         ];
     }
 }
