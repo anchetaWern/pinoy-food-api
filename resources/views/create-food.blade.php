@@ -154,6 +154,19 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="target_age_group" class="form-label">Target age group</label>
+                                    <select class="form-select" name="target_age_group" id="target_age_group">
+                                        @foreach($target_age_groups as $group)
+                                        <option value="{{ $group }}" {{ $group === old('target_age_group', $default_age_group) ? 'selected' : '' }}>{{ $group }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         @foreach ($nutrients as $row) 
                         <div class="row">
                             <div class="col-3">

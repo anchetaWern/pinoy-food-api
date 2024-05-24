@@ -62,12 +62,16 @@ class FoodUploadsController extends Controller
 
         $excluded_top_level = ['Vitamins', 'Minerals', 'Others'];
 
+        $target_age_groups = array_keys(Food::TARGET_AGE_GROUPS);
+
         return view('create-food', [
             'food_upload' => $food_upload,
             'nutrients' => $nutrients,
             'excluded_top_level' => $excluded_top_level,
             'remaining' => $remaining,
             'food_count' => $food_count,
+            'target_age_groups' => $target_age_groups, 
+            'default_age_group' => Food::DEFAULT_AGE_GROUP,
         ]);
     }
 
@@ -76,7 +80,7 @@ class FoodUploadsController extends Controller
     {
         $data = $request->except(['id', '_token']);
       
-        $nutrients_data = $request->except(['id', '_token', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
+        $nutrients_data = $request->except(['id', '_token', 'target_age_group', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
        
         $calories_and_unit = $this->getValueAndUnit($data['calories']);
         $serving_size_and_unit = $this->getValueAndUnit($data['serving_size']);
@@ -104,6 +108,8 @@ class FoodUploadsController extends Controller
             
             'ingredients' => $data['ingredients'],
             'ingredients_image' => $food_upload->ingredients_image,
+
+            'target_age_group' => $data['target_age_group'],
         ]);
 
         if ($request->has('barcode') && $request->input('barcode') != null) {
@@ -278,11 +284,15 @@ class FoodUploadsController extends Controller
         $nutrients = Nutrient::whereNull('parent_id')->get();
         $excluded_top_level = ['Vitamins', 'Minerals', 'Others'];
 
+        $target_age_groups = array_keys(Food::TARGET_AGE_GROUPS);
+
         return view('edit-food', [
             'food' => $food,
             'food_nutrients' => $food_nutrients,
             'nutrients' => $nutrients,
             'excluded_top_level' => $excluded_top_level,
+            'target_age_groups' => $target_age_groups,
+            'default_age_group' => Food::DEFAULT_AGE_GROUP,
         ]);
     }
 
@@ -303,7 +313,8 @@ class FoodUploadsController extends Controller
                 'serving_size_unit' => $serving_size_and_unit['unit'],
                 'servings_per_container' => $request->servings_per_container,
                 'weight' => $weight_and_unit['value'],
-                'weight_unit' => $weight_and_unit['unit']
+                'weight_unit' => $weight_and_unit['unit'],
+                'target_age_group' => $request->target_age_group,
             ]);
         
         if ($food->barcode && $request->barcode) {

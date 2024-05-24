@@ -31,7 +31,8 @@ class Food extends Model
         'nutrition_label_image',
         'ingredients_image',
         'ingredients',
-        'barcode_image'
+        'barcode_image',
+        'target_age_group',
     ];
 
     protected $casts = [
@@ -42,6 +43,21 @@ class Food extends Model
         'id',
         'deleted_at',
     ];
+
+    public const TARGET_AGE_GROUPS = [
+        'infants' => [0, 12, 'month'],
+        'toddlers' => [1, 3, 'year'],
+        'preschooler' => [4, 5, 'year'],
+        'children' => [6, 12, 'year'],
+        'adolescents' => [13, 18, 'year'],
+        'young adults' => [19, 30, 'year'],
+        'adults' => [31, 50, 'year'],
+        'middle aged adults' => [51, 64, 'year'],
+        'seniors' => [65, null, 'year'],
+    ];
+
+    public const DEFAULT_AGE_GROUP = 'young adults';
+
 
     protected static function boot() {
         parent::boot();
