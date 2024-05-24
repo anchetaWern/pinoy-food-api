@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodUploadsController;
 use App\Http\Controllers\DelayFoodLabelProcessingController;
+use App\Http\Controllers\TextRecognitionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,13 +37,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/foods', [FoodUploadsController::class, 'index']);
   
-
-    
     Route::post('/foods', [FoodUploadsController::class, 'store']);
 
     Route::post('/food-labels/delay', [DelayFoodLabelProcessingController::class, 'store']);
 
     Route::get('/foods-data', [FoodUploadsController::class, 'data']);
+
+    Route::get('/text-reco', [TextRecognitionController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';
