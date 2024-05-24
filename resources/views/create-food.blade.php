@@ -38,6 +38,16 @@
         @endif
         
         @if ($food_upload)
+        
+        <div class="clearfix">
+            <div class="float-end">
+                <div>Remaining: {{ $remaining }}</div>
+                <div>{{ $food_count }} / 1000</div>
+            </div>
+            
+        </div>
+        
+
         <div class="row">
             <div class="col-5">
 

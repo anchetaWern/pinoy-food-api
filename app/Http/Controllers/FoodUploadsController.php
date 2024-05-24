@@ -56,12 +56,18 @@ class FoodUploadsController extends Controller
         $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
         $nutrients = Nutrient::whereNull('parent_id')->get();
 
+        $remaining = FoodUpload::count();
+
+        $food_count = Food::count();
+
         $excluded_top_level = ['Vitamins', 'Minerals', 'Others'];
 
         return view('create-food', [
             'food_upload' => $food_upload,
             'nutrients' => $nutrients,
             'excluded_top_level' => $excluded_top_level,
+            'remaining' => $remaining,
+            'food_count' => $food_count,
         ]);
     }
 
