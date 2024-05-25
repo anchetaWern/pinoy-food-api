@@ -80,7 +80,10 @@ class FoodUploadsController extends Controller
     {
         $data = $request->except(['id', '_token']);
       
-        $nutrients_data = $request->except(['id', '_token', 'target_age_group', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
+        $nutrients_data = $request->except([
+            'id', '_token', 'target_age_group', 'allergen_information', 'origin_country', 
+            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories'
+        ]);
        
         $calories_and_unit = $this->getValueAndUnit($data['calories']);
         $serving_size_and_unit = $this->getValueAndUnit($data['serving_size']);
@@ -334,7 +337,10 @@ class FoodUploadsController extends Controller
         }
 
 
-        $nutrients_data = $request->except(['id', '_token', '_method', 'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
+        $nutrients_data = $request->except([
+            'id', '_token', '_method', 
+            'target_age_group', 'allergen_information', 'origin_country',
+            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
 
         $this->saveFoodNutrients($food, $nutrients_data);
 
