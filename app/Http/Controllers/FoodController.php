@@ -158,6 +158,7 @@ class FoodController extends Controller
     public function show(Food $food)
     {
         $food->load('nutrients');
+        $food->age = Food::TARGET_AGE_GROUPS[$food->target_age_group];
         return $food;
     }
 
