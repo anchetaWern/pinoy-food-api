@@ -11,6 +11,7 @@ use App\Http\Controllers\ReniMineralIntakeController;
 use App\Http\Controllers\ReniAverageRequirementsController;
 use App\Http\Controllers\ReniUpperLimitsController;
 use App\Http\Controllers\FoodLabelUploadController;
+use App\Http\Controllers\FdaDailyValuesForNutrientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('throttle:30,1')->group(function () {
+// Route::middleware('throttle:30,1')->group(function () {
     // Routes that should have a rate limit of 5 requests per minute
 
     Route::resource('foods', FoodController::class);
@@ -38,6 +39,8 @@ Route::middleware('throttle:30,1')->group(function () {
     Route::get('reni-recommended-mineral-intake', ReniMineralIntakeController::class);
     Route::get('reni-avg-requirements', ReniAverageRequirementsController::class);
     Route::get('reni-upper-limits', ReniUpperLimitsController::class);
-});
+
+    Route::get('fda-daily-nutrient-values', FdaDailyValuesForNutrientsController::class);
+// });
 
 Route::post('food-labels', FoodLabelUploadController::class);

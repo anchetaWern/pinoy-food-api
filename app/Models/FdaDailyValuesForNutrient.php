@@ -14,4 +14,10 @@ class FdaDailyValuesForNutrient extends Model
         'daily_value',
         'unit',
     ];
+
+    protected $visible = [
+        'nutrient',
+        'daily_value',
+        'unit',
+    ];
 }
