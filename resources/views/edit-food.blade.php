@@ -152,6 +152,17 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="mt-2 mb-3">
+                                    <label for="food_type" class="form-label">Food Type</label>
+                                    <select class="form-select" name="food_type" id="food_type">
+                                        @foreach($food_types as $food_type => $food_type_id)
+                                        <option value="{{ $food_type_id }}" {{ $food_type_id === old('food_type', $food->food_type) ? 'selected' : '' }}>{{ $food_type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
                                     <label for="target_age_group" class="form-label">Target age group</label>
                                     <select class="form-select" name="target_age_group" id="target_age_group">
                                         @foreach($target_age_groups as $group)

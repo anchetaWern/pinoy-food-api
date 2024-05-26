@@ -20,6 +20,7 @@ class Food extends Model
     protected $fillable = [
         'description', 
         'description_slug',
+        'food_type',
         'calories',
         'calories_unit',
         'serving_size',
@@ -60,6 +61,23 @@ class Food extends Model
 
     public const DEFAULT_AGE_GROUP = 'young adults';
 
+    public const FOOD_TYPES = [
+        'cereals and grains' => 1,
+        'vegetables' => 2,
+        'fruits' => 3,
+        'meat and poultry' => 4,
+        'fish and seafood' => 5,
+        'dairy products' => 6,
+        'legumes, nuts, and seeds' => 7,
+        'fats and oils' => 8,
+        'sugars and sweets' => 9,
+        'beverages' => 10,
+        'herbs and spices' => 11,
+        'prepared and processed' => 12,
+    ];
+
+    public const DEFAULT_FOOD_TYPE = 12;
+
 
     protected static function boot() {
         parent::boot();
@@ -78,6 +96,15 @@ class Food extends Model
     {
         return $this->hasMany(FoodNutrient::class, 'food_id');
     }
+
+
+    public function getFoodTypeAttribute($value)
+    {
+        $food_types = array_flip(self::FOOD_TYPES);
+
+        return $food_types[$value] ?? null;
+    }
+
 
 
     public function toArray()

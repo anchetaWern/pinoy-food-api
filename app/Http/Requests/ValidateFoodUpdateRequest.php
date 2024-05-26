@@ -26,7 +26,12 @@ class ValidateFoodUpdateRequest extends FormRequest
             'serving_size' => 'required',
             'servings_per_container' => 'required',
             'weight' => 'required',
-            'calories' => 'required'
+            'calories' => 'required',
+
+            'food_type' => 'required',
+            'origin_country' => 'required',
+            'target_age_group' => 'required',
+            'allergen_information' => 'nullable',
         ];
     }
 }
