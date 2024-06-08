@@ -20,7 +20,10 @@ class Food extends Model
     protected $fillable = [
         'description', 
         'description_slug',
+        'scientific_name',
+        'alternate_names',
         'food_type',
+        'custom_id',
         'calories',
         'calories_unit',
         'serving_size',
@@ -28,6 +31,7 @@ class Food extends Model
         'servings_per_container',
         'weight',
         'weight_unit',
+        'edible_portion',
         'title_image',
         'nutrition_label_image',
         'ingredients_image',
@@ -75,6 +79,7 @@ class Food extends Model
         'herbs and spices' => 11,
         'prepared and processed' => 12,
     ];
+
 
     public const DEFAULT_FOOD_TYPE = 12;
 
