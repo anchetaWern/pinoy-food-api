@@ -80,6 +80,20 @@ class Food extends Model
     ];
 
 
+    public const CATEGORY_SLUGS = [
+        'vegetables' => 2,
+        'meat-and-poultry' => 4,
+        'legumes-nuts-and-seeds' => 7,
+        'fats-and-oils' => 8,
+        'fruits' => 3,
+        'cereals-and-grains' => 1,
+        'dairy-products' => 6,
+        'herbs-and-spices' => 11,
+        'beverages' => 10,
+        'prepared-and-processed' => 12,
+        'sugars-and-sweets' => 9,
+    ];
+
     public const DEFAULT_FOOD_TYPE = 12;
 
 

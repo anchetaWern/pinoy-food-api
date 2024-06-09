@@ -27,6 +27,12 @@ class FoodController extends Controller
                 });
         } 
 
+        if ($request->has('category')) {
+            $category_id = Food::CATEGORY_SLUGS[$request->category];
+           
+            $query->where('food_type', $category_id);
+        }
+
         if ($request->calories) {
             $calories_data = $this->splitQueryParams($request->calories);
 
