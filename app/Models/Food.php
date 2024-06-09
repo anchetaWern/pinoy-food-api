@@ -29,8 +29,7 @@ class Food extends Model
         'serving_size',
         'serving_size_unit',
         'servings_per_container',
-        'weight',
-        'weight_unit',
+      
         'edible_portion',
         'title_image',
         'nutrition_label_image',

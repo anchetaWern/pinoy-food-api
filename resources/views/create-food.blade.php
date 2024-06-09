@@ -150,13 +150,6 @@
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
-                                    <label for="weight" class="form-label">Weight</label>
-                                    <input type="text" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" placeholder="30g">
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="mt-2 mb-3">
                                     <label for="calories" class="form-label">Calories</label>
                                     <input type="text" class="form-control" id="calories" name="calories" value="{{ old('calories') }}" placeholder="100kcal">
                                 </div>

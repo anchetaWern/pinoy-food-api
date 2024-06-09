@@ -84,18 +84,15 @@ class FoodUploadsController extends Controller
       
         $nutrients_data = $request->except([
             'id', '_token', 'target_age_group', 'food_type', 'allergen_information', 'origin_country', 
-            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories'
+            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories'
         ]);
        
         $calories_and_unit = $this->getValueAndUnit($data['calories']);
         $serving_size_and_unit = $this->getValueAndUnit($data['serving_size']);
 
-        $weight_and_unit = $this->getValueAndUnit($data['weight']);
-
         $id = request('id');
         $food_upload = FoodUpload::find($id);
         
-
         $food = Food::create([
             'description' => $data['description'], 
             'allergen_information' => $data['allergen_information'],
@@ -106,8 +103,7 @@ class FoodUploadsController extends Controller
             'serving_size' => $serving_size_and_unit['value'],
             'serving_size_unit' => $serving_size_and_unit['unit'], 
             'servings_per_container' => $data['servings_per_container'],
-            'weight' => $weight_and_unit['value'],
-            'weight_unit' => $weight_and_unit['unit'],
+           
 
             'title_image' => $food_upload->title_image,
             'nutrition_label_image' => $food_upload->nutrition_label_image,
@@ -312,8 +308,6 @@ class FoodUploadsController extends Controller
         $calories_and_unit = $this->getValueAndUnit($request->calories);
         $serving_size_and_unit = $this->getValueAndUnit($request->serving_size);
 
-        $weight_and_unit = $this->getValueAndUnit($request->weight);
-
         Food::where('id', $food->id)
             ->update([
                 'description' => $request->description,
@@ -322,9 +316,6 @@ class FoodUploadsController extends Controller
                 'serving_size' => $serving_size_and_unit['value'],
                 'serving_size_unit' => $serving_size_and_unit['unit'],
                 'servings_per_container' => $request->servings_per_container,
-                'weight' => $weight_and_unit['value'],
-                'weight_unit' => $weight_and_unit['unit'],
-
                 'target_age_group' => $request->target_age_group,
                 'origin_country' => $request->origin_country,
                 'allergen_information' => $request->allergen_information,
@@ -349,7 +340,7 @@ class FoodUploadsController extends Controller
         $nutrients_data = $request->except([
             'id', '_token', '_method', 
             'target_age_group', 'allergen_information', 'origin_country',
-            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'weight', 'calories']);
+            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories']);
 
         $this->saveFoodNutrients($food, $nutrients_data);
 

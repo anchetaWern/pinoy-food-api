@@ -25,7 +25,7 @@ class ValidateFoodUploadRequest extends FormRequest
             'description' => 'required',
             'serving_size' => 'required',
             'servings_per_container' => 'required',
-            'weight' => 'required',
+           
             'calories' => 'required',
 
             'food_type' => 'required',

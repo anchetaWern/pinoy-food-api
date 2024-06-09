@@ -136,13 +136,6 @@
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
-                                    <label for="weight" class="form-label">Weight</label>
-                                    <input type="text" class="form-control" id="weight" name="weight" value="{{ old('weight', $food->weight . $food->weight_unit) }}" placeholder="30g">
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="mt-2 mb-3">
                                     <label for="calories" class="form-label">Calories</label>
                                     <input type="text" class="form-control" id="calories" name="calories" value="{{ old('calories', $food->calories . $food->calories_unit) }}" placeholder="100kcal">
                                 </div>
