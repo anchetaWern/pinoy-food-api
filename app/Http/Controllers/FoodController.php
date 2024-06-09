@@ -17,9 +17,14 @@ class FoodController extends Controller
     {
         $query = Food::query()->with('nutrients')->orderBy('created_at', 'DESC')->take(10);
 
-      
         if ($request->description) {
-            $query->where('description', 'LIKE', '%' . $request->description . '%');
+            $query
+                ->where(function($query) use ($request) {
+                    $query
+                        ->orWhere('description', 'LIKE', '%' . $request->description . '%')
+                        ->orWhere('alternate_names', 'LIKE', '%' . $request->description . '%')
+                        ->orWhere('scientific_name', 'LIKE', '%' . $request->description . '%');
+                });
         } 
 
         if ($request->calories) {
