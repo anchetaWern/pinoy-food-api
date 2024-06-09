@@ -15,7 +15,7 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Food::query()->with('nutrients')->orderBy('created_at', 'DESC')->take(10);
+        $query = Food::query()->with('nutrients')->orderBy('created_at', 'DESC');
 
         if ($request->description) {
             $query
@@ -89,7 +89,7 @@ class FoodController extends Controller
             }
         }
 
-        $result = $query->get();
+        $result = $query->paginate(10);
         return $result;
     }
 
