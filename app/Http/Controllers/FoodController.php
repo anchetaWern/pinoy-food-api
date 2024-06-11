@@ -51,14 +51,14 @@ class FoodController extends Controller
             $carbs_data = $this->splitQueryParams($request->carbohydrates);
 
             if (count($carbs_data) > 2) {
-                $query
-                    ->whereHas('nutrients', function ($query) use ($carbs_data) {
+                $order_by = $this->getOrderBy($carbs_data['operator']);
 
-                        $query
-                            ->where('name', '=', 'total carbohydrates')
-                            ->where('amount', $carbs_data['operator'], $carbs_data['amount'])
-                            ->where('unit', '=', $carbs_data['unit']);
-                    });
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'total carbohydrates')
+                    ->where('food_nutrients.amount', $carbs_data['operator'], $carbs_data['amount'])
+                    ->where('food_nutrients.unit', '=', $carbs_data['unit'])
+                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
 
@@ -68,14 +68,15 @@ class FoodController extends Controller
             $fats_data = $this->splitQueryParams($request->fat);
             
             if (count($fats_data) > 2) {
-                $query
-                    ->whereHas('nutrients', function ($query) use ($fats_data) {
-                        $query
-                            ->where('name', '=', 'total fat')
-                            ->where('amount', $fats_data['operator'], $fats_data['amount'])
-                            ->where('unit', '=', $fats_data['unit']);
-                          
-                    });
+
+                $order_by = $this->getOrderBy($fats_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'total fat')
+                    ->where('food_nutrients.amount', $fats_data['operator'], $fats_data['amount'])
+                    ->where('food_nutrients.unit', '=', $fats_data['unit'])
+                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             } 
         }
         
@@ -86,14 +87,14 @@ class FoodController extends Controller
             $protein_data = $this->splitQueryParams($request->protein);
             
             if (count($protein_data) > 2) {
-                $query
-                    ->whereHas('nutrients', function ($innerQuery) use ($protein_data) {
-                        
-                        $innerQuery
-                            ->where('name', '=', 'protein')
-                            ->where('amount', $protein_data['operator'], $protein_data['amount'])
-                            ->where('unit', '=', $protein_data['unit']);
-                    });
+                $order_by = $this->getOrderBy($protein_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'protein')
+                    ->where('food_nutrients.amount', $protein_data['operator'], $protein_data['amount'])
+                    ->where('food_nutrients.unit', '=', $protein_data['unit'])
+                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
 
@@ -106,11 +107,11 @@ class FoodController extends Controller
     {
         // order depends on the operator. if >=, > then show higher to lower. if <=, < then show lowest to highest
         if (strpos($operator, '>') !== false) {
-            return 'DESC';
-        } else if (strpos($operator, '<') !== false) {
             return 'ASC';
+        } else if (strpos($operator, '<') !== false) {
+            return 'DESC';
         }
-        return 'DESC';
+        return 'ASC';
     }
 
 
