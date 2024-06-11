@@ -15,7 +15,7 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Food::query()->with('nutrients')->orderBy('created_at', 'DESC');
+        $query = Food::query()->with('nutrients');
 
         if ($request->description) {
             $query
@@ -37,9 +37,11 @@ class FoodController extends Controller
             $calories_data = $this->splitQueryParams($request->calories);
 
             if (count($calories_data) > 2) {
+                $order_by = $this->getOrderBy($calories_data['operator']);
                 $query
                     ->where('calories', $calories_data['operator'], $calories_data['amount'])
-                    ->where('calories_unit', '=', $calories_data['unit']);
+                    ->where('calories_unit', '=', $calories_data['unit'])
+                    ->orderBy('calories', $order_by); 
             }
         }
 
@@ -97,6 +99,18 @@ class FoodController extends Controller
 
         $result = $query->paginate(10);
         return $result;
+    }
+
+
+    private function getOrderBy($operator)
+    {
+        // order depends on the operator. if >=, > then show higher to lower. if <=, < then show lowest to highest
+        if (strpos($operator, '>') !== false) {
+            return 'DESC';
+        } else if (strpos($operator, '<') !== false) {
+            return 'ASC';
+        }
+        return 'DESC';
     }
 
 
