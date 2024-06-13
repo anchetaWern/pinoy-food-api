@@ -55,9 +55,9 @@ class FoodController extends Controller
 
                 $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
                     ->where('food_nutrients.name', '=', 'total carbohydrates')
-                    ->where('food_nutrients.amount', $carbs_data['operator'], $carbs_data['amount'])
+                    ->where('food_nutrients.normalized_amount', $carbs_data['operator'], $carbs_data['amount'])
                     ->where('food_nutrients.unit', '=', $carbs_data['unit'])
-                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
                     ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
@@ -73,9 +73,9 @@ class FoodController extends Controller
 
                 $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
                     ->where('food_nutrients.name', '=', 'total fat')
-                    ->where('food_nutrients.amount', $fats_data['operator'], $fats_data['amount'])
+                    ->where('food_nutrients.normalized_amount', $fats_data['operator'], $fats_data['amount'])
                     ->where('food_nutrients.unit', '=', $fats_data['unit'])
-                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
                     ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             } 
         }
@@ -91,9 +91,9 @@ class FoodController extends Controller
 
                 $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
                     ->where('food_nutrients.name', '=', 'protein')
-                    ->where('food_nutrients.amount', $protein_data['operator'], $protein_data['amount'])
+                    ->where('food_nutrients.normalized_amount', $protein_data['operator'], $protein_data['amount'])
                     ->where('food_nutrients.unit', '=', $protein_data['unit'])
-                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
                     ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
@@ -108,9 +108,9 @@ class FoodController extends Controller
 
                 $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
                     ->where('food_nutrients.name', '=', 'sodium')
-                    ->where('food_nutrients.amount', $sodium_data['operator'], $sodium_data['amount'])
+                    ->where('food_nutrients.normalized_amount', $sodium_data['operator'], $sodium_data['amount'])
                     ->where('food_nutrients.unit', '=', $sodium_data['unit'])
-                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
                     ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
@@ -125,9 +125,9 @@ class FoodController extends Controller
 
                 $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
                     ->where('food_nutrients.name', '=', 'dietary fiber')
-                    ->where('food_nutrients.amount', $fiber_data['operator'], $fiber_data['amount'])
+                    ->where('food_nutrients.normalized_amount', $fiber_data['operator'], $fiber_data['amount'])
                     ->where('food_nutrients.unit', '=', $fiber_data['unit'])
-                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
                     ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
@@ -142,9 +142,9 @@ class FoodController extends Controller
 
                 $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
                     ->where('food_nutrients.name', '=', 'sugar')
-                    ->where('food_nutrients.amount', $sugar_data['operator'], $sugar_data['amount'])
+                    ->where('food_nutrients.normalized_amount', $sugar_data['operator'], $sugar_data['amount'])
                     ->where('food_nutrients.unit', '=', $sugar_data['unit'])
-                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
                     ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
             }
         }
