@@ -150,6 +150,24 @@ class FoodController extends Controller
         }
 
 
+        if ($request->cholesterol) {
+
+            $cholesterol_data = $this->splitQueryParams($request->cholesterol);
+            
+            if (count($cholesterol_data) > 2) {
+                $order_by = $this->getOrderBy($cholesterol_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'cholesterol')
+                    ->where('food_nutrients.normalized_amount', $cholesterol_data['operator'], $cholesterol_data['amount'])
+                    ->where('food_nutrients.unit', '=', $cholesterol_data['unit'])
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+
+        }
+
+
         $result = $query->paginate(10);
         return $result;
     }
