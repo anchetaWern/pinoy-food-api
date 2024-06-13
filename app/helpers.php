@@ -13,3 +13,11 @@ function nutrientData($food_nutrients, $nutrient_to_search)
         'value' => ''
     ];
 }
+
+function normalizeNutrientValue($nutrient_value, $total_weight) {
+    if ($total_weight != 100) {
+        $res = ($nutrient_value / $total_weight) * 100;
+        return round($res, 2);
+    }
+    return $nutrient_value;
+}

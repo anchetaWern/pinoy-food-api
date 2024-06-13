@@ -18,6 +18,12 @@ class FoodNutrient extends Model
         'parent_nutrient_id',
         'name',
         'amount',
+        'normalized_amount',
         'unit',
     ];
+
+    public function food()
+    {
+        return $this->belongsTo(Food::class);
+    }
 }

@@ -173,6 +173,7 @@ class FoodUploadsController extends Controller
                                         'parent_nutrient_id' => $trunk_nutrient_id,
                                         'name' => $nutrient_name,
                                         'amount' => $branch_nutrient_and_unit['value'],
+                                        'normalized_amount' => normalizeNutrientValue($branch_nutrient_and_unit['value'], $food->serving_size),
                                         'unit' => $branch_nutrient_and_unit['unit'],   
                                     ]);
                                     
@@ -208,6 +209,7 @@ class FoodUploadsController extends Controller
                                     'parent_nutrient_id' => $root_nutrient_id,
                                     'name' => $trunk_nutrient_name,
                                     'amount' => $trunk_nutrient_and_unit['value'],
+                                    'normalized_amount' => normalizeNutrientValue($trunk_nutrient_and_unit['value'], $food->serving_size),
                                     'unit' => $trunk_nutrient_and_unit['unit'],   
                                 ]);
                                
@@ -247,6 +249,7 @@ class FoodUploadsController extends Controller
                             'parent_nutrient_id' => null,
                             'name' => $root_nutrient_name,
                             'amount' => $root_nutrient_and_unit['value'],
+                            'normalized_amount' => normalizeNutrientValue($root_nutrient_and_unit['value'], $food->serving_size),
                             'unit' => $root_nutrient_and_unit['unit'],   
                         ]);
                         
