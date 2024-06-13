@@ -168,6 +168,24 @@ class FoodController extends Controller
         }
 
 
+        if ($request->calcium) {
+            
+            $calcium_data = $this->splitQueryParams($request->calcium);
+            
+            if (count($calcium_data) > 2) {
+                $order_by = $this->getOrderBy($calcium_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'calcium')
+                    ->where('food_nutrients.normalized_amount', $calcium_data['operator'], $calcium_data['amount'])
+                    ->where('food_nutrients.unit', '=', $calcium_data['unit'])
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+
+        }
+
+
         $result = $query->paginate(10);
         return $result;
     }
