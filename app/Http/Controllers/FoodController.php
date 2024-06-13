@@ -133,6 +133,23 @@ class FoodController extends Controller
         }
 
 
+        if ($request->sugar) {
+
+            $sugar_data = $this->splitQueryParams($request->sugar);
+            
+            if (count($sugar_data) > 2) {
+                $order_by = $this->getOrderBy($sugar_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'sugar')
+                    ->where('food_nutrients.amount', $sugar_data['operator'], $sugar_data['amount'])
+                    ->where('food_nutrients.unit', '=', $sugar_data['unit'])
+                    ->orderBy('food_nutrients.amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+        }
+
+
         $result = $query->paginate(10);
         return $result;
     }
