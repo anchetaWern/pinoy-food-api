@@ -222,6 +222,26 @@ class FoodController extends Controller
         }
 
 
+
+
+        if ($request->iron) {
+            
+            $iron_data = $this->splitQueryParams($request->iron);
+            
+            if (count($iron_data) > 2) {
+                $order_by = $this->getOrderBy($iron_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'iron')
+                    ->where('food_nutrients.normalized_amount', $iron_data['operator'], $iron_data['amount'])
+                    ->where('food_nutrients.unit', '=', $iron_data['unit'])
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+
+        }
+
+
         $result = $query->paginate(10);
         return $result;
     }
