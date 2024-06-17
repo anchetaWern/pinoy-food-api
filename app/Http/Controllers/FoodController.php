@@ -275,6 +275,54 @@ class FoodController extends Controller
         }
 
 
+        if ($request->vitamin_b1) {
+            $vitamin_b1_data = $this->splitQueryParams($request->vitamin_b1);
+            
+            if (count($vitamin_b1_data) > 2) {
+                $order_by = $this->getOrderBy($vitamin_b1_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'vitamin b1')
+                    ->where('food_nutrients.normalized_amount', $vitamin_b1_data['operator'], $vitamin_b1_data['amount'])
+                    ->where('food_nutrients.unit', '=', $vitamin_b1_data['unit'])
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+        }
+
+
+        if ($request->vitamin_b2) {
+            $vitamin_b2_data = $this->splitQueryParams($request->vitamin_b2);
+            
+            if (count($vitamin_b2_data) > 2) {
+                $order_by = $this->getOrderBy($vitamin_b2_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'vitamin b2')
+                    ->where('food_nutrients.normalized_amount', $vitamin_b2_data['operator'], $vitamin_b2_data['amount'])
+                    ->where('food_nutrients.unit', '=', $vitamin_b2_data['unit'])
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+        }
+
+
+        if ($request->vitamin_b3) {
+            $vitamin_b3_data = $this->splitQueryParams($request->vitamin_b3);
+            
+            if (count($vitamin_b3_data) > 2) {
+                $order_by = $this->getOrderBy($vitamin_b3_data['operator']);
+
+                $query->join('food_nutrients', 'food_nutrients.food_id', '=', 'foods.id')
+                    ->where('food_nutrients.name', '=', 'vitamin b3')
+                    ->where('food_nutrients.normalized_amount', $vitamin_b3_data['operator'], $vitamin_b3_data['amount'])
+                    ->where('food_nutrients.unit', '=', $vitamin_b3_data['unit'])
+                    ->orderBy('food_nutrients.normalized_amount', $order_by)
+                    ->select('foods.id', 'foods.description', 'foods.description_slug', 'foods.title_image', 'foods.calories', 'foods.calories_unit', 'food_nutrients.food_id', 'food_nutrients.name', 'food_nutrients.amount', 'food_nutrients.unit');
+            }
+        }
+
+
         $result = $query->paginate(10);
         return $result;
     }
