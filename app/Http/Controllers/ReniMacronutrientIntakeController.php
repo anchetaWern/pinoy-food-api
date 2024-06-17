@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReniMacroNutrientIntake;
+use App\Models\ReniMacronutrientIntake;
 
 class ReniMacronutrientIntakeController extends Controller
 {
@@ -12,7 +12,7 @@ class ReniMacronutrientIntakeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $query = ReniMacroNutrientIntake::query();
+        $query = ReniMacronutrientIntake::query();
 
         if ($request->age) {
                     
