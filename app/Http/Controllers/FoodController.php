@@ -261,7 +261,7 @@ class FoodController extends Controller
 
     private function splitQueryParams($query_param)
     {
-        preg_match('/^([^\d]+)?(\d+)([^\d]+)?$/', $query_param, $results);
+        preg_match('/^([^\d]+)?(\d+(\.\d+)?)([^\d]+)?$/', $query_param, $results);
        
         $operator = '=';
         if ($results[1] === 'lte') {
@@ -274,11 +274,13 @@ class FoodController extends Controller
             $operator = '>';
         }
 
-        return [
+        $d = [
             'amount' => $results[2],
-            'unit' => $results[3], 
+            'unit' => $results[4], 
             'operator' => $operator,
         ];
+        info($d);
+        return $d;
     }
 
     /**
