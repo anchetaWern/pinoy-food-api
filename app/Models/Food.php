@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 use App\Models\FoodBarcode;
+use App\Models\FoodType;
 
 class Food extends Model
 {
@@ -23,6 +24,10 @@ class Food extends Model
         'scientific_name',
         'alternate_names',
         'food_type',
+        'food_subtype',
+        'food_state',
+        'food_substate',
+
         'custom_id',
         'calories',
         'calories_unit',
@@ -81,17 +86,18 @@ class Food extends Model
 
 
     public const CATEGORY_SLUGS = [
-        'vegetables' => 2,
-        'meat-and-poultry' => 4,
-        'legumes-nuts-and-seeds' => 7,
-        'fats-and-oils' => 8,
-        'fruits' => 3,
-        'cereals-and-grains' => 1,
-        'dairy-products' => 6,
-        'herbs-and-spices' => 11,
-        'beverages' => 10,
-        'prepared-and-processed' => 12,
-        'sugars-and-sweets' => 9,
+        'vegetables' => 1,
+        'meat-and-poultry' => 8,
+        'legumes-nuts-and-seeds' => 13,
+        'fats-and-oils' => 19,
+        'fruits' => 24,
+        'cereals-and-grains' => 30,
+        'dairy-products' => 34,
+        'herbs-and-spices' => 40,
+        'beverages' => 45,
+        'prepared-and-processed' => 57,
+        'sugars-and-sweets' => 78,
+        'foraged-foods' => 84,
     ];
 
     public const DEFAULT_FOOD_TYPE = 12;
@@ -116,13 +122,28 @@ class Food extends Model
     }
 
 
-    public function getFoodTypeAttribute($value)
+    public function type()
     {
-        $food_types = array_flip(self::FOOD_TYPES);
-
-        return $food_types[$value] ?? null;
+        return $this->hasOne(FoodType::class, 'id', 'food_type');
     }
 
+
+    public function subtype()
+    {
+        return $this->hasOne(FoodType::class, 'id', 'food_subtype');
+    }
+
+
+    public function state()
+    {
+        return $this->hasOne(FoodState::class, 'id', 'food_state');
+    }
+
+
+    public function subState()
+    {
+        return $this->hasOne(FoodState::class, 'id', 'food_substate');
+    }
 
 
     public function toArray()

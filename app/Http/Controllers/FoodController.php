@@ -410,7 +410,15 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        $food->load('nutrients');
+        $food->load('nutrients', 'type', 'subtype', 'state', 'substate');
+
+        $breadcrumbs = [$food->type->name];
+        if ($food->subtype) {
+            $breadcrumbs[] = $food->subtype->name;
+        }
+
+        $food->breadcrumbs = $breadcrumbs;
+
         $food->age = Food::TARGET_AGE_GROUPS[$food->target_age_group];
         return $food;
     }

@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'chatgpt' => [
+        'model' => 'gpt-3.5-turbo',
+        'secret' => env('CHATGPT_SECRET_KEY'),
+    ]
 ];
