@@ -42,7 +42,7 @@
         <div class="clearfix">
             <div class="float-end">
                 <div>Remaining: {{ $remaining }}</div>
-                <div>{{ $food_count }} / 1000</div>
+                <div>{{ $food_count }}</div>
             </div>
             
         </div>
