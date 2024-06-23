@@ -13,6 +13,8 @@ use App\Http\Requests\ValidateFoodUploadRequest;
 use App\Http\Requests\ValidateFoodUpdateRequest;
 use Str;
 use Yajra\Datatables\Datatables;
+use App\Models\FoodType;
+use App\Models\FoodState;
 
 class FoodUploadsController extends Controller
 {
@@ -64,6 +66,9 @@ class FoodUploadsController extends Controller
 
         $target_age_groups = array_keys(Food::TARGET_AGE_GROUPS);
 
+        $food_types = FoodType::get()->toArray();
+        $food_states = FoodState::get()->toArray();
+
         return view('create-food', [
             'food_upload' => $food_upload,
             'nutrients' => $nutrients,
@@ -72,7 +77,8 @@ class FoodUploadsController extends Controller
             'food_count' => $food_count,
             'target_age_groups' => $target_age_groups, 
             'default_age_group' => Food::DEFAULT_AGE_GROUP,
-            'food_types' => Food::FOOD_TYPES,
+            'food_types' => $food_types,
+            'food_states' => $food_states,
             'default_food_type' => Food::DEFAULT_FOOD_TYPE,
         ]);
     }
@@ -293,6 +299,9 @@ class FoodUploadsController extends Controller
 
         $target_age_groups = array_keys(Food::TARGET_AGE_GROUPS);
 
+        $food_types = FoodType::get()->toArray();
+        $food_states = FoodState::get()->toArray();
+
         return view('edit-food', [
             'food' => $food,
             'food_nutrients' => $food_nutrients,
@@ -300,7 +309,8 @@ class FoodUploadsController extends Controller
             'excluded_top_level' => $excluded_top_level,
             'target_age_groups' => $target_age_groups,
             'default_age_group' => Food::DEFAULT_AGE_GROUP,
-            'food_types' => Food::FOOD_TYPES,
+            'food_types' => $food_types, 
+            'food_states' => $food_states,
             'default_food_type' => Food::DEFAULT_FOOD_TYPE,
         ]);
     }
