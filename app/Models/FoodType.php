@@ -11,6 +11,7 @@ class FoodType extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'parent_id'
     ];
 

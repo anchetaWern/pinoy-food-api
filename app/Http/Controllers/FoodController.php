@@ -7,6 +7,7 @@ use App\Http\Requests\ValidateCreateFoodRequest;
 use App\Http\Requests\ValidateUpdateFoodRequest;
 use App\Models\Food;
 use App\Models\FoodNutrient;
+use App\Models\FoodType;
 
 class FoodController extends Controller
 {
@@ -28,9 +29,10 @@ class FoodController extends Controller
         } 
 
         if ($request->has('category')) {
-            $category_id = Food::CATEGORY_SLUGS[$request->category];
+            $category_id = FoodType::where('slug', $request->category)->value('id');
            
-            $query->where('food_type', $category_id);
+            $query->where('food_type', $category_id)
+                    ->orWhere('food_subtype', $category_id);
         }
 
         if ($request->calories) {

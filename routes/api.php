@@ -12,7 +12,7 @@ use App\Http\Controllers\ReniAverageRequirementsController;
 use App\Http\Controllers\ReniUpperLimitsController;
 use App\Http\Controllers\FoodLabelUploadController;
 use App\Http\Controllers\FdaDailyValuesForNutrientsController;
-
+use App\Http\Controllers\FoodTypesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('reni-upper-limits', ReniUpperLimitsController::class);
 
     Route::get('fda-daily-nutrient-values', FdaDailyValuesForNutrientsController::class);
+
+    Route::get('food-types', FoodTypesController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
