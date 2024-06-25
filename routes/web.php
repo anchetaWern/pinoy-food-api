@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodUploadsController;
 use App\Http\Controllers\DelayFoodLabelProcessingController;
 use App\Http\Controllers\TextRecognitionController;
-
+use App\Http\Controllers\FnriController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,6 @@ use App\Http\Controllers\TextRecognitionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/foods/create', [FoodUploadsController::class, 'create']);
+
+    Route::get('/read-text', TextRecognitionController::class);
     
     Route::get('/foods/{food}', [FoodUploadsController::class, 'edit']);
     Route::put('/foods/{food}', [FoodUploadsController::class, 'update']);
@@ -43,7 +44,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/foods-data', [FoodUploadsController::class, 'data']);
 
-    Route::get('/text-reco', [TextRecognitionController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';

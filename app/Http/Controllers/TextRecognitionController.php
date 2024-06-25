@@ -9,7 +9,7 @@ use Google\Cloud\Vision\V1\Image;
 
 class TextRecognitionController extends Controller
 {
-    public function show()
+    public function __invoke()
     {
         $source = request('source');
         $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
@@ -27,9 +27,12 @@ class TextRecognitionController extends Controller
     
         $response = $imageAnnotator->textDetection($image);
         $texts = $response->getTextAnnotations();
-    
+        
+        $all_text = '';
         foreach ($texts as $text) {
-            echo $text->getDescription() . "<br>";
+            $all_text .= $text->getDescription() . "\n";
         }
+
+        return $all_text;
     }
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Food Uploads</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -118,7 +119,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="mt-2 mb-3">
-                                    <label for="ingredients" class="form-label">Ingredients</label>
+                                    <label for="ingredients" class="form-label">Ingredients</label> <button type="button" id="read-ingredients" class="btn btn-sm btn-secondary">Read Ingredients</button>
                                     <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients') }}</textarea>
                                 </div>
                             </div>
@@ -296,8 +297,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+    
 
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         let currentButton;
         let currentElement;
         let currentParentName;
@@ -387,6 +395,18 @@
             modal.hide();
 
             $('#child_name').val('');
+        });
+
+        
+
+        $('#read-ingredients').click(function() {
+            const self = $(this);
+            self.text('Reading..').prop('disabled', true);
+            $.get(`/read-text?source=ingredients`, function(res) {
+                console.log('res: ', res);
+                $('#ingredients').val(res);
+                self.text('Read Ingredients').prop('disabled', false);
+            });
         });
     </script>
 </body>
