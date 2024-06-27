@@ -119,6 +119,15 @@
                         <div class="row">
                             <div class="col">
                                 <div class="mt-2 mb-3">
+                                    <label for="nutrition_json" class="form-label">Nutrition JSON</label> <button type="button" id="read-nutrients" class="btn btn-sm btn-secondary">Read Nutrients</button>
+                                    <textarea class="form-control" name="nutrition_json" id="nutrition_json">{{ old('nutrition_json') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mt-2 mb-3">
                                     <label for="ingredients" class="form-label">Ingredients</label> <button type="button" id="read-ingredients" class="btn btn-sm btn-secondary">Read Ingredients</button>
                                     <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients') }}</textarea>
                                 </div>
@@ -406,6 +415,16 @@
                 console.log('res: ', res);
                 $('#ingredients').val(res);
                 self.text('Read Ingredients').prop('disabled', false);
+            });
+        });
+
+        $('#read-nutrients').click(function() {
+            const self = $(this);
+            self.text('Reading..').prop('disabled', true);
+            $.get(`/read-text?source=nutrients`, function(res) {
+                console.log('res: ', res);
+                $('#nutrition_json').val(JSON.stringify(res));
+                self.text('Read Nutrients').prop('disabled', false);
             });
         });
     </script>

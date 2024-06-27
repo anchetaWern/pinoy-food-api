@@ -16,6 +16,7 @@ use Yajra\Datatables\Datatables;
 use App\Models\FoodType;
 use App\Models\FoodState;
 
+
 class FoodUploadsController extends Controller
 {
 
@@ -93,22 +94,42 @@ class FoodUploadsController extends Controller
             'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories'
         ]);
        
-        $calories_and_unit = $this->getValueAndUnit($data['calories']);
-        $serving_size_and_unit = $this->getValueAndUnit($data['serving_size']);
+        $calories_and_unit = getValueAndUnit($data['calories']);
+        $serving_size_and_unit = getValueAndUnit($data['serving_size']);
 
         $id = request('id');
         $food_upload = FoodUpload::find($id);
+
+        $calories = $calories_and_unit['value'];
+        $calories_unit = $calories_and_unit['unit'];
+        $serving_size = $serving_size_and_unit['value'];
+        $serving_size_unit = $serving_size_and_unit['unit'];
+        $servings_per_container = $data['servings_per_container'];
+
+        if ($request->input('nutrition_json')) {
+            $nutrition_json_data = json_decode($request->input('nutrition_json'), true);
+
+            $calories_and_unit = getValueAndUnit($nutrition_json_data['calories']);
+            $serving_size_and_unit = getValueAndUnit($nutrition_json_data['serving_size']);
+            
+            //
+            $calories = $calories_and_unit['value'];
+            $calories_unit = $calories_and_unit['unit'];
+            $serving_size = $serving_size_and_unit['value'];
+            $serving_size_unit = $serving_size_and_unit['unit'];
+            $servings_per_container = $nutrition_json_data['servings_per_container'];
+        }
         
         $food = Food::create([
             'description' => $data['description'], 
             'allergen_information' => $data['allergen_information'],
             'description_slug' => Str::slug($data['description']),
             'food_type' => $data['food_type'],
-            'calories' => $calories_and_unit['value'],
-            'calories_unit' => $calories_and_unit['unit'], 
-            'serving_size' => $serving_size_and_unit['value'],
-            'serving_size_unit' => $serving_size_and_unit['unit'], 
-            'servings_per_container' => $data['servings_per_container'],
+            'calories' => $calories,
+            'calories_unit' => $calories_unit, 
+            'serving_size' => $serving_size,
+            'serving_size_unit' => $serving_size_unit, 
+            'servings_per_container' => $servings_per_container,
            
 
             'title_image' => $food_upload->title_image,
@@ -131,7 +152,12 @@ class FoodUploadsController extends Controller
             
         }
 
-        $this->saveFoodNutrients($food, $nutrients_data);
+        if ($request->input('nutrition_json')) {
+            $this->saveFoodNutrientsJson($food, $request->input('nutrition_json'));
+        } else {
+            $this->saveFoodNutrientsFields($food, $nutrients_data);
+        }
+        
 
         $food_upload->delete();
 
@@ -140,7 +166,65 @@ class FoodUploadsController extends Controller
     }
 
 
-    private function saveFoodNutrients($food, $nutrients_data)
+    private function saveFoodNutrientsJson($food, $nutrients_json)
+    {
+        $nutrients = json_decode($nutrients_json, true);
+
+        foreach ($nutrients as $nut) {
+
+            $nutrient_data = getValueAndUnit($nut['value']);
+    
+            $created_nutrient = FoodNutrient::create([
+                'food_id' => $food->id,
+                'parent_nutrient_id' => null,
+                'name' => $nut['name'],
+                'amount' => $nutrient_data['value'],
+                'unit' => $nutrient_data['unit'],
+                'normalized_amount' => normalizeNutrientValue($nutrient_data['value'], $food->serving_size),
+            ]);
+            
+            if (isset($nut['child'])) {
+    
+                $child_nuts = $nut['child'];
+                foreach ($child_nuts as $c_nut) {
+    
+                    $child_nutrient_data = getValueAndUnit($c_nut['value']);
+    
+                    $created_child_nutrient = FoodNutrient::create([
+                        'food_id' => $food->id,
+                        'parent_nutrient_id' => $created_nutrient->id,
+                        'name' => $c_nut['name'],
+                        'amount' => $child_nutrient_data['value'],
+                        'unit' => $child_nutrient_data['unit'],
+                        'normalized_amount' => normalizeNutrientValue($child_nutrient_data['value'], $food->serving_size),
+                    ]);
+    
+                    if (isset($c_nut['child'])) {
+    
+                        $grandchild_nuts = $c_nut['child'];
+    
+                        foreach ($grandchild_nuts as $gc_nut) {
+    
+                            $grandchild_nutrient_data = getValueAndUnit($gc_nut['value']);
+    
+                            $created_grandchild_nutrient = FoodNutrient::create([
+                                'food_id' => $food->id,
+                                'parent_nutrient_id' => $created_child_nutrient->id,
+                                'name' => $gc_nut['name'],
+                                'amount' => $grandchild_nutrient_data['value'],
+                                'unit' => $grandchild_nutrient_data['unit'],
+                                'normalized_amount' => normalizeNutrientValue($grandchild_nutrient_data['value'], $food->serving_size),
+                            ]);
+                        }
+                    }
+    
+                }
+            }
+        }
+    }
+
+
+    private function saveFoodNutrientsFields($food, $nutrients_data)
     {
         $roots = [];
         $trunks = [];
@@ -156,7 +240,7 @@ class FoodUploadsController extends Controller
                            
                             if ($child_row) {
 
-                                $branch_nutrient_and_unit = $this->getValueAndUnit($child_row);
+                                $branch_nutrient_and_unit = getValueAndUnit($child_row);
 
                                 $trunk_nutrient_id = isset($trunks[strtolower($parent_key)]) ? $trunks[strtolower($parent_key)] : null;
 
@@ -191,7 +275,7 @@ class FoodUploadsController extends Controller
                        
                         if ($parent_row) {
 
-                            $trunk_nutrient_and_unit = $this->getValueAndUnit($parent_row);
+                            $trunk_nutrient_and_unit = getValueAndUnit($parent_row);
 
                             $root_nutrient_id = isset($roots[strtolower($root_key)]) ? $roots[strtolower($root_key)] : null;
 
@@ -231,7 +315,7 @@ class FoodUploadsController extends Controller
                 
                 if ($root_row) {
 
-                    $root_nutrient_and_unit = $this->getValueAndUnit($root_row);
+                    $root_nutrient_and_unit = getValueAndUnit($root_row);
 
                     $root_nutrient_name = str_replace('_', ' ', strtolower($root_key));
 
@@ -267,25 +351,6 @@ class FoodUploadsController extends Controller
             }
         }
     }
-    
-
-    private function getValueAndUnit($text)
-    {
-        preg_match('/^([\d.]+)(\D+)/', $text, $matches);
-
-        if (!empty($matches)) {
-
-            return [
-                'value' => $matches[1],
-                'unit' => $matches[2],
-            ];
-        }
-
-        return [
-            'value' => 1,
-            'unit' => 'g',
-        ];
-    }
 
 
     public function edit(Food $food)
@@ -318,8 +383,8 @@ class FoodUploadsController extends Controller
 
     public function update(Food $food, ValidateFoodUpdateRequest $request)
     {
-        $calories_and_unit = $this->getValueAndUnit($request->calories);
-        $serving_size_and_unit = $this->getValueAndUnit($request->serving_size);
+        $calories_and_unit = getValueAndUnit($request->calories);
+        $serving_size_and_unit = getValueAndUnit($request->serving_size);
 
         Food::where('id', $food->id)
             ->update([
@@ -355,7 +420,7 @@ class FoodUploadsController extends Controller
             'target_age_group', 'allergen_information', 'origin_country',
             'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories']);
 
-        $this->saveFoodNutrients($food, $nutrients_data);
+        $this->saveFoodNutrientsFields($food, $nutrients_data);
 
         return back()
             ->with('alert', ['type' => 'success', 'text' => 'Food updated!']);

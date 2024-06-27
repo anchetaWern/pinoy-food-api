@@ -21,3 +21,21 @@ function normalizeNutrientValue($nutrient_value, $total_weight) {
     }
     return $nutrient_value;
 }
+
+function getValueAndUnit($text)
+{
+    preg_match('/^([\d.]+)(\D+)/', $text, $matches);
+
+    if (!empty($matches)) {
+
+        return [
+            'value' => $matches[1],
+            'unit' => $matches[2],
+        ];
+    }
+
+    return [
+        'value' => 1,
+        'unit' => 'g',
+    ];
+}
