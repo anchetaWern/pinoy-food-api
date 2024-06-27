@@ -6,6 +6,8 @@ use App\Http\Controllers\FoodUploadsController;
 use App\Http\Controllers\DelayFoodLabelProcessingController;
 use App\Http\Controllers\TextRecognitionController;
 use App\Http\Controllers\FnriController;
+use App\Http\Controllers\FoodLabelUploadListController;
+use Illuminate\Support\Facades\Http;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +18,7 @@ use App\Http\Controllers\FnriController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/food-uploads', [FoodLabelUploadListController::class, 'index']);
+    Route::get('/food-uploads-data', [FoodLabelUploadListController::class, 'data']);
 
     Route::get('/foods/create', [FoodUploadsController::class, 'create']);
 
