@@ -54,9 +54,14 @@ class FoodUploadsController extends Controller
     }
 
 
-    public function create()
-    {
-        $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
+    public function create($id = '')
+    { 
+        if ($id === '') {
+            $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
+        } else {
+            $food_upload = FoodUpload::where('id', $id)->first();
+        }
+        
         $nutrients = Nutrient::whereNull('parent_id')->get();
 
         $remaining = FoodUpload::count();

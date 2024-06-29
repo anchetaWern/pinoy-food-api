@@ -35,6 +35,10 @@ class FoodLabelUploadListController extends Controller
                 return '<button class="btn btn-secondary btn-sm view-image" data-title="Barcode Image" data-url="' . $barcode_image . '">View</button>';
             })
 
+            ->editColumn('id', function ($model) {
+               return '<a href="/foods/create/' . $model->id . '">Review</a>';
+            })
+
             ->editColumn('created_at', function ($model) {
                 return $model->created_at->format('Y-m-d');
             })
@@ -42,7 +46,7 @@ class FoodLabelUploadListController extends Controller
                 return $model->updated_at->format('Y-m-d');
             })
            
-            ->rawColumns(['title_image', 'nutrition_label_image', 'ingredients_image', 'barcode_image'])
+            ->rawColumns(['title_image', 'nutrition_label_image', 'ingredients_image', 'barcode_image', 'id'])
             ->make(true);  
     }
 

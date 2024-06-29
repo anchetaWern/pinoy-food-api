@@ -25,6 +25,7 @@
                     <th>Nutrition Label Image</th>
                     <th>Ingredients Image</th>
                     <th>Barcode Image</th>
+                    <th>Review</th>
                     <th>Created at</th>
                     <th>Updated at</th>
                 </tr>
@@ -72,6 +73,7 @@
             { data: 'nutrition_label_image', name: 'nutrition_label_image' },
             { data: 'ingredients_image', name: 'ingredients_image' },
             { data: 'barcode_image', name: 'barcode_image' },
+            { data: 'id', name: 'id' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
         ],

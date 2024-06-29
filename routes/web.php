@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/food-uploads', [FoodLabelUploadListController::class, 'index']);
     Route::get('/food-uploads-data', [FoodLabelUploadListController::class, 'data']);
 
-    Route::get('/foods/create', [FoodUploadsController::class, 'create']);
+    Route::get('/foods/create/{id?}', [FoodUploadsController::class, 'create']);
 
     Route::get('/read-text', TextRecognitionController::class);
     
