@@ -75,7 +75,7 @@
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
         ],
-        // order: [[3, "desc"]],
+        order: [[4, "desc"]],
     });
 
     const modal = new bootstrap.Modal('#modal-view-image');
