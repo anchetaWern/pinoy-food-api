@@ -71,23 +71,23 @@
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
-                        <img src="{{ asset($food_upload->title_image) }}" class="fixed-img">
+                        <img src="{{ asset('/storage/' . $food_upload->title_image) }}" class="fixed-img">
                     </div>
 
                     <div class="tab-pane fade" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
-                        <img src="{{ asset($food_upload->nutrition_label_image) }}" class="fixed-img">   
+                        <img src="{{ asset('/storage/' . $food_upload->nutrition_label_image) }}" class="fixed-img">   
                     </div>
 
                     <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         @if ($food_upload->ingredients_image)
-                        <img src="{{ asset($food_upload->ingredients_image) }}" class="fixed-img">
+                        <img src="{{ asset('/storage/' . $food_upload->ingredients_image) }}" class="fixed-img">
                         @endif
                     </div>
 
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
                         
                         @if ($food_upload->barcode_image)
-                        <img src="{{ asset($food_upload->barcode_image) }}" class="fixed-img">
+                        <img src="{{ asset('/storage/' . $food_upload->barcode_image) }}" class="fixed-img">
                         @endif
                     </div>
                 </div>
