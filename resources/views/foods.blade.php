@@ -64,7 +64,7 @@
             { data: 'updated_at', name: 'updated_at' },
             { data: 'description_slug', name: 'description_slug' }
         ],
-        // order: [[3, "desc"]],
+        order: [[4, "desc"]],
     });
     </script>
 </body>
