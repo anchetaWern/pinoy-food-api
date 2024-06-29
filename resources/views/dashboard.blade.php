@@ -13,7 +13,11 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <a href="/foods/create">Go to Approve Foods</a>
+                    <a href="/foods/create">Review Submitted Foods</a>
+                </div>
+
+                <div class="p-6 text-gray-900">
+                    <a href="/foods">View Database</a>
                 </div>
             </div>
         </div>
