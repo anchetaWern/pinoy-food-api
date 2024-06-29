@@ -146,14 +146,43 @@
                             <div class="col-4">
                                 <div class="mt-2 mb-3">
                                     <label for="food_type" class="form-label">Food Type</label>
-                                    <select class="form-select" name="food_type" id="food_type">
-                                        @foreach($food_types as $food_type => $food_type_id)
-                                        <option value="{{ $food_type_id }}" {{ $food_type_id === old('food_type', $food->food_type) ? 'selected' : '' }}>{{ $food_type }}</option>
-                                        @endforeach
+                                    <select class="form-select" name="food_type" id="food_type" data-selectedfoodtype="{{ $food->food_type }}">
+                                        
                                     </select>
                                 </div>
                             </div>
 
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="food_subtype" class="form-label">Food Subtype</label>
+                                    <select class="form-select" name="food_subtype" id="food_subtype" data-selectedfoodsubtype="{{ $food->food_subtype }}">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="food_state" class="form-label">Food State</label>
+                                    <select class="form-select" name="food_state" id="food_state" data-selectedfoodstate="{{ $food->food_state }}">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="food_substate" class="form-label">Food Substate</label>
+                                    <select class="form-select" name="food_substate" id="food_substate" data-selectedfoodsubstate="{{ $food->food_substate }}">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-4">
                                 <div class="mt-2 mb-3">
                                     <label for="target_age_group" class="form-label">Target age group</label>
@@ -251,6 +280,11 @@
 
     @include('handlebars.child-row')
 
+    @include('handlebars.food-types')
+    @include('handlebars.food-subtypes')
+    @include('handlebars.food-states')
+    @include('handlebars.food-substates')
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -264,6 +298,94 @@
 
         let childRowTemplate = Handlebars.compile($('#child-row-template').html());
         const modal = new bootstrap.Modal('#modal-add-child');
+
+
+        const food_types = {!! json_encode($food_types) !!};
+        const food_states = {!! json_encode($food_states) !!};
+        
+
+        const parent_food_types = food_types.filter(itm => {
+            return itm.parent_id === null;
+        });
+
+        const parent_food_states = food_states.filter(itm => {
+            return itm.parent_id === null;
+        });
+
+
+        const foodTypesTemplate = Handlebars.compile($('#food-types-template').html());
+        const food_types_html = foodTypesTemplate({
+            'food_types': parent_food_types,
+        });
+
+        const foodSubtypesTemplate = Handlebars.compile($('#food-subtypes-template').html());
+
+        $('#food_type').html(food_types_html);
+
+        const selected_food_type = $('#food_type').data('selectedfoodtype')
+        console.log('sel food type: ', selected_food_type);
+        $('#food_type').val(selected_food_type);
+
+
+        const subtypes = food_types.filter((itm) => {
+            return itm.parent_id == selected_food_type;
+        });
+
+        const food_subtypes_html = foodSubtypesTemplate({
+            'food_subtypes': subtypes,
+        });
+
+        $('#food_subtype').html(food_subtypes_html);
+
+        const selected_food_subtype = $('#food_subtype').data('selectedfoodsubtype');
+        $('#food_subtype').val(selected_food_subtype);
+
+
+        $('#food_type').change(function() {
+            const food_type_id = $(this).val();
+           
+            const subtypes = food_types.filter((itm) => {
+                return itm.parent_id == food_type_id;
+            });
+            
+            const food_subtypes_html = foodSubtypesTemplate({
+                'food_subtypes': subtypes,
+            });
+
+            $('#food_subtype').html(food_subtypes_html);
+        });
+
+
+        const foodStatesTemplate = Handlebars.compile($('#food-states-template').html());
+        const foodSubStatesTemplate = Handlebars.compile($('#food-substates-template').html());
+        const food_states_html = foodStatesTemplate({
+            'food_states': parent_food_states
+        });
+        $('#food_state').html(food_states_html);
+
+        const selected_food_state = $('#food_state').data('selectedfoodstate');
+        $('#food_state').val(selected_food_state);
+
+        const selected_food_substate = $('#food_substate').data('selectedfoodsubstate');
+        if (selected_food_substate) {
+            $('#food_substate').val(selected_food_substate);
+        }
+        
+
+
+        $('#food_state').change(function() {
+            const food_state_id = $(this).val();
+            const substates = food_states.filter((itm) => {
+                return itm.parent_id == food_state_id;
+            });
+            
+            const food_substate_html = foodSubStatesTemplate({
+                'food_substates': substates,
+            });
+
+            $('#food_substate').html(food_substate_html);
+        });
+
 
         $('.add-child').click(function() {
             const self = $(this);
