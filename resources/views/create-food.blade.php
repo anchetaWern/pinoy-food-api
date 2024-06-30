@@ -13,6 +13,17 @@
             width: 525px !important;
             position: fixed;
         }
+
+        .nested-level-1 {
+            margin-left: 20px;
+        }
+        .nested-level-2 {
+            margin-left: 40px;
+        }
+
+        #small-table {
+            width: 230px;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +133,7 @@
                                     <label for="nutrition_json" class="form-label">Nutrition JSON</label> <button type="button" id="read-nutrients" class="btn btn-sm btn-secondary">Read Nutrients</button>
                                     <textarea class="form-control" name="nutrition_json" id="nutrition_json">{{ old('nutrition_json') }}</textarea>
                                 </div>
+                                <div id="nutrients-preview"></div>
                             </div>
                         </div>
 
@@ -302,6 +314,7 @@
     @include('handlebars.food-subtypes')
     @include('handlebars.food-states')
     @include('handlebars.food-substates')
+    @include('handlebars.nutrients-preview')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -418,6 +431,14 @@
             });
         });
 
+       
+        const nutrientsPreviewTemplate = Handlebars.compile($('#nutrients-preview-template').html());
+
+        function renderNutrientsPreview(json_str) { // json
+            const data = JSON.parse(json_str);
+            $('#nutrients-preview').html(nutrientsPreviewTemplate(data));
+        }
+
         $('#read-nutrients').click(function() {
             const self = $(this);
             self.text('Reading..').prop('disabled', true);
@@ -425,7 +446,14 @@
                 console.log('res: ', res);
                 $('#nutrition_json').val(JSON.stringify(res));
                 self.text('Read Nutrients').prop('disabled', false);
+                renderNutrientsPreview(JSON.stringify(res));
             });
+        });
+
+        $('#nutrition_json').keyup(function() {
+            const json = $(this).val();
+            console.log(json);
+            renderNutrientsPreview(json);
         });
     </script>
 </body>
