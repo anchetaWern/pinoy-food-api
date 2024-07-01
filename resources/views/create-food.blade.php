@@ -422,9 +422,11 @@
         
 
         $('#read-ingredients').click(function() {
+            const upload_id = $('#id').val();
             const self = $(this);
+            
             self.text('Reading..').prop('disabled', true);
-            $.get(`/read-text?source=ingredients`, function(res) {
+            $.get(`/read-text?source=ingredients&id=${upload_id}`, function(res) {
                 console.log('res: ', res);
                 $('#ingredients').val(res);
                 self.text('Read Ingredients').prop('disabled', false);

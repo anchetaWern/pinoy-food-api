@@ -12,8 +12,9 @@ class TextRecognitionController extends Controller
 {
     public function __invoke()
     {
+        $upload_id = request('id');
         $source = request('source');
-        $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
+        $food_upload = FoodUpload::where('id', $upload_id)->first();
 
         if ($source === 'ingredients') {
             $imageAnnotator = new ImageAnnotatorClient([
