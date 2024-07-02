@@ -454,8 +454,9 @@
 
         $('#read-nutrients').click(function() {
             const self = $(this);
+            const id = $('#id').val();
             self.text('Reading..').prop('disabled', true);
-            $.get(`/read-text?source=nutrients`, function(res) {
+            $.get(`/read-text?source=nutrients&id=${id}`, function(res) {
                 console.log('res: ', res);
                 
                 $('#nutrition_json').val(JSON.stringify(res));
