@@ -114,7 +114,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="mt-2 mb-3">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Description</label> <button type="button" id="read-description" class="btn btn-sm btn-secondary">Read Description</button>
                                     <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}" placeholder="Anchor milk">
                                 </div>
                             </div>
@@ -419,6 +419,17 @@
             $('#child_name').val('');
         });
 
+        $('#read-description').click(function() {
+            const upload_id = $('#id').val();
+            const self = $(this);
+            
+            self.text('Reading..').prop('disabled', true);
+            $.get(`/read-text?source=title&id=${upload_id}`, function(res) {
+                console.log('res: ', res);
+                $('#description').val(res);
+                self.text('Read Description').prop('disabled', false);
+            });
+        });
         
 
         $('#read-ingredients').click(function() {

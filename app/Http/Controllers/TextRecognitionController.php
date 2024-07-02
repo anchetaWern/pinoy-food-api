@@ -10,33 +10,45 @@ use Illuminate\Support\Facades\Http;
 
 class TextRecognitionController extends Controller
 {
+
+    private function detectText($field) 
+    {
+        $imageAnnotator = new ImageAnnotatorClient([
+            'credentials' => json_decode(file_get_contents(storage_path('app/pinoy-food-52358a6a6b1c.json')), true),
+        ]);
+
+        $imagePath = storage_path('app/public/' . $field);
+        
+        $imageContent = file_get_contents($imagePath);
+    
+        $image = (new Image())->setContent($imageContent);
+    
+        $response = $imageAnnotator->textDetection($image);
+        $texts = $response->getTextAnnotations();
+        
+        $all_text = '';
+        foreach ($texts as $text) {
+            $all_text .= $text->getDescription() . "\n";
+        }
+
+        return $all_text;
+    }
+
     public function __invoke()
     {
         $upload_id = request('id');
         $source = request('source');
         $food_upload = FoodUpload::where('id', $upload_id)->first();
 
-        if ($source === 'ingredients') {
-            $imageAnnotator = new ImageAnnotatorClient([
-                'credentials' => json_decode(file_get_contents(storage_path('app/pinoy-food-52358a6a6b1c.json')), true),
-            ]);
+        if ($source === 'title') {
+            $field = $food_upload->title_image;
+            $detected_text = $this->detectText($field);
+            return $detected_text;
             
+        } else if ($source === 'ingredients') {
             $field = $food_upload->ingredients_image;
-            $imagePath = storage_path('app/public/' . $field);
-        
-            $imageContent = file_get_contents($imagePath);
-        
-            $image = (new Image())->setContent($imageContent);
-        
-            $response = $imageAnnotator->textDetection($image);
-            $texts = $response->getTextAnnotations();
-            
-            $all_text = '';
-            foreach ($texts as $text) {
-                $all_text .= $text->getDescription() . "\n";
-            }
-
-            return $all_text;
+            $detected_text = $this->detectText($field);
+            return $detected_text;
         }
 
 
