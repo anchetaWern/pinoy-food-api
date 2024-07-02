@@ -173,9 +173,9 @@ class FoodUploadsController extends Controller
 
     private function saveFoodNutrientsJson($food, $nutrients_json)
     {
-        $nutrients = json_decode($nutrients_json, true);
+        $nutrients_data = json_decode($nutrients_json, true);
 
-        foreach ($nutrients as $nut) {
+        foreach ($nutrients_data['nutrients'] as $nut) {
 
             $nutrient_data = getValueAndUnit($nut['value']);
     
