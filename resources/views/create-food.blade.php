@@ -457,9 +457,15 @@
             self.text('Reading..').prop('disabled', true);
             $.get(`/read-text?source=nutrients`, function(res) {
                 console.log('res: ', res);
+                
                 $('#nutrition_json').val(JSON.stringify(res));
                 self.text('Read Nutrients').prop('disabled', false);
                 renderNutrientsPreview(JSON.stringify(res));
+
+                $('#calories').val(res.calories);
+                $('#serving_size').val(res.serving_size);  
+                $('#servings_per_container').val(res.servings_per_container);
+              
             });
         });
 
