@@ -166,7 +166,7 @@ class FoodUploadsController extends Controller
 
         $food_upload->delete();
 
-        return back()
+        return redirect('/food-uploads')
             ->with('alert', ['type' => 'success', 'text' => 'Successfully added food!']);
     }
 
