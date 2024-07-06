@@ -111,6 +111,8 @@ class FoodUploadsController extends Controller
         $serving_size_unit = $serving_size_and_unit['unit'];
         $servings_per_container = $data['servings_per_container'];
 
+        $custom_serving_size = $data['custom_serving_size'];
+
         if ($request->input('nutrition_json')) {
             $nutrition_json_data = json_decode($request->input('nutrition_json'), true);
 
@@ -135,6 +137,7 @@ class FoodUploadsController extends Controller
             'serving_size' => $serving_size,
             'serving_size_unit' => $serving_size_unit, 
             'servings_per_container' => $servings_per_container,
+            'custom_serving_size' => $custom_serving_size,
            
 
             'title_image' => $food_upload->title_image,
@@ -399,6 +402,7 @@ class FoodUploadsController extends Controller
                 'serving_size' => $serving_size_and_unit['value'],
                 'serving_size_unit' => $serving_size_and_unit['unit'],
                 'servings_per_container' => $request->servings_per_container,
+                'custom_serving_size' => $request->custom_serving_size,
                 'target_age_group' => $request->target_age_group,
                 'origin_country' => $request->origin_country,
                 'allergen_information' => $request->allergen_information,

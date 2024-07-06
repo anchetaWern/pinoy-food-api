@@ -170,6 +170,13 @@
 
                             <div class="col">
                                 <div class="mt-2 mb-3">
+                                    <label for="custom_serving_size" class="form-label">Custom serving</label>
+                                    <input type="text" class="form-control" id="custom_serving_size" name="custom_serving_size" value="{{ old('custom_serving_size') }}" placeholder="1tbsp">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mt-2 mb-3">
                                     <label for="servings_per_container" class="form-label">Servings per container</label>
                                     <input type="text" class="form-control" id="servings_per_container" name="servings_per_container" value="{{ old('servings_per_container') }}" placeholder="3">
                                 </div>

@@ -33,6 +33,7 @@ class Food extends Model
         'calories_unit',
         'serving_size',
         'serving_size_unit',
+        'custom_serving_size',
         'servings_per_container',
       
         'edible_portion',
