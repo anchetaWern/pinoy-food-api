@@ -13,6 +13,21 @@
             height: 645px;
             position: fixed;
         }
+
+        .nested-level-1 {
+            margin-left: 20px;
+        }
+        .nested-level-2 {
+            margin-left: 40px;
+        }
+
+        #small-table {
+            width: 230px;
+        }
+        
+        #food-image {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -279,6 +294,22 @@
     </div>
 
 
+    <div class="modal" tabindex="-1" id="modal-image">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <img id="food-image" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @include('handlebars.child-row')
 
     @include('handlebars.food-types')
@@ -299,6 +330,8 @@
 
         let childRowTemplate = Handlebars.compile($('#child-row-template').html());
         const modal = new bootstrap.Modal('#modal-add-child');
+        const modal_image = new bootstrap.Modal('#modal-image');
+        
 
 
         const food_types = {!! json_encode($food_types) !!};
@@ -414,6 +447,14 @@
             modal.hide();
 
             $('#child_name').val('');
+        });
+
+        $('#myTabContent').on('click', '.fixed-img', function() {
+            console.log('noto');
+            const src = $(this).attr('src');
+            console.log('src: ', src);
+            $('#food-image').attr('src', src);
+            modal_image.show();
         });
     </script>
 </body>
