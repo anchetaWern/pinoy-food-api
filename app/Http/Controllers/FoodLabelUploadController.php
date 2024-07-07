@@ -94,13 +94,22 @@ class FoodLabelUploadController extends Controller
         $image_nutrilabel = Str::slug(now()->format('Y-m-d H:i') . '-nutrilabel-' . $title) . '.' . $nutrilabel_image_extension;
         Storage::disk('public')->put($image_nutrilabel, $nutrilabel_image_data);
 
-        $food_upload = FoodUpload::create([
+        $food_data = [
             'title_image' => $image_title, 
             'title' => $title,
             'barcode_image' => $image_barcode,
             'nutrition_label_image' => $image_nutrilabel,
             'ingredients_image' => $image_ingredients,
-        ]);
+        ];
+
+        if ($request->has('barcode')) {
+            $barcode = request('barcode');
+            if (!empty($barcode)) {
+                $food_data['barcode'] = $barcode;
+            }
+        }
+
+        $food_upload = FoodUpload::create($food_data);
        
         return response()->json(
             $food_upload
