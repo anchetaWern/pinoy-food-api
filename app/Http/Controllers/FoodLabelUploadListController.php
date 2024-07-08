@@ -16,7 +16,8 @@ class FoodLabelUploadListController extends Controller
 
     public function data()
     {
-        $food_uploads = FoodUpload::query();
+        $food_uploads = FoodUpload::query()
+            ->select('id', 'id as id2', 'title_image', 'nutrition_label_image', 'ingredients_image', 'barcode_image', 'created_at');
 
         return Datatables::of($food_uploads)
             ->editColumn('title_image', function ($model) {
@@ -45,15 +46,26 @@ class FoodLabelUploadListController extends Controller
                return '<a href="/foods/create/' . $model->id . '">Review</a>';
             })
 
+            ->editColumn('id2', function ($model) {
+                return '<button class="btn btn-sm btn-danger delete-upload" data-id="' . $model->id2 . '">Delete</button>';
+             })
+
             ->editColumn('created_at', function ($model) {
                 return $model->created_at->format('Y-m-d');
             })
-            ->editColumn('updated_at', function ($model) {
-                return $model->updated_at->format('Y-m-d');
-            })
            
-            ->rawColumns(['title_image', 'nutrition_label_image', 'ingredients_image', 'barcode_image', 'id'])
+           
+            ->rawColumns(['title_image', 'nutrition_label_image', 'ingredients_image', 'barcode_image', 'id', 'id2'])
             ->make(true);  
+    }
+
+
+    public function delete()
+    {
+        $id = request('id');
+        FoodUpload::where('id', $id)
+            ->delete();
+        return 'ok';
     }
 
 

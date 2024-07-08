@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Food Uploads</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -26,8 +27,8 @@
                     <th>Ingredients Image</th>
                     <th>Barcode Image</th>
                     <th>Review</th>
+                    <th>Delete</th>
                     <th>Created at</th>
-                    <th>Updated at</th>
                 </tr>
             </thead>
 
@@ -56,8 +57,15 @@
 
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 
+    
     <script>
-    $("#food-uploads-table").DataTable({
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    const table = $("#food-uploads-table").DataTable({
         processing: true,
         serverSide: true,
         paging: true,
@@ -74,8 +82,8 @@
             { data: 'ingredients_image', name: 'ingredients_image' },
             { data: 'barcode_image', name: 'barcode_image' },
             { data: 'id', name: 'id' },
+            { data: 'id2', name: 'id2' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'updated_at', name: 'updated_at' },
         ],
         order: [[4, "desc"]],
     });
@@ -88,6 +96,18 @@
         $('#image-type').text(self.data('title'));
 
         modal.show();
+    });
+
+    $('#food-uploads-table').on('click', '.delete-upload', function() {
+        const self = $(this);
+        const proceed = confirm('Are you sure you want to proceed?');
+        if (proceed) {
+            $.post('/food-uploads/delete', {
+                id: self.data('id')
+            }, function(res) {
+                table.draw();
+            });
+        }
     });
     </script>
 </body>
