@@ -120,6 +120,15 @@
                         <div class="row">
                             <div class="col">
                                 <div class="mt-2 mb-3">
+                                    <label for="alternate_names" class="form-label">Alternate names</label>
+                                    <input type="text" class="form-control" id="alternate_names" name="alternate_names" value="{{ old('alternate_names', $food->alternate_names ? $food->alternate_names : '') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mt-2 mb-3">
                                     <label for="ingredients" class="form-label">Ingredients</label>
                                     <textarea class="form-control" name="ingredients" id="ingredients">{{ old('ingredients', $food->ingredients) }}</textarea>
                                 </div>

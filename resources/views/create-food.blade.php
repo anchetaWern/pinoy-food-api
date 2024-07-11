@@ -135,6 +135,15 @@
                         <div class="row">
                             <div class="col">
                                 <div class="mt-2 mb-3">
+                                    <label for="alternate_names" class="form-label">Alternate names</label>
+                                    <input type="text" class="form-control" id="alternate_names" name="alternate_names" value="{{ old('alternate_names', $food_upload->alternate_names) }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mt-2 mb-3">
                                     <label for="nutrition_json" class="form-label">Nutrition JSON</label> <button type="button" id="read-nutrients" class="btn btn-sm btn-secondary">Read Nutrients</button>
                                     <textarea class="form-control" name="nutrition_json" id="nutrition_json">{{ old('nutrition_json') }}</textarea>
                                 </div>

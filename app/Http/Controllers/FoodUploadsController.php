@@ -96,7 +96,7 @@ class FoodUploadsController extends Controller
       
         $nutrients_data = $request->except([
             'id', '_token', 'target_age_group', 'food_type', 'allergen_information', 'origin_country', 
-            'description', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories'
+            'description', 'alternate_names', 'barcode', 'ingredients', 'serving_size', 'servings_per_container', 'calories'
         ]);
        
         $calories_and_unit = getValueAndUnit($data['calories']);
@@ -129,6 +129,7 @@ class FoodUploadsController extends Controller
         
         $food = Food::create([
             'description' => $data['description'], 
+            'alternate_names' => $data['alternate_names'],
             'allergen_information' => $data['allergen_information'],
             'description_slug' => Str::slug($data['description']),
             'food_type' => $data['food_type'],
@@ -397,6 +398,7 @@ class FoodUploadsController extends Controller
         Food::where('id', $food->id)
             ->update([
                 'description' => $request->description,
+                'alternate_names' => $request->alternate_names,
                 'calories' => $calories_and_unit['value'],
                 'calories_unit' => $calories_and_unit['unit'],
                 'serving_size' => $serving_size_and_unit['value'],
