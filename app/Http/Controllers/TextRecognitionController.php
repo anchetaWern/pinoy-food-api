@@ -259,7 +259,7 @@ class TextRecognitionController extends Controller
                     'content' => [
                         [
                             "type" => "text",
-                            "text" => "extract the text from the image and present it in the following json format: " . json_encode($sample_json) .  " extract all relevant nutrition information from the image, not just the ones in the sample json. If a nutrition in the sample json does not have a match in the image, exclude it from the output."
+                            "text" => "extract the text from the image and present it in the following json format: " . json_encode($sample_json) .  " extract all relevant nutrition information from the image. Be sure it exists in the sample json. If a nutrition in the sample json does not have a match in the image, exclude it from the output. Be sure the structure and nesting in the sample json is strictly followed."
                         ],
                         [
                             "type" => "image_url",
