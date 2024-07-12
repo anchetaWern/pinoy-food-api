@@ -24,7 +24,8 @@ class FoodController extends Controller
                     $query
                         ->orWhere('description', 'LIKE', '%' . $request->description . '%')
                         ->orWhere('alternate_names', 'LIKE', '%' . $request->description . '%')
-                        ->orWhere('scientific_name', 'LIKE', '%' . $request->description . '%');
+                        ->orWhere('scientific_name', 'LIKE', '%' . $request->description . '%')
+                        ->orWhere('brand', 'LIKE', '%' . $request->description . '%');
                 });
         } 
 
