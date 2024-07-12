@@ -15,7 +15,7 @@ class AddFoodUsingJson extends Command
      *
      * @var string
      */
-    protected $signature = 'add:food_json {file}';
+    protected $signature = 'add:food_json {file} {brand}';
 
     /**
      * The console command description.
@@ -30,6 +30,7 @@ class AddFoodUsingJson extends Command
     public function handle()
     {
         $filename = $this->argument('file');
+        $brand = $this->argument('brand');
        
         $contents = Storage::get('data/restaurants/jollibee/' . $filename);
         $food_data = json_decode($contents, true);
@@ -43,6 +44,7 @@ class AddFoodUsingJson extends Command
                 'description' => $row['food'], 
                
                 'description_slug' => Str::slug($row['food']),
+                'brand' => $brand,
                 'food_type' => 57,
                 'food_subtype' => 75,
                 'calories' => $calories_data['value'],

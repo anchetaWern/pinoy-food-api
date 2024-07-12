@@ -23,6 +23,7 @@ class Food extends Model
         'description_slug',
         'scientific_name',
         'alternate_names',
+        'brand',
         'food_type',
         'food_subtype',
         'food_state',
