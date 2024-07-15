@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 use App\Models\FoodBarcode;
 use App\Models\FoodType;
+use App\Models\Ingredient;
+use App\Models\FoodIngredient;
 
 class Food extends Model
 {
@@ -146,6 +148,16 @@ class Food extends Model
     public function subState()
     {
         return $this->hasOne(FoodState::class, 'id', 'food_substate');
+    }
+
+    public function ingredientsInfo()
+    {
+        return $this->hasManyThrough(
+            Ingredient::class,
+            FoodIngredient::class,
+            'food_id', 
+            'id', 
+        );
     }
 
 

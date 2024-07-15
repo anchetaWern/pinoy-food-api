@@ -422,6 +422,11 @@ class FoodController extends Controller
 
         $food->breadcrumbs = $breadcrumbs;
 
+        $food->hasIngredientsInfo = false;
+        if ($food->ingredientsInfo()->exists()) {
+            $food->hasIngredientsInfo = true;
+        }
+
         $food->age = Food::TARGET_AGE_GROUPS[$food->target_age_group];
         return $food;
     }
