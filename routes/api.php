@@ -14,6 +14,7 @@ use App\Http\Controllers\FoodLabelUploadController;
 use App\Http\Controllers\FdaDailyValuesForNutrientsController;
 use App\Http\Controllers\FoodTypesController;
 use App\Http\Controllers\FoodIngredientsController;
+use App\Http\Controllers\NutriscoreController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,6 +47,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('food-types', FoodTypesController::class);
 
     Route::get('food-ingredients/{food}', FoodIngredientsController::class);
+
+    Route::get('nutriscore/{food}', NutriscoreController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
