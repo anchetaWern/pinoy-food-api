@@ -40,7 +40,7 @@ class NutriscoreController extends Controller
             $nutrient_multiplier = $serving_size_basis / $food->serving_size;
         }
 
-        $energy_points_basis = $food->serving_size * $nutrient_multiplier;
+        $energy_points_basis = $food->calories * $nutrient_multiplier;
 
 
         if ($food->food_state == $liquid_food_state_id) {
