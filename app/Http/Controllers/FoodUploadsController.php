@@ -133,6 +133,7 @@ class FoodUploadsController extends Controller
             'allergen_information' => $data['allergen_information'],
             'description_slug' => Str::slug($data['description']),
             'food_type' => $data['food_type'],
+            'food_subtype' => isset($data['food_subtype']) ? $data['food_subtype'] : null,
             'calories' => $calories,
             'calories_unit' => $calories_unit, 
             'serving_size' => $serving_size,
