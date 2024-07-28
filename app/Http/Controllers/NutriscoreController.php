@@ -86,7 +86,10 @@ class NutriscoreController extends Controller
             $weight_by_percentage = 100;
             $fruit_veggie_legume_nuts_seed_points = NutriscorePoint::where('nutriscore_category_id', 5)
                 ->where('min_value', '<=', $weight_by_percentage)
-                ->where('max_value', '>=', $weight_by_percentage)
+                ->where(function ($query) use ($weight_by_percentage) {
+                    $query->orWhere('max_value', '>=', $weight_by_percentage)
+                        ->orWhereNull('max_value');
+                })
                 ->value('points');
             
             $total_positive += $fruit_veggie_legume_nuts_seed_points;
