@@ -31,22 +31,24 @@ class OptimizeImages extends Command
     {
         $foods = Food::get();
 
+        $optimizerChain = OptimizerChainFactory::create();
+
         foreach ($foods as $food) {
 
             if ($food->title_image) {
-                $this->optimizeImage($food->title_image);
+                $this->optimizeImage($optimizerChain, $food->title_image);
             }
 
             if ($food->nutrition_label_image) {
-                $this->optimizeImage($food->nutrition_label_image);
+                $this->optimizeImage($optimizerChain, $food->nutrition_label_image);
             }
 
             if ($food->ingredients_image) {
-                $this->optimizeImage($food->ingredients_image);
+                $this->optimizeImage($optimizerChain, $food->ingredients_image);
             }
 
             if ($food->barcode_image) {
-                $this->optimizeImage($food->barcode_image);
+                $this->optimizeImage($optimizerChain, $food->barcode_image);
             }   
 
         }
@@ -54,20 +56,25 @@ class OptimizeImages extends Command
     }
 
 
-    private function optimizeImage($filename)
+    private function optimizeImage($optimizerChain, $filename)
     {
-        $image_path = public_path('storage/' . $filename);
+        try {
+            $image_path = public_path('storage/' . $filename);
 
-        $image = Image::load($image_path);
-        $width = $image->getWidth();
+            $image = Image::load($image_path);
+            $width = $image->getWidth();
 
-        $this->info('image width: ' . $width);
+            $this->info('image width: ' . $width);
 
-        if ($width > 1000) {
-            $optimizerChain = OptimizerChainFactory::create();
-            $optimizerChain->optimize($image_path);
+            if ($width > 1000) {
+                
+                $optimizerChain->optimize($image_path);
 
-            $image->width(640)->save();
+                $image->width(640)->save();
+            }
+        } catch (\Exception $e) {
+            $this->info('error: ' . $e->getMessage());
         }
+        
     }
 }
