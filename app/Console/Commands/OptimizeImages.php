@@ -5,8 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Spatie\Image\Image;
-use App\Models\Food;
-
+use DB;
 
 class OptimizeImages extends Command
 {
@@ -29,7 +28,7 @@ class OptimizeImages extends Command
      */
     public function handle()
     {
-        $foods = Food::get();
+        $foods = DB::table('foods')->get();
 
         $optimizerChain = OptimizerChainFactory::create();
 
