@@ -59,7 +59,7 @@ class OptimizeImages extends Command
     private function optimizeImage($optimizerChain, $filename)
     {
         try {
-            $image_path = public_path('storage/' . $filename);
+            $image_path = public_path('storage/' . substr($filename, 1));
 
             $image = Image::load($image_path);
             $width = $image->getWidth();
