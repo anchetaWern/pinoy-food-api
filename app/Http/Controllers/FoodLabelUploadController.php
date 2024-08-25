@@ -7,6 +7,7 @@ use App\Models\FoodUpload;
 use App\Http\Requests\ValidateFoodLabelUploadRequest;
 use Str;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\OptimizeImage;
 
 class FoodLabelUploadController extends Controller
 {
@@ -93,6 +94,24 @@ class FoodLabelUploadController extends Controller
 
         $image_nutrilabel = Str::slug(now()->format('Y-m-d H:i') . '-nutrilabel-' . $title) . '.' . $nutrilabel_image_extension;
         Storage::disk('public')->put($image_nutrilabel, $nutrilabel_image_data);
+
+
+        if ($image_title) {
+            OptimizeImage::dispatch($image_title);
+        }
+
+        if ($image_nutrilabel) {
+            OptimizeImage::dispatch($image_nutrilabel);
+        }
+
+        if ($image_ingredients) {
+            OptimizeImage::dispatch($image_ingredients);
+        }
+
+        if ($image_barcode) {
+            OptimizeImage::dispatch($image_barcode);
+        }
+    
 
         $food_data = [
             'title_image' => $image_title, 
