@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Spatie\Image\Image;
+use App\Models\Food;
 
 
 class OptimizeImages extends Command
@@ -14,7 +15,7 @@ class OptimizeImages extends Command
      *
      * @var string
      */
-    protected $signature = 'app:optimize-images {filename}';
+    protected $signature = 'app:optimize-images';
 
     /**
      * The console command description.
@@ -28,18 +29,44 @@ class OptimizeImages extends Command
      */
     public function handle()
     {
-        $filename = $this->argument('filename');
-        $pathToImage = public_path('storage/' . $filename);
-        $optimizerChain = OptimizerChainFactory::create();
-        $optimizerChain->optimize($pathToImage);
+        $foods = Food::get();
 
-        $image = Image::load($pathToImage);
+        foreach ($foods as $food) {
 
+            if ($food->title_image) {
+                $this->optimizeImage($food->title_image);
+            }
+
+            if ($food->nutrition_label_image) {
+                $this->optimizeImage($food->nutrition_label_image);
+            }
+
+            if ($food->ingredients_image) {
+                $this->optimizeImage($food->ingredients_image);
+            }
+
+            if ($food->barcode_image) {
+                $this->optimizeImage($food->barcode_image);
+            }   
+
+        }
+
+    }
+
+
+    private function optimizeImage($filename)
+    {
+        $image_path = public_path('storage/' . $filename);
+
+        $image = Image::load($image_path);
         $width = $image->getWidth();
 
         $this->info('image width: ' . $width);
 
         if ($width > 1000) {
+            $optimizerChain = OptimizerChainFactory::create();
+            $optimizerChain->optimize($image_path);
+
             $image->width(640)->save();
         }
     }
