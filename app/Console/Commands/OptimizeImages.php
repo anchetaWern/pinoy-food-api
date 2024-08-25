@@ -32,11 +32,15 @@ class OptimizeImages extends Command
         $pathToImage = public_path('storage/' . $filename);
         $optimizerChain = OptimizerChainFactory::create();
         $optimizerChain->optimize($pathToImage);
-        /*
-        Image::load($pathToImage)
-            ->width(640)
-            ->save();
-        */
 
+        $image = Image::load($pathToImage);
+
+        $width = $image->getWidth();
+
+        $this->info('image width: ' . $width);
+
+        if ($width > 1000) {
+            $image->width(640)->save();
+        }
     }
 }
