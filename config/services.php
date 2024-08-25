@@ -32,7 +32,7 @@ return [
     ],
 
     'chatgpt' => [
-        'model' => 'gpt-3.5-turbo',
+        'model' => 'gpt-4o-mini',
         'secret' => env('CHATGPT_SECRET_KEY'),
     ]
 ];
