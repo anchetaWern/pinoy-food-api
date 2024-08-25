@@ -59,12 +59,14 @@ class OptimizeImages extends Command
     private function optimizeImage($optimizerChain, $filename)
     {
         try {
-            $image_path = public_path('storage/' . substr($filename, 1));
+            $fixed_filename = substr($filename, 1);
+            $this->info($fixed_filename);
+            $image_path = public_path('storage/' . $fixed_filename);
 
             $image = Image::load($image_path);
             $width = $image->getWidth();
 
-            $this->info('image width: ' . $width);
+            // $this->info('image width: ' . $width);
 
             if ($width > 1000) {
                 
