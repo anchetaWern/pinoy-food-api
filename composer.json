@@ -13,7 +13,6 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "predis/predis": "^2.2",
         "spatie/image": "^2.2",
         "spatie/image-optimizer": "^1.7",
         "yajra/laravel-datatables-oracle": "^10.11"
