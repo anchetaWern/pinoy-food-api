@@ -15,6 +15,7 @@ use App\Http\Controllers\FdaDailyValuesForNutrientsController;
 use App\Http\Controllers\FoodTypesController;
 use App\Http\Controllers\FoodIngredientsController;
 use App\Http\Controllers\NutriscoreController;
+use App\Http\Controllers\BulkUploadController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,3 +53,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
+
+Route::post('bulk-upload', BulkUploadController::class);
