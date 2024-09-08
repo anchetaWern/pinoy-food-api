@@ -115,7 +115,7 @@ class AdditivesSeeder extends Seeder
 
                 $additive_function = AdditiveFunctionName::where('name', '=', trim($func_name))
                     ->when($funk !== null, function($query) use ($funk) {
-                        $query->where('name', '=', $funk);
+                        $query->orWhere('name', '=', $funk);
                     })
                     ->first();
                 if ($additive_function) {
