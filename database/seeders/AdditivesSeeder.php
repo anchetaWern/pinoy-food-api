@@ -107,10 +107,12 @@ class AdditivesSeeder extends Seeder
 
             $functions = explode(',', $row->purpose);
             foreach ($functions as $func_name) {
-                $funk = isset($abbreviations[$func_name]) ? trim($abbreviations[$func_name]) : '';
+                $funk = isset($abbreviations[$func_name]) ? trim($abbreviations[$func_name]) : null;
 
-                $additive_function = AdditiveFunctionName::where('name', 'LIKE', "%" . trim($func_name) . "%")
-                    ->orWhere('name', 'LIKE', '%' . $funk . '%')
+                $additive_function = AdditiveFunctionName::where('name', '=', trim($func_name))
+                    ->when($funk !== null, function($query) use ($funk) {
+                        $query->where('name', '=', $funk);
+                    })
                     ->first();
                 if ($additive_function) {
                     AdditiveFunction::create([
