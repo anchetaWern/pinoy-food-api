@@ -13,6 +13,7 @@ class Additive extends Model
 
     protected $fillable = [
         'name',
+        'alternate_names',
         'INS',
         'purpose',
         'info',
