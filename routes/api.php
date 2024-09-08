@@ -16,6 +16,7 @@ use App\Http\Controllers\FoodTypesController;
 use App\Http\Controllers\FoodIngredientsController;
 use App\Http\Controllers\NutriscoreController;
 use App\Http\Controllers\BulkUploadController;
+use App\Http\Controllers\AdditivesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,6 +51,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('food-ingredients/{food}', FoodIngredientsController::class);
 
     Route::get('nutriscore/{food}', NutriscoreController::class);
+
+    Route::resource('additives', AdditivesController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
