@@ -11,5 +11,6 @@ class AdditiveFunctionName extends Model
 
     protected $fillable = [
         'name',
+        'slug'
     ];
 }

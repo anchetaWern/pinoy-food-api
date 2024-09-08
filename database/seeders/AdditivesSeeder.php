@@ -8,6 +8,7 @@ use App\Models\AdditiveFunctionName;
 use App\Models\Additive;
 use App\Models\AdditiveFunction;
 use avadim\FastExcelReader\Excel;
+use Str;
 
 class AdditivesSeeder extends Seeder
 {
@@ -58,11 +59,12 @@ class AdditivesSeeder extends Seeder
        
         foreach ($functions as $function_name) {
             AdditiveFunctionName::create([
-                'name' => $function_name
+                'name' => $function_name,
+                'slug' => Str::slug($function_name)
             ]);
         }
         
-        
+       
        
         $file = storage_path('app/data/food-additives/additives.xlsx');
 
@@ -127,5 +129,6 @@ class AdditivesSeeder extends Seeder
             }
 
         }
+       
     }
 }
