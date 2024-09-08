@@ -92,6 +92,7 @@ class AdditivesSeeder extends Seeder
             "Thk" => "Thickener",
             "Seq." => "Sequestrant",
             "Flavour Enh" => "Flavor Enhancer",
+            "Flavour Enhancer" => "Flavor Enhancer",
             "Flour Trt Agt" => "Flour Treatment Agent",
             "Firming Agt" => "Firming Agent",
             "Pres." => "Preservative",
@@ -99,6 +100,9 @@ class AdditivesSeeder extends Seeder
 
             "Buffering Agt" => "Buffering Agent",
             "Leavening Agt" => "Leavening Agent",
+
+            "Colour" => "Color",
+            "Colour Retention Agent" => "Color Retention Agent", 
         ];
 
        
