@@ -23,7 +23,7 @@ class BulkUploadController extends Controller
         $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
 
         // Store the file in the 'uploads' directory (public disk)
-        $filePath = $file->storeAs('bulk_uploads', $filename);
+        $filePath = $file->storeAs('public/bulk_uploads', $filename);
 
         // Return a response with the file path or URL
         return response()->json([
