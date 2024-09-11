@@ -29,9 +29,7 @@ class ValidateFoodUploadRequest extends FormRequest
             'calories' => 'required',
 
             'food_type' => 'required',
-            'origin_country' => 'required',
-            'target_age_group' => 'required',
-            'allergen_information' => 'nullable',
+           
         ];
     }
 }

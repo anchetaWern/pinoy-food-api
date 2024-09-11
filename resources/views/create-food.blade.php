@@ -29,6 +29,14 @@
         #food-image {
             width: 100%;
         }
+
+        .img-thumbnail {
+            width: 100px;
+        }
+
+        .select-image.selected {
+            border: 2px solid orange;
+        }
     </style>
 </head>
 <body>
@@ -50,11 +58,6 @@
         </div>
         @endif
 
-        @if (!$food_upload)
-        <div class="alert alert-warning">No food upload at the moment</div>
-        @endif
-        
-        @if ($food_upload)
         
         <div class="clearfix">
             <div class="float-end">
@@ -74,7 +77,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="nutrition-tab" data-bs-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition</a>
+                        <a class="nav-link" id="nutrition-tab" data-bs-toggle="tab" href="#tab-nutrition" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition</a>
                     </li>
                     
                     <li class="nav-item">
@@ -87,23 +90,44 @@
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
-                        <img src="{{ asset('/storage/' . $food_upload->title_image) }}" class="fixed-img">
+                        @if ($food_upload && $food_upload->title_image)
+                            <img src="{{ asset('/storage/' . $food_upload->title_image) }}" class="fixed-img">
+                        @else 
+                            @foreach ($bulk_uploads as $img_src)
+                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
+                            @endforeach
+                        @endif
                     </div>
 
-                    <div class="tab-pane fade" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
-                        <img src="{{ asset('/storage/' . $food_upload->nutrition_label_image) }}" class="fixed-img">   
+                    <div class="tab-pane fade" id="tab-nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
+                        @if ($food_upload && $food_upload->nutrition_label_image)
+                            <img src="{{ asset('/storage/' . $food_upload->nutrition_label_image) }}" class="fixed-img">
+                        @else 
+                            @foreach ($bulk_uploads as $img_src)
+                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
+                            @endforeach
+                        @endif
+                           
                     </div>
 
                     <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        @if ($food_upload->ingredients_image)
-                        <img src="{{ asset('/storage/' . $food_upload->ingredients_image) }}" class="fixed-img">
+                        @if ($food_upload && $food_upload->ingredients_image)
+                        <img src="{{ $food_upload ? asset('/storage/' . $food_upload->ingredients_image) : '' }}" class="fixed-img">
+                        @else
+                            @foreach ($bulk_uploads as $img_src)
+                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
+                            @endforeach
                         @endif
                     </div>
 
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
-                        
-                        @if ($food_upload->barcode_image)
+    
+                        @if ($food_upload && $food_upload->barcode_image)
                         <img src="{{ asset('/storage/' . $food_upload->barcode_image) }}" class="fixed-img">
+                        @else 
+                            @foreach ($bulk_uploads as $img_src)
+                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
+                            @endforeach
                         @endif
                     </div>
                 </div>
@@ -114,7 +138,12 @@
                 <div class="mt-3 mb-3">
                     <form action="/foods" method="POST">
                         @csrf
-                        <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
+                        <input type="hidden" name="id" id="id" value="{{ $food_upload ? $food_upload->id : '' }}">
+
+                        <input type="hidden" name="title_image" id="title_image">
+                        <input type="hidden" name="nutrition_image" id="nutrition_image">
+                        <input type="hidden" name="ingredients_image" id="ingredients_image">
+                        <input type="hidden" name="barcode_image" id="barcode_image">
 
                         <div class="row">
                             <div class="col-8">
@@ -127,7 +156,7 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="barcode" class="form-label">Barcode</label>
-                                    <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode', $food_upload->barcode) }}">
+                                    <input type="text" class="form-control" id="barcode" name="barcode" value="{{ old('barcode', $food_upload ? $food_upload->barcode : '') }}">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +165,7 @@
                             <div class="col">
                                 <div class="mt-2 mb-3">
                                     <label for="alternate_names" class="form-label">Alternate names</label>
-                                    <input type="text" class="form-control" id="alternate_names" name="alternate_names" value="{{ old('alternate_names', $food_upload->alternate_names) }}">
+                                    <input type="text" class="form-control" id="alternate_names" name="alternate_names" value="{{ old('alternate_names', $food_upload ? $food_upload->alternate_names : '') }}">
                                 </div>
                             </div>
                         </div>
@@ -286,11 +315,13 @@
                         <button type="submit" id="save-food" class="btn btn-primary float-end">Save Food</button>
                     </form>
 
+                    @if ($food_upload)
                     <form action="/food-labels/delay" method="POST">
                         @csrf
                         <input type="hidden" name="id" id="id" value="{{ $food_upload->id }}">
                         <button type="submit" id="process-later" class="btn btn-warning float-start">Process later</button>
                     </form>
+                    @endif
                 </div>
             </div>
 
@@ -304,7 +335,7 @@
 
             </div>
         </div>
-        @endif
+       
     </div>
 
 
@@ -514,12 +545,22 @@
         });
 
         $('#myTabContent').on('click', '.fixed-img', function() {
-            console.log('noto');
             const src = $(this).attr('src');
-            console.log('src: ', src);
             $('#food-image').attr('src', src);
             modal_image.show();
         }); 
+
+        $('.select-image').click(function() {
+            const src = $(this).data('src').replace('bulk_uploads/', '');
+            const tab_id = $(this).parents('.tab-pane').attr('id');
+           
+            $(`#${tab_id} .select-image`).removeClass('selected');
+
+            $(this).toggleClass('selected');
+
+            const input_id = tab_id.replace('tab-', '');
+            $(`#${input_id}_image`).val(src);
+        });
     </script>
 </body>
 </html>

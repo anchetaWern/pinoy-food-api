@@ -56,9 +56,8 @@ class FoodUploadsController extends Controller
 
     public function create($id = '')
     { 
-        if ($id === '') {
-            $food_upload = FoodUpload::orderBy('created_at', 'ASC')->first();
-        } else {
+        $food_upload = null;
+        if ($id !== '') {
             $food_upload = FoodUpload::where('id', $id)->first();
         }
         
@@ -75,6 +74,10 @@ class FoodUploadsController extends Controller
         $food_types = FoodType::get()->toArray();
         $food_states = FoodState::get()->toArray();
 
+        $bulk_uploads = collect(Storage::files('public/bulk_uploads'))->map(function ($item) {
+            return str_replace('public/', '', $item);
+        });
+
         return view('create-food', [
             'food_upload' => $food_upload,
             'nutrients' => $nutrients,
@@ -86,12 +89,14 @@ class FoodUploadsController extends Controller
             'food_types' => $food_types,
             'food_states' => $food_states,
             'default_food_type' => Food::DEFAULT_FOOD_TYPE,
+            'bulk_uploads' => $bulk_uploads,
         ]);
     }
 
 
     public function store(ValidateFoodUploadRequest $request) 
     {
+        $food_upload = null;
         $data = $request->except(['id', '_token']);
       
         $nutrients_data = $request->except([
@@ -101,9 +106,6 @@ class FoodUploadsController extends Controller
        
         $calories_and_unit = getValueAndUnit($data['calories']);
         $serving_size_and_unit = getValueAndUnit($data['serving_size']);
-
-        $id = request('id');
-        $food_upload = FoodUpload::find($id);
 
         $calories = $calories_and_unit['value'];
         $calories_unit = $calories_and_unit['unit'];
@@ -126,28 +128,71 @@ class FoodUploadsController extends Controller
             $serving_size_unit = $serving_size_and_unit['unit'];
             $servings_per_container = $nutrition_json_data['servings_per_container'];
         }
+
+        $title_image_new_name = null;
+        $nutrition_image_new_name = null;
+        $ingredients_image_new_name = null;
+        $barcode_image_new_name = null;
+
+        $id = request('id');
+        if (!empty($id)) {
+            $food_upload = FoodUpload::find($id);
+            
+            $title_image_new_name = $food_upload->title_image;
+            $nutrition_image_new_name = $food_upload->nutrition_label_image;
+            $ingredients_image_new_name = $food_upload->ingredients_image;
+            $barcode_image_new_name = $food_upload->barcode_image;
+            
+        } else {
+            $title_image = request('title_image');
+            $nutrition_image = request('nutrition_image');
+            $ingredients_image = request('ingredients_image');
+            $barcode_image = request('barcode_image');
+
+            if (!empty($title_image)) {
+                $title_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-title') . '-' . $title_image;
+                Storage::disk('public')->move('bulk_uploads/' . $title_image, $title_image_new_name);
+            }
+
+            if (!empty($nutrition_image)) {
+                $nutrition_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-nutrilabel') . '-' . $nutrition_image;
+                Storage::disk('public')->move('bulk_uploads/' . $nutrition_image, $nutrition_image_new_name);
+            }
+
+            if (!empty($ingredients_image)) {
+                $ingredients_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-ingredients') . '-' . $ingredients_image;
+                Storage::disk('public')->move('bulk_uploads/' . $ingredients_image, $ingredients_image_new_name);
+            }
+
+            if (!empty($barcode_image)) {
+                $barcode_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-barcode') . '-' . $barcode_image;
+                Storage::disk('public')->move('bulk_uploads/' . $barcode_image, $barcode_image_new_name);
+            }
+        }
+        
         
         $food = Food::create([
             'description' => $data['description'], 
-            'alternate_names' => $data['alternate_names'],
-            'allergen_information' => $data['allergen_information'],
             'description_slug' => Str::slug($data['description']),
+
+            'alternate_names' => $data['alternate_names'],
+            'ingredients' => $data['ingredients'],
+            'allergen_information' => $data['allergen_information'],
+            
             'food_type' => $data['food_type'],
             'food_subtype' => isset($data['food_subtype']) ? $data['food_subtype'] : null,
+
             'calories' => $calories,
             'calories_unit' => $calories_unit, 
             'serving_size' => $serving_size,
             'serving_size_unit' => $serving_size_unit, 
             'servings_per_container' => $servings_per_container,
             'custom_serving_size' => $custom_serving_size,
-           
 
-            'title_image' => $food_upload->title_image,
-            'nutrition_label_image' => $food_upload->nutrition_label_image,
-            'barcode_image' => $food_upload->barcode_image,
-            
-            'ingredients' => $data['ingredients'],
-            'ingredients_image' => $food_upload->ingredients_image,
+            'title_image' => $title_image_new_name,
+            'nutrition_label_image' => $nutrition_image_new_name,
+            'ingredients_image' => $ingredients_image_new_name,
+            'barcode_image' => $barcode_image_new_name,
 
             'target_age_group' => $data['target_age_group'],
             'country' => $data['origin_country'],
@@ -168,8 +213,10 @@ class FoodUploadsController extends Controller
             $this->saveFoodNutrientsFields($food, $nutrients_data);
         }
         
-
-        $food_upload->delete();
+        if ($food_upload) {
+            $food_upload->delete();
+        }
+        
 
         return redirect('/food-uploads')
             ->with('alert', ['type' => 'success', 'text' => 'Successfully added food!']);
