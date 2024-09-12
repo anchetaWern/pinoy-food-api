@@ -74,9 +74,7 @@ class FoodUploadsController extends Controller
         $food_types = FoodType::get()->toArray();
         $food_states = FoodState::get()->toArray();
 
-        $bulk_uploads = collect(Storage::files('public/bulk_uploads'))->map(function ($item) {
-            return str_replace('public/', '', $item);
-        });
+        $bulk_uploads = $this->getBulkUploads();
 
         return view('create-food', [
             'food_upload' => $food_upload,
@@ -409,6 +407,17 @@ class FoodUploadsController extends Controller
         }
     }
 
+    public function getBulkUploads()
+    {
+        return collect(Storage::files('public/bulk_uploads'))
+            ->sortByDesc(function ($file) {
+                return Storage::lastModified($file);
+            })
+            ->map(function ($item) {
+                return str_replace('public/', '', $item);
+            });
+    }
+
 
     public function edit(Food $food)
     {
@@ -424,6 +433,8 @@ class FoodUploadsController extends Controller
         $food_types = FoodType::get()->toArray();
         $food_states = FoodState::get()->toArray();
 
+        $bulk_uploads = $this->getBulkUploads();
+
         return view('edit-food', [
             'food' => $food,
             'food_nutrients' => $food_nutrients,
@@ -434,6 +445,7 @@ class FoodUploadsController extends Controller
             'food_types' => $food_types, 
             'food_states' => $food_states,
             'default_food_type' => Food::DEFAULT_FOOD_TYPE,
+            'bulk_uploads' => $bulk_uploads,
         ]);
     }
 
@@ -443,21 +455,53 @@ class FoodUploadsController extends Controller
         $calories_and_unit = getValueAndUnit($request->calories);
         $serving_size_and_unit = getValueAndUnit($request->serving_size);
 
+        $updated_data = [
+            'description' => $request->description,
+            'alternate_names' => $request->alternate_names,
+            'calories' => $calories_and_unit['value'],
+            'calories_unit' => $calories_and_unit['unit'],
+            'serving_size' => $serving_size_and_unit['value'],
+            'serving_size_unit' => $serving_size_and_unit['unit'],
+            'servings_per_container' => $request->servings_per_container,
+            'custom_serving_size' => $request->custom_serving_size,
+            'target_age_group' => $request->target_age_group,
+            'origin_country' => $request->origin_country,
+            'allergen_information' => $request->allergen_information,
+            'food_type' => $request->food_type,
+        ];
+       
+        $title_image = request('title_image');
+        $nutrition_image = request('nutrition_image');
+        $ingredients_image = request('ingredients_image');
+        $barcode_image = request('barcode_image');
+
+        if (!empty($title_image)) {
+            $title_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-title') . '-' . $title_image;
+            Storage::disk('public')->move('bulk_uploads/' . $title_image, $title_image_new_name);
+            $updated_data['title_image'] = $title_image_new_name;
+        }
+
+        if (!empty($nutrition_image)) {
+            $nutrition_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-nutrilabel') . '-' . $nutrition_image;
+            Storage::disk('public')->move('bulk_uploads/' . $nutrition_image, $nutrition_image_new_name);
+            $updated_data['nutrition_label_image'] = $nutrition_image_new_name;
+        }
+
+        if (!empty($ingredients_image)) {
+            $ingredients_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-ingredients') . '-' . $ingredients_image;
+            Storage::disk('public')->move('bulk_uploads/' . $ingredients_image, $ingredients_image_new_name);
+            $updated_data['ingredients_image'] = $ingredients_image_new_name;
+        }
+
+        if (!empty($barcode_image)) {
+            $barcode_image_new_name = Str::slug(now()->format('Y-m-d H:i') . '-barcode') . '-' . $barcode_image;
+            Storage::disk('public')->move('bulk_uploads/' . $barcode_image, $barcode_image_new_name);
+            $updated_data['barcode_image'] = $barcode_image_new_name;
+        }
+
         Food::where('id', $food->id)
-            ->update([
-                'description' => $request->description,
-                'alternate_names' => $request->alternate_names,
-                'calories' => $calories_and_unit['value'],
-                'calories_unit' => $calories_and_unit['unit'],
-                'serving_size' => $serving_size_and_unit['value'],
-                'serving_size_unit' => $serving_size_and_unit['unit'],
-                'servings_per_container' => $request->servings_per_container,
-                'custom_serving_size' => $request->custom_serving_size,
-                'target_age_group' => $request->target_age_group,
-                'origin_country' => $request->origin_country,
-                'allergen_information' => $request->allergen_information,
-                'food_type' => $request->food_type,
-            ]);
+            ->update($updated_data);
+
         
         if ($food->barcode && $request->barcode) {
             

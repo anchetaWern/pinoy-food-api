@@ -28,6 +28,14 @@
         #food-image {
             width: 100%;
         }
+
+        .img-thumbnail {
+            width: 100px;
+        }
+
+        .select-image.selected {
+            border: 2px solid orange;
+        }
     </style>
 </head>
 <body>
@@ -58,7 +66,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="nutrition-tab" data-bs-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition</a>
+                        <a class="nav-link" id="nutrition-tab" data-bs-toggle="tab" href="#tab-nutrition" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition</a>
                     </li>
                     
                     <li class="nav-item">
@@ -71,24 +79,43 @@
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="title">Pick Image</button>
+                        </div>    
+
                         <img src="{{ asset($food->title_image) }}" class="fixed-img">
+
                     </div>
 
-                    <div class="tab-pane fade" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
+                    <div class="tab-pane fade" id="tab-nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="nutrition">Pick Image</button>
+                        </div> 
+
                         <img src="{{ asset($food->nutrition_label_image) }}" class="fixed-img">   
+
                     </div>
 
                     <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="ingredients">Pick Image</button>
+                        </div> 
+
                         @if ($food->ingredients_image)
                         <img src="{{ asset($food->ingredients_image) }}" class="fixed-img">
                         @endif
+
                     </div>
 
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
-                        
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="barcode">Pick Image</button>
+                        </div> 
+
                         @if ($food->barcode_image)
                         <img src="{{ asset($food->barcode_image) }}" class="fixed-img">
                         @endif
+
                     </div>
                 </div>
 
@@ -100,6 +127,11 @@
                         @method('PUT')
                         @csrf
                         <input type="hidden" name="id" id="id" value="{{ $food->id }}">
+
+                        <input type="hidden" name="title_image" id="title_image">
+                        <input type="hidden" name="nutrition_image" id="nutrition_image">
+                        <input type="hidden" name="ingredients_image" id="ingredients_image">
+                        <input type="hidden" name="barcode_image" id="barcode_image">
 
                         <div class="row">
                             <div class="col-8">
@@ -325,6 +357,27 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" id="modal-pick-image">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pick image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    @foreach ($bulk_uploads as $img_src)
+                    <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
+                    @endforeach
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     @include('handlebars.child-row')
 
@@ -347,6 +400,7 @@
         let childRowTemplate = Handlebars.compile($('#child-row-template').html());
         const modal = new bootstrap.Modal('#modal-add-child');
         const modal_image = new bootstrap.Modal('#modal-image');
+        const modal_pick_image = new bootstrap.Modal('#modal-pick-image');
         
 
 
@@ -471,6 +525,33 @@
             console.log('src: ', src);
             $('#food-image').attr('src', src);
             modal_image.show();
+        });
+
+       
+        let selected_image_type = '';
+        $('.select-image').click(function() {
+            $('.select-image').removeClass('selected');
+
+            const src = $(this).data('src').replace('bulk_uploads/', '');
+            
+            $(this).toggleClass('selected');
+
+            $(`#${selected_image_type}_image`).val(src);
+
+            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/' + $(this).data('src'));
+        });
+
+
+        $('.pick-image').click(function() {
+            $('.select-image').removeClass('selected');
+
+            selected_image_type = $(this).data('type');
+
+            const current_image = $(`#${selected_image_type}_image`).val();
+           
+            $(`.select-image[data-src="bulk_uploads/${current_image}"]`).addClass('selected');
+
+            modal_pick_image.show();
         });
     </script>
 </body>
