@@ -90,45 +90,39 @@
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-title" role="tabpanel" aria-labelledby="title-tab">
-                        @if ($food_upload && $food_upload->title_image)
-                            <img src="{{ asset('/storage/' . $food_upload->title_image) }}" class="fixed-img">
-                        @else 
-                            @foreach ($bulk_uploads as $img_src)
-                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
-                            @endforeach
-                        @endif
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="title">Pick Image</button>
+                        </div>
+
+                        <img src="{{ $food_upload && $food_upload->title_image ? asset('/storage/' . $food_upload->title_image) : '' }}" class="fixed-img">
+                       
                     </div>
 
                     <div class="tab-pane fade" id="tab-nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
-                        @if ($food_upload && $food_upload->nutrition_label_image)
-                            <img src="{{ asset('/storage/' . $food_upload->nutrition_label_image) }}" class="fixed-img">
-                        @else 
-                            @foreach ($bulk_uploads as $img_src)
-                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
-                            @endforeach
-                        @endif
-                           
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="nutrition">Pick Image</button>
+                        </div>
+                      
+                        <img src="{{ $food_upload && $food_upload->nutrition_label_image ? asset('/storage/' . $food_upload->nutrition_label_image) : '' }}" class="fixed-img">
+                      
                     </div>
 
                     <div class="tab-pane fade" id="tab-ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        @if ($food_upload && $food_upload->ingredients_image)
-                        <img src="{{ $food_upload ? asset('/storage/' . $food_upload->ingredients_image) : '' }}" class="fixed-img">
-                        @else
-                            @foreach ($bulk_uploads as $img_src)
-                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
-                            @endforeach
-                        @endif
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="ingredients">Pick Image</button>
+                        </div>
+                      
+                        <img src="{{ $food_upload && $food_upload->ingredients_image ? asset('/storage/' . $food_upload->ingredients_image) : '' }}" class="fixed-img">
+                       
                     </div>
 
                     <div class="tab-pane fade" id="tab-barcode" role="tabpanel" aria-labelledby="barcode-tab">
-    
-                        @if ($food_upload && $food_upload->barcode_image)
-                        <img src="{{ asset('/storage/' . $food_upload->barcode_image) }}" class="fixed-img">
-                        @else 
-                            @foreach ($bulk_uploads as $img_src)
-                            <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
-                            @endforeach
-                        @endif
+                        <div class="py-2">
+                            <button class="btn btn-secondary btn-sm pick-image" data-type="barcode">Pick Image</button>
+                        </div>
+                      
+                        <img src="{{ $food_upload && $food_upload->barcode_image ? asset('/storage/' . $food_upload->barcode_image) : '' }}" class="fixed-img">
+                       
                     </div>
                 </div>
 
@@ -374,6 +368,27 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" id="modal-pick-image">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pick image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    @foreach ($bulk_uploads as $img_src)
+                    <img src="{{ asset('storage/' . $img_src) }}" class="img-thumbnail select-image" data-src="{{ $img_src }}">
+                    @endforeach
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('handlebars.child-row')
 
     @include('handlebars.food-types')
@@ -456,8 +471,8 @@
 
         let childRowTemplate = Handlebars.compile($('#child-row-template').html());
         const modal = new bootstrap.Modal('#modal-add-child');
-
         const modal_image = new bootstrap.Modal('#modal-image');
+        const modal_pick_image = new bootstrap.Modal('#modal-pick-image');
 
         $('.add-child').click(function() {
             const self = $(this);
@@ -550,16 +565,30 @@
             modal_image.show();
         }); 
 
+        let selected_image_type = '';
         $('.select-image').click(function() {
-            const src = $(this).data('src').replace('bulk_uploads/', '');
-            const tab_id = $(this).parents('.tab-pane').attr('id');
-           
-            $(`#${tab_id} .select-image`).removeClass('selected');
+            $('.select-image').removeClass('selected');
 
+            const src = $(this).data('src').replace('bulk_uploads/', '');
+            
             $(this).toggleClass('selected');
 
-            const input_id = tab_id.replace('tab-', '');
-            $(`#${input_id}_image`).val(src);
+            $(`#${selected_image_type}_image`).val(src);
+
+            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/' + $(this).data('src'));
+        });
+
+
+        $('.pick-image').click(function() {
+            $('.select-image').removeClass('selected');
+
+            selected_image_type = $(this).data('type');
+
+            const current_image = $(`#${selected_image_type}_image`).val();
+           
+            $(`.select-image[data-src="bulk_uploads/${current_image}"]`).addClass('selected');
+
+            modal_pick_image.show();
         });
     </script>
 </body>
