@@ -575,7 +575,7 @@
 
             $(`#${selected_image_type}_image`).val(src);
 
-            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/' + $(this).data('src'));
+            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/storage/' + $(this).data('src'));
         });
 
 

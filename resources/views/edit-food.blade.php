@@ -520,9 +520,7 @@
         });
 
         $('#myTabContent').on('click', '.fixed-img', function() {
-            console.log('noto');
             const src = $(this).attr('src');
-            console.log('src: ', src);
             $('#food-image').attr('src', src);
             modal_image.show();
         });
@@ -538,7 +536,7 @@
 
             $(`#${selected_image_type}_image`).val(src);
 
-            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/' + $(this).data('src'));
+            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/storage/' + $(this).data('src'));
         });
 
 
