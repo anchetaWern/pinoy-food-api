@@ -257,7 +257,7 @@ class TextRecognitionController extends Controller
                             [
                                 "type" => "image_url",
                                 "image_url" => [ 
-                                    "url" => secure_url($image)
+                                    "url" => secure_url('storage/' . $image)
                                 ]
                             ]
                         ],
