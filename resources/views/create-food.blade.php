@@ -502,12 +502,16 @@
             $('#child_name').val('');
         });
 
+        const url_base = window.location.origin + '/storage/';
+
         $('#read-description').click(function() {
-            const upload_id = $('#id').val();
             const self = $(this);
+            const image = $('#tab-title img').attr('src').replace(url_base, '');
+
+            console.log('title image: ', image);
             
             self.text('Reading..').prop('disabled', true);
-            $.get(`/read-text?source=title&id=${upload_id}`, function(res) {
+            $.get(`/read-text?source=title&image=${image}`, function(res) {
                 console.log('res: ', res);
                 $('#description').val(res);
                 self.text('Read Description').prop('disabled', false);
@@ -516,11 +520,13 @@
         
 
         $('#read-ingredients').click(function() {
-            const upload_id = $('#id').val();
             const self = $(this);
+            const image = $('#tab-ingredients img').attr('src').replace(url_base, '');
+
+            console.log('ingredients image: ', image);
             
             self.text('Reading..').prop('disabled', true);
-            $.get(`/read-text?source=ingredients&id=${upload_id}`, function(res) {
+            $.get(`/read-text?source=ingredients&image=${image}`, function(res) {
                 console.log('res: ', res);
                 $('#ingredients').val(res);
                 self.text('Read Ingredients').prop('disabled', false);
@@ -537,9 +543,12 @@
 
         $('#read-nutrients').click(function() {
             const self = $(this);
-            const id = $('#id').val();
+            const image = $('#tab-nutrition img').attr('src').replace(url_base, '');
+
+            console.log('nutrients image: ', image);
+           
             self.text('Reading..').prop('disabled', true);
-            $.get(`/read-text?source=nutrients&id=${id}`, function(res) {
+            $.get(`/read-text?source=nutrients&image=${image}`, function(res) {
                 console.log('res: ', res);
                 
                 $('#nutrition_json').val(JSON.stringify(res));
@@ -575,7 +584,7 @@
 
             $(`#${selected_image_type}_image`).val(src);
 
-            $(`#tab-${selected_image_type} .fixed-img`).attr('src', '/storage/' + $(this).data('src'));
+            $(`#tab-${selected_image_type} .fixed-img`).attr('src', window.location.origin + '/storage/' + $(this).data('src'));
         });
 
 
