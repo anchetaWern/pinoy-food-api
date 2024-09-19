@@ -23,17 +23,13 @@ class ValidateCreateFoodRequest extends FormRequest
     {
         return [
             'description' => 'required', 
-            'calories' => 'required|numeric',
-            'calories_unit' => 'required|in:kcal,cal,kj,j',
+            'calories' => 'nullable|numeric',
+            'calories_unit' => 'nullable|in:kcal,cal,kj,j',
             'serving_size' => 'nullable|numeric',
             'serving_size_unit' => 'nullable|in:g,ml,cups,pcs,tsp,tbsp,slices',
             'servings_per_container' => 'nullable|numeric',
             'ingredients' => 'nullable',
-            'nutrients' => 'required|json',
-
-            'target_age_group' => 'required',
             'allergen_information' => 'nullable',
-            'origin_country' => 'required',
         ];
     }
 }
