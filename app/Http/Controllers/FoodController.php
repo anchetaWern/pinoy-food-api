@@ -373,6 +373,7 @@ class FoodController extends Controller
     public function store(ValidateCreateFoodRequest $request)
     {
         $food_data = $request->validated();
+        return $food_data;
 
         $new_food = Food::create($food_data);
       
@@ -415,9 +416,12 @@ class FoodController extends Controller
     {
         $food->load('nutrients', 'type', 'subtype', 'state', 'substate');
 
-        $breadcrumbs = [$food->type->name];
-        if ($food->subtype) {
-            $breadcrumbs[] = $food->subtype->name;
+        $breadcrumbs = [];
+        if ($food->type) {
+            $breadcrumbs = [$food->type->name];
+            if ($food->subtype) {
+                $breadcrumbs[] = $food->subtype->name;
+            }
         }
 
         $food->breadcrumbs = $breadcrumbs;
@@ -427,10 +431,13 @@ class FoodController extends Controller
             $food->hasIngredientsInfo = true;
         }
 
-        $food->age = Food::TARGET_AGE_GROUPS[$food->target_age_group];
+        if ($food->target_age_group) {
+            $food->age = Food::TARGET_AGE_GROUPS[$food->target_age_group];
+        }
+        
         return $food;
     }
-
+    
 
     /**
      * Update the specified resource in storage.

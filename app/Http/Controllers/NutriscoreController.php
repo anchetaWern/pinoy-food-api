@@ -36,7 +36,7 @@ class NutriscoreController extends Controller
         ];
 
 
-        if ($food->serving_size < $serving_size_basis) {
+        if ($food->serving_size < $serving_size_basis && $food->serving_size > 0) {
             $nutrient_multiplier = $serving_size_basis / $food->serving_size;
         }
 
