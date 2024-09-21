@@ -450,7 +450,7 @@ class FoodUploadsController extends Controller
     }
 
 
-    public function update(Food $food, ValidateFoodUpdateRequest $request)
+    public function update(Food $food, Request $request)
     {
         $calories_and_unit = getValueAndUnit($request->calories);
         $serving_size_and_unit = getValueAndUnit($request->serving_size);
@@ -466,8 +466,12 @@ class FoodUploadsController extends Controller
             'custom_serving_size' => $request->custom_serving_size,
             'target_age_group' => $request->target_age_group,
             'origin_country' => $request->origin_country,
+            'ingredients' => $request->ingredients,
             'allergen_information' => $request->allergen_information,
             'food_type' => $request->food_type,
+            'food_subtype' => $request->food_subtype,
+            'food_state' => $request->food_state,
+            'food_substate' => $request->food_substate,
         ];
        
         $title_image = request('title_image');

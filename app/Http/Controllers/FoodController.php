@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ValidateCreateFoodRequest;
-use App\Http\Requests\ValidateUpdateFoodRequest;
 use App\Models\Food;
 use App\Models\FoodNutrient;
 use App\Models\FoodType;
@@ -370,9 +368,9 @@ class FoodController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ValidateCreateFoodRequest $request)
+    public function store(Request $request)
     {
-        $food_data = $request->validated();
+        $food_data = $request->all();
         return $food_data;
 
         $new_food = Food::create($food_data);
@@ -442,9 +440,11 @@ class FoodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ValidateUpdateFoodRequest $request, Food $food)
+    public function update(Request $request, Food $food)
     {   
-        $data = $request->validated();
+        $data = $request->all();
+
+        return $data;
         
         $food->update($data);
 
