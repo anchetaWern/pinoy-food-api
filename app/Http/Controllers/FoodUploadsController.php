@@ -180,6 +180,9 @@ class FoodUploadsController extends Controller
             'food_type' => $data['food_type'],
             'food_subtype' => isset($data['food_subtype']) ? $data['food_subtype'] : null,
 
+            'food_state' => $data['food_state'],
+            'food_substate' => $data['food_substate'], 
+
             'calories' => $calories,
             'calories_unit' => $calories_unit, 
             'serving_size' => $serving_size,
@@ -193,7 +196,7 @@ class FoodUploadsController extends Controller
             'barcode_image' => $barcode_image_new_name,
 
             'target_age_group' => $data['target_age_group'],
-            'country' => $data['origin_country'],
+            'origin_country' => $data['origin_country'],
         ]);
 
         if ($request->has('barcode') && $request->input('barcode') != null) {
