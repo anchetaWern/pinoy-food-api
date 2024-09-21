@@ -470,11 +470,25 @@
         const selected_food_state = $('#food_state').data('selectedfoodstate');
         $('#food_state').val(selected_food_state);
 
+
+        
+
+        //
+        const sub_states = food_states.filter((itm) => {
+            return itm.parent_id == selected_food_state;
+        });
+
+        const food_substates_html = foodSubStatesTemplate({
+            'food_substates': sub_states,
+        });
+
+        $('#food_substate').html(food_substates_html);
+
         const selected_food_substate = $('#food_substate').data('selectedfoodsubstate');
         if (selected_food_substate) {
             $('#food_substate').val(selected_food_substate);
         }
-        
+        //
 
 
         $('#food_state').change(function() {
