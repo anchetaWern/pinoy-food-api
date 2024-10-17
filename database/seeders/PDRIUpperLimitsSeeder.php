@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
-class ReniUpperLimitsSeeder extends Seeder
+class PDRIUpperLimitsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -362,7 +362,7 @@ class ReniUpperLimitsSeeder extends Seeder
 
         foreach ($data as $row) 
         {
-            DB::table('reni_upper_limits')
+            DB::table('pdri_upper_limits')
                 ->insert([
                     'age_from' => $row[0],
                     'age_to' => $row[1],

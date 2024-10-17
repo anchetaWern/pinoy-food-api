@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReniMineralIntake extends Model
+class PDRIMineralIntake extends Model
 {
     use HasFactory;
 
-    public $table = 'reni_minerals_intake';
+    public $table = 'pdri_minerals_intake';
 
     protected $fillable = [
 

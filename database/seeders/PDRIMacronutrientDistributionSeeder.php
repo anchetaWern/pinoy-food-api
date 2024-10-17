@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
-class ReniMacronutrientDistributionSeeder extends Seeder
+class PDRIMacronutrientDistributionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -79,7 +79,7 @@ class ReniMacronutrientDistributionSeeder extends Seeder
         ];
 
         foreach ($data as $row) {
-            DB::table('reni_macronutrient_distribution')
+            DB::table('pdri_macronutrient_distribution')
                 ->insert([
                     'age_from' => $row[0], 
                     'age_to' => $row[1],

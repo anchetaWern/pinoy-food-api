@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReniUpperLimit;
+use App\Models\PDRIAverageRequirement;
 
-class ReniUpperLimitsController extends Controller
+class PDRIAverageRequirementsController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        $query = ReniUpperLimit::query();
+        $query = PDRIAverageRequirement::query();
 
         if ($request->age) {
-            
+                    
             $age = $request->age;
-            $age_type = $request->has('age_type') ? $request->age_type : 'year'; 
+            $age_type = $request->has('age_type') ? $request->age_type : 'year';
 
             return $query
                 ->where('age_type', $age_type)

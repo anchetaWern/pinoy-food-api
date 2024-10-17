@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReniUpperLimit extends Model
+class PDRIUpperLimit extends Model
 {
     use HasFactory;
 
-    public $table = 'reni_upper_limits';
+    public $table = 'pdri_upper_limits';
 
     protected $fillable = [
         'age_from', 'age_to', 'age_type',

@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReniMacronutrientIntake;
+use App\Models\PDRIUpperLimit;
 
-class ReniMacronutrientIntakeController extends Controller
+class PDRIUpperLimitsController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        $query = ReniMacronutrientIntake::query();
+        $query = PDRIUpperLimit::query();
 
         if ($request->age) {
-                    
+            
             $age = $request->age;
-            $age_type = $request->has('age_type') ? $request->age_type : 'year';
+            $age_type = $request->has('age_type') ? $request->age_type : 'year'; 
 
             return $query
                 ->where('age_type', $age_type)

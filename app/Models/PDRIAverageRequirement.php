@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReniAverageRequirement extends Model
+class PDRIAverageRequirement extends Model
 {
     use HasFactory;
 
-    public $table = 'reni_average_requirements';
+    public $table = 'pdri_average_requirements';
 
     protected $fillable = [
         'age_from', 'age_to', 'age_type',

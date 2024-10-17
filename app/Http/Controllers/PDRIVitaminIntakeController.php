@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReniMineralIntake;
+use App\Models\PDRIVitaminIntake;
 
-class ReniMineralIntakeController extends Controller
+class PDRIVitaminIntakeController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        $query = ReniMineralIntake::query();
+        $query = PDRIVitaminIntake::query();
 
         if ($request->age) {
                     

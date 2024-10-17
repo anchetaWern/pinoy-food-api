@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReniVitaminIntake extends Model
+class PDRIVitaminIntake extends Model
 {
     use HasFactory;
 
-    public $table = 'reni_vitamins_intake';
+    public $table = 'pdri_vitamins_intake';
 
     protected $fillable = [
         'age_from', 'age_to', 'age_type',

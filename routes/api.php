@@ -3,13 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
-use App\Http\Controllers\ReniEnergyIntakeController;
-use App\Http\Controllers\ReniMacronutrientDistributionController;
-use App\Http\Controllers\ReniMacronutrientIntakeController;
-use App\Http\Controllers\ReniVitaminIntakeController;
-use App\Http\Controllers\ReniMineralIntakeController;
-use App\Http\Controllers\ReniAverageRequirementsController;
-use App\Http\Controllers\ReniUpperLimitsController;
+use App\Http\Controllers\PDRIEnergyIntakeController;
+use App\Http\Controllers\PDRIMacronutrientDistributionController;
+use App\Http\Controllers\PDRIMacronutrientIntakeController;
+use App\Http\Controllers\PDRIVitaminIntakeController;
+use App\Http\Controllers\PDRIMineralIntakeController;
+use App\Http\Controllers\PDRIAverageRequirementsController;
+use App\Http\Controllers\PDRIUpperLimitsController;
 use App\Http\Controllers\FoodLabelUploadController;
 use App\Http\Controllers\FdaDailyValuesForNutrientsController;
 use App\Http\Controllers\FoodTypesController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\FoodIngredientsController;
 use App\Http\Controllers\NutriscoreController;
 use App\Http\Controllers\BulkUploadController;
 use App\Http\Controllers\AdditivesController;
+use App\Http\Controllers\AdditiveFunctionsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,13 +37,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // Routes that should have a rate limit of 5 requests per minute
 
     Route::resource('foods', FoodController::class);
-    Route::get('reni-energy-intake', ReniEnergyIntakeController::class);
-    Route::get('reni-macro-intake-distribution', ReniMacronutrientDistributionController::class);
-    Route::get('reni-recommended-macro-intake', ReniMacronutrientIntakeController::class);
-    Route::get('reni-recommended-vitamin-intake', ReniVitaminIntakeController::class);
-    Route::get('reni-recommended-mineral-intake', ReniMineralIntakeController::class);
-    Route::get('reni-avg-requirements', ReniAverageRequirementsController::class);
-    Route::get('reni-upper-limits', ReniUpperLimitsController::class);
+    Route::get('pdri-energy-intake', PDRIEnergyIntakeController::class);
+    Route::get('pdri-macro-intake-distribution', PDRIMacronutrientDistributionController::class);
+    Route::get('pdri-recommended-macro-intake', PDRIMacronutrientIntakeController::class);
+    Route::get('pdri-recommended-vitamin-intake', PDRIVitaminIntakeController::class);
+    Route::get('pdri-recommended-mineral-intake', PDRIMineralIntakeController::class);
+    Route::get('pdri-avg-requirements', PDRIAverageRequirementsController::class);
+    Route::get('pdri-upper-limits', PDRIUpperLimitsController::class);
 
     Route::get('fda-daily-nutrient-values', FdaDailyValuesForNutrientsController::class);
 
@@ -53,6 +54,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('nutriscore/{food}', NutriscoreController::class);
 
     Route::resource('additives', AdditivesController::class);
+    Route::resource('additive-function', AdditiveFunctionsController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);

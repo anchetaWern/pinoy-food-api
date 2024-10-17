@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
-class ReniAverageRequirementsSeeder extends Seeder
+class PDRIAverageRequirementsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -280,7 +280,7 @@ class ReniAverageRequirementsSeeder extends Seeder
         ];
 
         foreach ($data as $row) {
-            DB::table('reni_average_requirements')
+            DB::table('pdri_average_requirements')
                 ->insert([
                     'age_from' => $row[0],
                     'age_to' => $row[1],

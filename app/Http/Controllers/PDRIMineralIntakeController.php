@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ReniEnergyIntake;
+use App\Models\PDRIMineralIntake;
 
-class ReniEnergyIntakeController extends Controller
+class PDRIMineralIntakeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        $query = ReniEnergyIntake::query();
+        $query = PDRIMineralIntake::query();
 
         if ($request->age) {
-            
+                    
             $age = $request->age;
             $age_type = $request->has('age_type') ? $request->age_type : 'year';
 

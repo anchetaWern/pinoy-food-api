@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ReniEnergyIntake extends Model
+class PDRIEnergyIntake extends Model
 {
     use HasFactory;
 
-    public $table = 'reni_energy_intake';
+    public $table = 'pdri_energy_intake';
 
     protected $fillable = [
         'age_from',
