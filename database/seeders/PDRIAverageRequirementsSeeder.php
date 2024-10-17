@@ -290,7 +290,7 @@ class PDRIAverageRequirementsSeeder extends Seeder
                     'female_protein' => $row[4],
                     
                     'male_vitamin_a' => $row[5],
-                    'femaale_vitamin_a' => $row[6],
+                    'female_vitamin_a' => $row[6],
             
                     'male_thiamin' => $row[7],
                     'female_thiamin' => $row[8],
