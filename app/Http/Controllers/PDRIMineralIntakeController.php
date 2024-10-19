@@ -14,20 +14,39 @@ class PDRIMineralIntakeController extends Controller
     {
         $query = PDRIMineralIntake::query();
 
+        $gender = $request->has('gender') ? $request->gender : null;
+        
+
         if ($request->age) {
                     
             $age = $request->age;
             $age_type = $request->has('age_type') ? $request->age_type : 'year';
-
-            return $query
+            
+            $res = $query
                 ->where('age_type', $age_type)
                 ->where('age_from', '<=', $age)
                 ->where(function ($query) use ($age) {
                     $query->where('age_to', '>=', $age)
                         ->orWhereNull('age_to');
-                })
-                ->first();
+                });
+
+            if ($gender) {
+                $res = $res->select(array_merge(
+                    PDRIMineralIntake::UNGENDERED_FIELDS,
+                    $gender === 'male' ? PDRIMineralIntake::MALE_FIELDS : PDRIMineralIntake::FEMALE_FIELDS
+                ));
+            }
+
+            return $res->first();
             
+        }
+
+        if ($gender) {
+            return $query->select(array_merge(
+                PDRIMineralIntake::UNGENDERED_FIELDS,
+                $gender === 'male' ? PDRIMineralIntake::MALE_FIELDS : PDRIMineralIntake::FEMALE_FIELDS
+            ))
+            ->get();
         }
 
         return $query->get();

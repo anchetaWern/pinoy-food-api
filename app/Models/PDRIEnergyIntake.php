@@ -31,4 +31,20 @@ class PDRIEnergyIntake extends Model
         'female_energy_req_in_kcal',
     ];
 
+    public const MALE_FIELDS = [
+        'male_weight_in_kg',
+        'male_energy_req_in_kcal',
+    ];
+
+    public const FEMALE_FIELDS = [
+        'female_weight_in_kg',
+        'female_energy_req_in_kcal',
+    ];
+
+    public const UNGENDERED_FIELDS = [
+        'age_from',
+        'age_to',
+        'age_type',
+    ];
+
 }

@@ -16,8 +16,8 @@ class PDRIMacronutrientIntake extends Model
         'age_to',
         'age_type',
 
-        'protein_from_in_grams',
-        'protein_to_in_grams',
+        'male_protein_in_grams',
+        'female_protein_in_grams',
 
         'linolenic_acid',
         'linoleic_acid',
@@ -34,8 +34,8 @@ class PDRIMacronutrientIntake extends Model
         'age_to',
         'age_type',
 
-        'protein_from_in_grams',
-        'protein_to_in_grams',
+        'male_protein_in_grams',
+        'female_protein_in_grams',
 
         'linolenic_acid',
         'linoleic_acid',
@@ -45,5 +45,23 @@ class PDRIMacronutrientIntake extends Model
 
         'male_water_in_ml',
         'female_water_in_ml',
+    ];
+
+    public const MALE_FIELDS = [
+        'male_protein_in_grams',
+        'male_water_in_ml', 
+    ];
+
+    public const FEMALE_FIELDS = [
+        'female_protein_in_grams',
+        'female_water_in_ml', 
+    ];
+
+    public const UNGENDERED_FIELDS = [
+        'age_type',
+        'age_from',
+        'age_to',
+        'linolenic_acid', 'linoleic_acid',
+        'fiber_from_in_grams', 'fiber_to_in_grams'
     ];
 }

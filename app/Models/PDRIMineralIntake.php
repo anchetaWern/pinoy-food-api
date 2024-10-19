@@ -59,4 +59,33 @@ class PDRIMineralIntake extends Model
         'chloride',
         'potassium',
     ];
+
+    public const MALE_FIELDS = [
+        'male_iron',
+        'male_zinc',
+        'male_selenium',
+        'male_iodine',
+        'male_calcium',
+        'male_magnesium',
+        'male_phosphorus',
+        'male_fluoride',
+    ];
+
+    public const FEMALE_FIELDS = [
+        'female_iron',
+        'female_zinc',
+        'female_selenium',
+        'female_iodine',
+        'female_calcium',
+        'female_magnesium',
+        'female_phosphorus',
+        'female_fluoride',
+    ];
+
+    public const UNGENDERED_FIELDS = [
+        'age_from', 'age_to', 'age_type',
+        'sodium',
+        'chloride',
+        'potassium',
+    ];
 }
