@@ -10,6 +10,8 @@ use App\Http\Controllers\PDRIVitaminIntakeController;
 use App\Http\Controllers\PDRIMineralIntakeController;
 use App\Http\Controllers\PDRIAverageRequirementsController;
 use App\Http\Controllers\PDRIUpperLimitsController;
+use App\Http\Controllers\ConsolidatedRecommendedDailyNutrientIntakeController;
+
 use App\Http\Controllers\FoodLabelUploadController;
 use App\Http\Controllers\FdaDailyValuesForNutrientsController;
 use App\Http\Controllers\FoodTypesController;
@@ -37,7 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // Routes that should have a rate limit of 5 requests per minute
 
     Route::resource('foods', FoodController::class);
-    Route::get('pdri-energy-intake', PDRIEnergyIntakeController::class);
+    Route::get('pdri-recommended-energy-intake', PDRIEnergyIntakeController::class);
     Route::get('pdri-macro-intake-distribution', PDRIMacronutrientDistributionController::class);
     Route::get('pdri-recommended-macro-intake', PDRIMacronutrientIntakeController::class);
     Route::get('pdri-recommended-vitamin-intake', PDRIVitaminIntakeController::class);
@@ -45,6 +47,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('pdri-avg-requirements', PDRIAverageRequirementsController::class);
     Route::get('pdri-upper-limits', PDRIUpperLimitsController::class);
 
+    Route::get('consolidated-recommended-daily-nutrient-intake', ConsolidatedRecommendedDailyNutrientIntakeController::class);
     Route::get('fda-daily-nutrient-values', FdaDailyValuesForNutrientsController::class);
 
     Route::get('food-types', FoodTypesController::class);
