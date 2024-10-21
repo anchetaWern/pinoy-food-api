@@ -56,7 +56,7 @@ class ConsolidatedRecommendedDailyNutrientIntakeController extends Controller
             ["nutrient" => "vitamin d", "daily_value" => $vitamin_data->male_vitamin_a, "unit" => "µg"], // microgram
             ["nutrient" => "vitamin e", "daily_value" => $vitamin_data->male_vitamin_e, "unit" => "mg α-TE"],
             ["nutrient" => "vitamin k", "daily_value" => $vitamin_data->male_vitamin_k, "unit" => "µg"], // microgram
-            ["nutrient" => "zinc", "daily_value" => $average_requirements_data->male_zinc, "unit" => "g"]
+            ["nutrient" => "zinc", "daily_value" => $average_requirements_data->male_zinc, "unit" => "mg"]
         ];
         
         return $daily_values;
