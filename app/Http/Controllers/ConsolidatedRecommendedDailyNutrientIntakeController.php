@@ -53,7 +53,7 @@ class ConsolidatedRecommendedDailyNutrientIntakeController extends Controller
             ["nutrient" => "vitamin b6", "daily_value" => $average_requirements_data->male_pyridoxine, "unit" => "mg"], // pyridoxine
             ["nutrient" => "vitamin b12", "daily_value" => $average_requirements_data->male_cobalamin, "unit" => "µg"], // cobalamin
             ["nutrient" => "vitamin c", "daily_value" => $average_requirements_data->male_vitamin_c, "unit" => "mg"],
-            ["nutrient" => "vitamin d", "daily_value" => $vitamin_data->male_vitamin_a, "unit" => "µg"], // microgram
+            ["nutrient" => "vitamin d", "daily_value" => $vitamin_data->male_vitamin_d, "unit" => "µg"], // microgram
             ["nutrient" => "vitamin e", "daily_value" => $vitamin_data->male_vitamin_e, "unit" => "mg α-TE"],
             ["nutrient" => "vitamin k", "daily_value" => $vitamin_data->male_vitamin_k, "unit" => "µg"], // microgram
             ["nutrient" => "zinc", "daily_value" => $average_requirements_data->male_zinc, "unit" => "mg"]
