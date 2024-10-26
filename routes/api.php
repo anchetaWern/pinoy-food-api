@@ -20,6 +20,9 @@ use App\Http\Controllers\NutriscoreController;
 use App\Http\Controllers\BulkUploadController;
 use App\Http\Controllers\AdditivesController;
 use App\Http\Controllers\AdditiveFunctionsController;
+
+use App\Http\Controllers\ReniVitaminIntakeController;
+use App\Http\Controllers\ReniMineralIntakeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -58,6 +61,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::resource('additives', AdditivesController::class);
     Route::resource('additive-function', AdditiveFunctionsController::class);
+
+    Route::get('reni-vitamin-intake', ReniVitaminIntakeController::class);
+    Route::get('reni-mineral-intake', ReniMineralIntakeController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
