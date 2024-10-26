@@ -82,6 +82,8 @@ class FoodUploadsController extends Controller
             'excluded_top_level' => $excluded_top_level,
             'remaining' => $remaining,
             'food_count' => $food_count,
+            'daily_values_ref' => Food::DAILY_VALUES_REF,
+            'default_daily_values_ref' => Food::DEFAULT_DAILY_VALUES_REF,
             'target_age_groups' => $target_age_groups, 
             'default_age_group' => Food::DEFAULT_AGE_GROUP,
             'food_types' => $food_types,
@@ -195,6 +197,7 @@ class FoodUploadsController extends Controller
             'ingredients_image' => $ingredients_image_new_name,
             'barcode_image' => $barcode_image_new_name,
 
+            'daily_values_reference' => $data['daily_values_reference'],
             'target_age_group' => $data['target_age_group'],
             'origin_country' => $data['origin_country'],
         ]);
@@ -443,6 +446,8 @@ class FoodUploadsController extends Controller
             'food_nutrients' => $food_nutrients,
             'nutrients' => $nutrients,
             'excluded_top_level' => $excluded_top_level,
+            'daily_values_ref' => Food::DAILY_VALUES_REF,
+            'default_daily_values_ref' => Food::DEFAULT_DAILY_VALUES_REF,
             'target_age_groups' => $target_age_groups,
             'default_age_group' => Food::DEFAULT_AGE_GROUP,
             'food_types' => $food_types, 
@@ -467,6 +472,7 @@ class FoodUploadsController extends Controller
             'serving_size_unit' => $serving_size_and_unit['unit'],
             'servings_per_container' => $request->servings_per_container,
             'custom_serving_size' => $request->custom_serving_size,
+            'daily_values_reference' => $request->daily_values_reference,
             'target_age_group' => $request->target_age_group,
             'origin_country' => $request->origin_country,
             'ingredients' => $request->ingredients,

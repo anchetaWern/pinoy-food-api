@@ -47,6 +47,7 @@ class Food extends Model
         'ingredients',
         'allergen_information',
         'barcode_image',
+        'daily_values_reference',
         'target_age_group',
         'origin_country',
     ];
@@ -59,6 +60,13 @@ class Food extends Model
         'id',
         'deleted_at',
     ];
+
+    public const DAILY_VALUES_REF = [
+        'reni_2002',
+        'pdri_2015',
+    ];
+
+    public const DEFAULT_DAILY_VALUES_REF = 'reni_2002';
 
     public const TARGET_AGE_GROUPS = [
         'infants' => [0, 12, 'month'],

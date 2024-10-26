@@ -249,6 +249,17 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="mt-2 mb-3">
+                                    <label for="daily_values_reference" class="form-label">Daily Values Reference</label>
+                                    <select class="form-select" name="daily_values_reference" id="daily_values_reference">
+                                        @foreach($daily_values_ref as $df_ref)
+                                        <option value="{{ $df_ref }}" {{ $df_ref === old('daily_values_reference', $food->daily_values_reference) ? 'selected' : '' }}>{{ $df_ref }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
                                     <label for="target_age_group" class="form-label">Target age group</label>
                                     <select class="form-select" name="target_age_group" id="target_age_group">
                                         @foreach($target_age_groups as $group)
