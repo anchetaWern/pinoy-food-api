@@ -8,6 +8,7 @@ use App\Models\PDRIEnergyIntake;
 use App\Models\PDRIMacronutrientIntake;
 use App\Models\PDRIMineralIntake;
 use App\Models\PDRIVitaminIntake;
+use App\Models\FdaDailyValuesForNutrient;
 
 class ConsolidatedRecommendedDailyNutrientIntakeController extends Controller
 {
@@ -19,16 +20,30 @@ class ConsolidatedRecommendedDailyNutrientIntakeController extends Controller
         $vitamin_data = $this->getVitaminData($request);
         $mineral_data = $this->getMineralData($request);
 
+        $fda_daily_values = $this->getFdaDailyValues();
+
+        $sugar = $this->findFdaDailyValue($fda_daily_values, 'sugar');
+        $biotin = $this->findFdaDailyValue($fda_daily_values, 'biotin');
+        $choline = $this->findFdaDailyValue($fda_daily_values, 'choline');
+        $cholesterol = $this->findFdaDailyValue($fda_daily_values, 'cholesterol');
+        $chromium = $this->findFdaDailyValue($fda_daily_values, 'chromium');
+        $copper = $this->findFdaDailyValue($fda_daily_values, 'copper');
+        $total_fat = $this->findFdaDailyValue($fda_daily_values, 'total fat');
+        $manganese = $this->findFdaDailyValue($fda_daily_values, 'manganese');
+        $molybdenum = $this->findFdaDailyValue($fda_daily_values, 'molybdenum');
+        $vitamin_b5 = $this->findFdaDailyValue($fda_daily_values, 'vitamin b5');
+        $saturated_fat = $this->findFdaDailyValue($fda_daily_values, 'saturated fat');
+
         $daily_values = [
             ["nutrient" => "calories", "daily_value" => $calorie_data->male_energy_req_in_kcal, "unit" => "kcal"],
-            ["nutrient" => "sugar", "daily_value" => 50, "unit" => "g"],
-            ["nutrient" => "biotin", "daily_value" => 30, "unit" => "mcg"],
+            ["nutrient" => "sugar", "daily_value" => $sugar->daily_value, "unit" => $sugar->unit],
+            ["nutrient" => "biotin", "daily_value" => $biotin->daily_value, "unit" => $biotin->unit],
             ["nutrient" => "calcium", "daily_value" => $average_requirements_data->male_calcium, "unit" => "mg"],
             ["nutrient" => "chloride", "daily_value" => $mineral_data->chloride, "unit" => "mg"],
-            ["nutrient" => "choline", "daily_value" => 550, "unit" => "mg"],
-            ["nutrient" => "cholesterol", "daily_value" => 300, "unit" => "mg"],
-            ["nutrient" => "chromium", "daily_value" => 35, "unit" => "mcg"],
-            ["nutrient" => "copper", "daily_value" => 0.9, "unit" => "mg"],
+            ["nutrient" => "choline", "daily_value" => $choline->daily_value, "unit" => $choline->unit],
+            ["nutrient" => "cholesterol", "daily_value" => $cholesterol->daily_value, "unit" => $cholesterol->unit],
+            ["nutrient" => "chromium", "daily_value" => $chromium->daily_value, "unit" => $chromium->unit],
+            ["nutrient" => "copper", "daily_value" => $copper->daily_value, "unit" => $copper->unit],
             ["nutrient" => "dietary fiber", "daily_value" => $macronutrient_data->fiber_from_in_grams, "unit" => "g"],
             ["nutrient" => "fluoride", "daily_value" => $mineral_data->male_fluoride, "unit" => "mg"],
             ["nutrient" => "total fat", "daily_value" => 42.16, "unit" => "g"],
@@ -36,15 +51,15 @@ class ConsolidatedRecommendedDailyNutrientIntakeController extends Controller
             ["nutrient" => "iodine", "daily_value" => $average_requirements_data->male_iodine, "unit" => "mcg"],
             ["nutrient" => "iron", "daily_value" => $average_requirements_data->male_iron, "unit" => "mg"],
             ["nutrient" => "magnesium", "daily_value" => $mineral_data->male_magnesium, "unit" => "mg"],
-            ["nutrient" => "manganese", "daily_value" => 2.3, "unit" => "mg"],
-            ["nutrient" => "molybdenum", "daily_value" => 45, "unit" => "mcg"],
+            ["nutrient" => "manganese", "daily_value" => $manganese->daily_value, "unit" => $manganese->unit],
+            ["nutrient" => "molybdenum", "daily_value" => $molybdenum->daily_value, "unit" => $molybdenum->unit],
             ["nutrient" => "vitamin b3", "daily_value" => $average_requirements_data->male_niacin, "unit" => "mgNE"], // niacin
-            ["nutrient" => "vitamin b5", "daily_value" => 5, "unit" => "mg"], // pantothenic acid
+            ["nutrient" => "vitamin b5", "daily_value" => $vitamin_b5->daily_value, "unit" => $vitamin_b5->unit], // pantothenic acid
             ["nutrient" => "phosphorus", "daily_value" => $average_requirements_data->male_phosphorus, "unit" => "mg"],
             ["nutrient" => "potassium", "daily_value" => $mineral_data->potassium, "unit" => "mg"],
             ["nutrient" => "protein", "daily_value" => $average_requirements_data->male_protein, "unit" => "g"],
             ["nutrient" => "vitamin b2", "daily_value" => $average_requirements_data->male_riboflavin, "unit" => "mg"], // riboflavin
-            ["nutrient" => "saturated fat", "daily_value" => 20, "unit" => "g"],
+            ["nutrient" => "saturated fat", "daily_value" => $saturated_fat->daily_value, "unit" => $saturated_fat->unit],
             ["nutrient" => "selenium", "daily_value" => $average_requirements_data->male_selenium, "unit" => "mcg"],
             ["nutrient" => "sodium", "daily_value" => $mineral_data->sodium, "unit" => "mg"],
             ["nutrient" => "vitamin b1", "daily_value" => $average_requirements_data->male_thiamin, "unit" => "mg"], // thiamine
@@ -60,6 +75,20 @@ class ConsolidatedRecommendedDailyNutrientIntakeController extends Controller
         ];
         
         return $daily_values;
+    }
+
+
+    private function getFdaDailyValues()
+    {
+        $fda_daily_values = FdaDailyValuesForNutrient::get();
+        return $fda_daily_values;
+    }
+
+    private function findFdaDailyValue($values, $name)
+    {
+        return $values->first(function($item) use ($name) {
+            return $item->nutrient === $name;
+        });
     }
 
 
