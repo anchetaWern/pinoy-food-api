@@ -23,6 +23,8 @@ use App\Http\Controllers\AdditiveFunctionsController;
 
 use App\Http\Controllers\ReniVitaminIntakeController;
 use App\Http\Controllers\ReniMineralIntakeController;
+
+use App\Http\Controllers\CustomServingsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -64,6 +66,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::get('reni-vitamin-intake', ReniVitaminIntakeController::class);
     Route::get('reni-mineral-intake', ReniMineralIntakeController::class);
+
+    Route::get('custom-servings/{custom_serving_category}', CustomServingsController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
