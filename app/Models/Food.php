@@ -279,21 +279,4 @@ class Food extends Model
         return $this->hasOne(FoodBarcode::class);
     }
     
-
-    public function nutriscoreNutrients()
-    {
-        return $this->hasMany(FoodNutrient::class, 'food_id')
-            ->whereIn('name', [
-                'saturated fat',
-                'sodium',
-                'protein',
-                'dietary fiber',
-
-                // note: there's no distinction in the database between complex and simple carbs. 
-                // fruits and veggies also have simple carbs 
-                // and food labels don't usually distinguish between simple and complex carbs
-                // so for now, they're all considered as the same evil sugar
-                'sugar', 
-            ]);
-    }
 }
