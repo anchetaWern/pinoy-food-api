@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('long_name')->nullable();
+            $table->float('weight')->nullable();
+            $table->char('weight_unit')->nullable();
         });
     }
 

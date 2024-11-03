@@ -14,5 +14,7 @@ class ServingUnit extends Model
     protected $fillable = [
         'name',
         'long_name',
+        'weight',
+        'weight_unit',
     ];
 }
