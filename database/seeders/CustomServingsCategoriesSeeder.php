@@ -230,41 +230,47 @@ class CustomServingsCategoriesSeeder extends Seeder
             ->insertGetId([
                 'name' => 'saucer',
             ]);    
+        $pewee_egg_id = DB::table('serving_units')
+            ->insertGetId([
+                'name' => 'pewee egg',
+                'weight' => 41,
+                'weight_unit' => 'g',
+            ]);
+        $extra_small_egg_id = DB::table('serving_units')
+            ->insertGetId([
+                'name' => 'extra small egg',
+                'weight' => 45,
+                'weight_unit' => 'g',
+            ]);
         $small_egg_id = DB::table('serving_units')
             ->insertGetId([
                 'name' => 'small egg',
+                'weight' => 51,
+                'weight_unit' => 'g',
             ]);
         $medium_egg_id = DB::table('serving_units')
             ->insertGetId([
                 'name' => 'medium egg',
+                'weight' => 56,
+                'weight_unit' => 'g',
             ]);
         $large_egg_id = DB::table('serving_units')
             ->insertGetId([
                 'name' => 'large egg',
+                'weight' => 61,
+                'weight_unit' => 'g',
             ]);
         $extra_large_egg_id = DB::table('serving_units')
             ->insertGetId([
                 'name' => 'extra large egg',
+                'weight' => 66,
+                'weight_unit' => 'g',
             ]);
         $jumbo_egg_id = DB::table('serving_units')
             ->insertGetId([
                 'name' => 'jumbo egg',
-            ]);
-        $dozen_id = DB::table('serving_units')
-            ->insertGetId([
-                'name' => 'dozen',
-            ]);
-        $half_dozen_id = DB::table('serving_units')
-            ->insertGetId([
-                'name' => 'half dozen',
-            ]);
-        $carton_id = DB::table('serving_units')
-            ->insertGetId([
-                'name' => 'carton',
-            ]);
-        $tray_id = DB::table('serving_units')
-            ->insertGetId([
-                'name' => 'tray',
+                'weight' => 71,
+                'weight_unit' => 'g',
             ]);
 
         $small_cup_id = DB::table('serving_units')
@@ -724,6 +730,14 @@ class CustomServingsCategoriesSeeder extends Seeder
             // eggs
             [
                 "custom_servings_category_id" => $eggs_id,
+                "serving_unit_id" => $pewee_egg_id,
+            ],
+            [
+                "custom_servings_category_id" => $eggs_id,
+                "serving_unit_id" => $extra_small_egg_id,
+            ],
+            [
+                "custom_servings_category_id" => $eggs_id,
                 "serving_unit_id" => $small_egg_id,
             ],
             [
@@ -741,22 +755,6 @@ class CustomServingsCategoriesSeeder extends Seeder
             [
                 "custom_servings_category_id" => $eggs_id,
                 "serving_unit_id" => $jumbo_egg_id,
-            ],
-            [
-                "custom_servings_category_id" => $eggs_id,
-                "serving_unit_id" => $dozen_id,
-            ],
-            [
-                "custom_servings_category_id" => $eggs_id,
-                "serving_unit_id" => $half_dozen_id,
-            ],
-            [
-                "custom_servings_category_id" => $eggs_id,
-                "serving_unit_id" => $tray_id,
-            ],
-            [
-                "custom_servings_category_id" => $eggs_id,
-                "serving_unit_id" => $carton_id,
             ],
             
         
