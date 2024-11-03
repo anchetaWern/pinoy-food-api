@@ -13,6 +13,7 @@ use App\Models\FoodBarcode;
 use App\Models\FoodType;
 use App\Models\Ingredient;
 use App\Models\FoodIngredient;
+use App\Models\CustomServingsCategory;
 
 class Food extends Model
 {
@@ -278,5 +279,10 @@ class Food extends Model
     {
         return $this->hasOne(FoodBarcode::class);
     }
-    
+
+
+    public function customServingsCategory()
+    {
+        return $this->hasOne(CustomServingsCategory::class, 'id', 'custom_servings_category_id');
+    }
 }

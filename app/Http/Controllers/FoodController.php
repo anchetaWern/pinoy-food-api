@@ -371,7 +371,7 @@ class FoodController extends Controller
     public function store(Request $request)
     {
         $food_data = $request->all();
-        return $food_data;
+        // return $food_data;
 
         $new_food = Food::create($food_data);
       
@@ -412,7 +412,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        $food->load('nutrients', 'type', 'subtype', 'state', 'substate');
+        $food->load('nutrients', 'type', 'subtype', 'state', 'substate', 'customServingsCategory.servingUnits');
 
         $breadcrumbs = [];
         if ($food->type) {
