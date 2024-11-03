@@ -18,10 +18,7 @@ class CustomServingsCategory extends Model
         'slug'
     ];
 
-    public function getRouteKeyName() {
-        return 'slug';
-    }
-
+    
     public function servingUnits()
     {
         return $this->belongsToMany(
@@ -30,5 +27,6 @@ class CustomServingsCategory extends Model
             'custom_servings_category_id',
             'serving_unit_id'
         );
-    }
+    } 
+    
 }
