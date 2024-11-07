@@ -33,6 +33,8 @@ class Food extends Model
         'food_state',
         'food_substate',
 
+        'food_density_id',
+
         'custom_id',
         'calories',
         'calories_unit',
