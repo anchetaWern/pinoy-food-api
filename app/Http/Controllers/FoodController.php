@@ -412,7 +412,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        $food->load('nutrients', 'type', 'subtype', 'state', 'substate', 'customServingsCategory.servingUnits');
+        $food->load('nutrients', 'type', 'subtype', 'state', 'substate', 'customServings.servingUnits');
 
         $breadcrumbs = [];
         if ($food->type) {

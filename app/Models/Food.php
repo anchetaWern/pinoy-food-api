@@ -13,7 +13,7 @@ use App\Models\FoodBarcode;
 use App\Models\FoodType;
 use App\Models\Ingredient;
 use App\Models\FoodIngredient;
-use App\Models\CustomServingsCategory;
+use App\Models\CustomServings;
 
 class Food extends Model
 {
@@ -28,6 +28,9 @@ class Food extends Model
         'alternate_names',
         'summary', // ai summary
         'brand',
+
+        'custom_servings_id',
+        
         'food_type',
         'food_subtype',
         'food_state',
@@ -283,8 +286,8 @@ class Food extends Model
     }
 
 
-    public function customServingsCategory()
+    public function customServings()
     {
-        return $this->hasOne(CustomServingsCategory::class, 'id', 'custom_servings_category_id');
+        return $this->hasOne(CustomServings::class, 'id', 'custom_servings_id');
     }
 }

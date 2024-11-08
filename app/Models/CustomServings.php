@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ServingUnit;
-use App\Models\CustomServingsCategoryUnit;
+use App\Models\CustomServingsUnit;
 
-class CustomServingsCategory extends Model
+class CustomServings extends Model
 {
     use HasFactory;
 
-    public $table = 'custom_servings_categories';
+    public $table = 'custom_servings';
 
     protected $fillable = [
         'name',
@@ -23,8 +23,8 @@ class CustomServingsCategory extends Model
     {
         return $this->belongsToMany(
             ServingUnit::class,  
-            CustomServingsCategoryUnit::class,
-            'custom_servings_category_id',
+            CustomServingsUnit::class,
+            'custom_servings_id',
             'serving_unit_id'
         );
     } 
