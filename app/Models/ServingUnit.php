@@ -11,6 +11,8 @@ class ServingUnit extends Model
 
     public $table = 'serving_units';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'long_name',

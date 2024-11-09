@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ServingUnit;
 use App\Models\CustomServingsUnit;
 
-class CustomServings extends Model
+class CustomServing extends Model
 {
     use HasFactory;
 
     public $table = 'custom_servings';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'name',

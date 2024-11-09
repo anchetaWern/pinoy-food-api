@@ -11,6 +11,8 @@ class CustomServingsUnit extends Model
 
     public $table = 'custom_servings_units';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'custom_servings_id',
         'serving_unit_id',
