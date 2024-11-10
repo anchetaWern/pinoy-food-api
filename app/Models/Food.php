@@ -14,6 +14,7 @@ use App\Models\FoodType;
 use App\Models\Ingredient;
 use App\Models\FoodIngredient;
 use App\Models\CustomServing;
+use App\Models\FoodDensity;
 
 class Food extends Model
 {
@@ -289,5 +290,11 @@ class Food extends Model
     public function customServings()
     {
         return $this->hasOne(CustomServing::class, 'id', 'custom_servings_id');
+    }
+
+    
+    public function density()
+    {
+        return $this->hasOne(FoodDensity::class, 'id', 'food_density_id');
     }
 }
