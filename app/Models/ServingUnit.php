@@ -18,5 +18,6 @@ class ServingUnit extends Model
         'long_name',
         'weight',
         'weight_unit',
+        'volume_in_ml',
     ];
 }
