@@ -82,7 +82,7 @@
             { data: 'ingredients_image', name: 'ingredients_image' },
             { data: 'barcode_image', name: 'barcode_image' },
             { data: 'id', name: 'id' },
-            { data: 'id2', name: 'id2' },
+            { data: 'id2', name: 'id' },
             { data: 'created_at', name: 'created_at' },
         ],
         order: [[4, "desc"]],
