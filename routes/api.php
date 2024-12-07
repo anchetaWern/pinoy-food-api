@@ -25,6 +25,7 @@ use App\Http\Controllers\ReniVitaminIntakeController;
 use App\Http\Controllers\ReniMineralIntakeController;
 
 use App\Http\Controllers\CustomServingsController;
+use App\Http\Controllers\FAONutrientContentClaimsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,6 +69,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('reni-mineral-intake', ReniMineralIntakeController::class);
 
     Route::get('custom-servings/{custom_serving_category}', CustomServingsController::class);
+
+    Route::get('fao-nutrient-content-claims', FAONutrientContentClaimsController::class);
 // });
 
 Route::post('food-labels', FoodLabelUploadController::class);
