@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\FAONutrientReferenceValue;
+use App\Models\FAONutrientConditionsReferenceValue;
 
 class FAONutrientContentClaimsCondition extends Model
 {
@@ -20,4 +22,18 @@ class FAONutrientContentClaimsCondition extends Model
       
         'additional_condition_id',
     ];
+
+
+    public function referenceValues()
+    {
+        return $this->hasManyThrough(
+            FAONutrientReferenceValue::class, 
+            FAONutrientConditionsReferenceValue::class, 
+
+            'claim_id',
+            'id', 
+            'id',
+            'reference_id' 
+        );
+    }
 }
