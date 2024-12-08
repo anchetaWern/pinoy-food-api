@@ -23,6 +23,18 @@ class FAONutrientContentClaimsCondition extends Model
         'additional_condition_id',
     ];
 
+    protected $visible = [
+        'id',
+        'component',
+        'claim',
+        'food_state',
+        'condition',
+        'condition_type',
+      
+        'additional_condition_id',
+        'referenceValues',
+    ];
+
 
     public function referenceValues()
     {

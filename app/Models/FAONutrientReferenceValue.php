@@ -16,4 +16,11 @@ class FAONutrientReferenceValue extends Model
         'daily_value',
         'unit',
     ];
+
+    protected $visible = [
+        'id',
+        'nutrient',
+        'daily_value',
+        'unit',
+    ];
 }

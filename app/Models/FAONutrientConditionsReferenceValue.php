@@ -17,4 +17,10 @@ class FAONutrientConditionsReferenceValue extends Model
         'claim_id',
         'reference_id',
     ];
+    
+    protected $visible = [
+        'id',
+        'claim_id',
+        'reference_id',
+    ];
 }
