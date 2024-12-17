@@ -26,6 +26,7 @@ use App\Http\Controllers\ReniMineralIntakeController;
 
 use App\Http\Controllers\CustomServingsController;
 use App\Http\Controllers\FAONutrientContentClaimsController;
+use App\Http\Controllers\FirebaseAuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,6 +37,8 @@ use App\Http\Controllers\FAONutrientContentClaimsController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::post('/firebase-auth/sync', [FirebaseAuthController::class, 'sync']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
