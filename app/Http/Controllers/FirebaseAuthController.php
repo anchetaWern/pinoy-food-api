@@ -36,7 +36,8 @@ class FirebaseAuthController extends Controller
                     'firebase_user_id' => $firebaseUserId,
                     'email' => $email,
                     'name' => $displayName,
-                    'password' => $password
+                    'password' => $password,
+                    'api_key' => Str::random(30),
                 ],
             );
 
