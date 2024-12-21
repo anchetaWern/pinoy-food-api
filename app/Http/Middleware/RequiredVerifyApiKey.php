@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use DB;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 
-class VerifyApiKey
+class RequiredVerifyApiKey
 {
     /**
      * Handle an incoming request.
@@ -20,8 +20,7 @@ class VerifyApiKey
         $apiKey = $request->header('X-API-KEY');
 
         if (!$apiKey) {
-            $throttleMiddleware = app()->make(ThrottleRequests::class);
-            return $throttleMiddleware->handle($request, $next); // Throttle to 10 requests per minute
+            return response()->json(['error' => 'Missing API Key'], 401);
         }
         
         $user_count = DB::table('users')

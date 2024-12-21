@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::middleware('throttle:30,1')->group(function () {
+Route::middleware(['throttle:30,1', 'optional.verify_key'])->group(function () {
     // Routes that should have a rate limit of 5 requests per minute
 
     Route::resource('foods', FoodController::class);
@@ -74,8 +74,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('custom-servings/{custom_serving_category}', CustomServingsController::class);
 
     Route::get('fao-nutrient-content-claims', FAONutrientContentClaimsController::class);
-// });
+});
 
-Route::post('food-labels', FoodLabelUploadController::class);
-
-Route::post('bulk-upload', BulkUploadController::class);
+Route::middleware('required.verify_key')->group(function () {
+    Route::post('food-labels', FoodLabelUploadController::class);
+    Route::post('bulk-upload', BulkUploadController::class);
+});
