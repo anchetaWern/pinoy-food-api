@@ -42,7 +42,6 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\VerifyApiKey::class
         ],
     ];
 
@@ -66,5 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'firebase.auth' => \App\Http\Middleware\FirebaseAuthMiddleware::class,
+        'optional.verify_key' => \App\Http\Middleware\OptionalVerifyApiKey::class,
+        'required.verify_key' => \App\Http\Middleware\RequiredVerifyApiKey::class,
     ];
 }
