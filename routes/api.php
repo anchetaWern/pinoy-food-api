@@ -27,6 +27,8 @@ use App\Http\Controllers\ReniMineralIntakeController;
 use App\Http\Controllers\CustomServingsController;
 use App\Http\Controllers\FAONutrientContentClaimsController;
 use App\Http\Controllers\FirebaseAuthController;
+
+use App\Http\Controllers\RecipeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -79,4 +81,6 @@ Route::middleware(['throttle:30,1', 'optional.verify_key'])->group(function () {
 Route::middleware('required.verify_key')->group(function () {
     Route::post('food-labels', FoodLabelUploadController::class);
     Route::post('bulk-upload', BulkUploadController::class);
+
+    Route::post('recipe', RecipeController::class);
 });
