@@ -15,6 +15,7 @@ use App\Models\Ingredient;
 use App\Models\FoodIngredient;
 use App\Models\CustomServing;
 use App\Models\FoodDensity;
+use App\Models\RecipeIngredient;
 
 class Food extends Model
 {
@@ -296,5 +297,10 @@ class Food extends Model
     public function density()
     {
         return $this->hasOne(FoodDensity::class, 'id', 'food_density_id');
+    }
+
+    public function recipeIngredients()
+    {
+        return $this->hasMany(RecipeIngredient::class, 'recipe_id', 'id');
     }
 }
