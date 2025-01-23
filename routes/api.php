@@ -29,6 +29,8 @@ use App\Http\Controllers\FAONutrientContentClaimsController;
 use App\Http\Controllers\FirebaseAuthController;
 
 use App\Http\Controllers\RecipeController;
+
+use App\Http\Controllers\ReportIssueController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -76,6 +78,8 @@ Route::middleware(['throttle:30,1', 'optional.verify_key'])->group(function () {
     Route::get('custom-servings/{custom_serving_category}', CustomServingsController::class);
 
     Route::get('fao-nutrient-content-claims', FAONutrientContentClaimsController::class);
+
+    
 });
 
 Route::middleware('required.verify_key')->group(function () {
@@ -84,3 +88,5 @@ Route::middleware('required.verify_key')->group(function () {
 
     Route::post('recipe', RecipeController::class);
 });
+
+Route::post('report-issue', ReportIssueController::class);
