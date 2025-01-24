@@ -11,6 +11,7 @@ class Issue extends Model
 
     protected $fillable = [
         'page',
+        'params',
         'user_id',
         'description'
     ];
