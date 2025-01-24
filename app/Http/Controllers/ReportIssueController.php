@@ -11,6 +11,7 @@ class ReportIssueController extends Controller
     {
         Issue::create([
             'page' => $request->page,
+            'params' => $request->params,
             'description' => $request->description,
         ]);
 
