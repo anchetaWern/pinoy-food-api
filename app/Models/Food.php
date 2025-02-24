@@ -58,10 +58,14 @@ class Food extends Model
         'daily_values_reference',
         'target_age_group',
         'origin_country',
+
+        'raw_data',
     ];
 
     protected $casts = [
         'nutrients' => 'array',
+        'raw_data' => 'array',
+        'raw_data2' => 'array',
     ];
 
     protected $hidden = [

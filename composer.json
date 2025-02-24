@@ -10,6 +10,7 @@
         "avadim/fast-excel-reader": "^2.17",
         "google/cloud-vision": "^1.9",
         "guzzlehttp/guzzle": "^7.2",
+        "halaxa/json-machine": "^1.2",
         "kreait/laravel-firebase": "^5.10",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",

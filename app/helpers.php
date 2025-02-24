@@ -39,3 +39,19 @@ function getValueAndUnit($text)
         'unit' => 'g',
     ];
 }
+
+function formatPortion($amount, $modifier) {
+    // Extract numeric value from modifier using regex
+    if (preg_match('/\((.*?)\)/', $modifier, $matches)) {
+        return [
+            $amount,
+            str_replace(' ', '', $matches[1])
+        ]; // Remove spaces (e.g., "3 oz" -> "3oz")
+    }
+    
+    // Fallback if no parentheses found
+    return [
+       $amount,
+       $modifier, 
+    ];
+}
