@@ -19,7 +19,7 @@ class ImportFoodDataCentralFoods extends Command
      *
      * @var string
      */
-    protected $signature = 'import:fdc {--queue=}';
+    protected $signature = 'import:fdc {--file=}';
 
     /**
      * The console command description.
@@ -284,8 +284,30 @@ class ImportFoodDataCentralFoods extends Command
         $branded_foods_key = '/BrandedFoods';
 
     
-        $filePath = storage_path('app/data/food-data-central/' . $sr_legacy);
-        $jsonStream = Items::fromFile($filePath, ['pointer' => $sr_legacy_key, 'decoder' => new ExtJsonDecoder(true)]);
+        $file = $this->argument('file');
+
+        $file_mapping = [
+            'foundation' => [
+                'file' => $foundation_foods,
+                'key' => $foundation_foods_key
+            ],
+            'fndds' => [
+                'file' => $fndds,
+                'key' => $fndds_key
+            ],
+            'sr_legacy' => [
+                'file' => $sr_legacy,
+                'key' => $sr_legacy_key
+            ],
+            'branded' => [
+                'file' => $branded,
+                'key' => $branded_foods_key
+            ]
+        ];
+
+
+        $filePath = storage_path('app/data/food-data-central/' . $file_mapping[$file]['file']);
+        $jsonStream = Items::fromFile($filePath, ['pointer' => $file_mapping[$file]['key'], 'decoder' => new ExtJsonDecoder(true)]);
 
         foreach ($jsonStream as $food) {
             
@@ -639,12 +661,6 @@ class ImportFoodDataCentralFoods extends Command
                         'amount' => $carbs['amount'] ?? null, // amount
                         'unit' => $carbs['unit'] ?? null,
                     ];
-
-                    /*
-                    if (count($carbs_composition_data) > 0) {
-                        $carbs_data['composition'] = $carbs_composition_data;
-                    } 
-                    */
 
                     if (!collect($carbs_composition_data)->firstWhere('name', 'sugar')) {
                         $carbs_composition_data[] = [
