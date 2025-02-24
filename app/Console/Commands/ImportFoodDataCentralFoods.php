@@ -284,7 +284,7 @@ class ImportFoodDataCentralFoods extends Command
         $branded_foods_key = '/BrandedFoods';
 
     
-        $file = $this->argument('file');
+        $file = $this->option('file');
 
         $file_mapping = [
             'foundation' => [
